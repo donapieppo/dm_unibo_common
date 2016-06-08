@@ -19,7 +19,7 @@ module DmUniboCommonHelper
   end
 
   def true_user_can_impersonate?
-    true_user and Rails.configuration.dm_common[:impersonate_admins] and Rails.configuration.dm_common[:impersonate_admins].include?(true_user.upn)
+    true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
 
   def bootstrap_modal_div

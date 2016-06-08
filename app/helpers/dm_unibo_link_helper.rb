@@ -56,7 +56,8 @@ module DmUniboLinkHelper
   end
 
   def supporto_unibo_web
-    "<a href='mailto: #{DmUniboCommon::SUPPORT_MAIL}'>#{DmUniboCommon::SUPPORT_MAIL}</a>".html_safe
+    _support_mail = Rails.configuration.dm_unibo_common[:support_mail] || DmUniboCommon::SUPPORT_MAIL
+    "<a href='mailto: #{_support_mail}'>#{_support_mail}</a>".html_safe
   end
 
   def assistenza_cesia

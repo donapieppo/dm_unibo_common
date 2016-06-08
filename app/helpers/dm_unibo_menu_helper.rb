@@ -1,7 +1,7 @@
 module DmUniboMenuHelper
   # example user_google_oauth2_omniauth_authorize_path
   def login_link
-    url = send('user_' + Rails.configuration.dm_common[:omniauth_provider].to_s + '_omniauth_authorize_path')
+    url = send('user_' + Rails.configuration.dm_unibo_common[:omniauth_provider].to_s + '_omniauth_authorize_path')
     link_to image_tag(DmUniboCommon::LOGIN_ICON) + content_tag(:strong, ' Login'), url
   end
 
