@@ -35,7 +35,7 @@ module DmUniboMenuHelper
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>|.html_safe +
-    link_to(image_tag('dm_common/unibo.png'), 'http://www.unibo.it', class: 'navbar-brand navbar-image') +
+    link_to(image_tag(DmUniboCommon::LOGO_IMAGE), DmUniboCommon::LOGO_PAGE, class: 'navbar-brand navbar-image') +
     link_to(icon(icon, size: 32), root_path, class: 'navbar-brand navbar-icon') +
     link_to(string.html_safe, root_path, class: 'navbar-brand') +
     %Q|</div><!-- navbar-header -->|.html_safe
