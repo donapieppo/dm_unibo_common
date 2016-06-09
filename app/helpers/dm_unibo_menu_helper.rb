@@ -58,7 +58,7 @@ module DmUniboMenuHelper
         &mdash; <strong><a href="http://www.matematica.unibo.it">Dipartimento di Matematica</a></strong> &mdash;<br/>
         <a href="http://www.unibo.it">Università di Bologna</a><br/>
         Piazza di Porta San Donato, 5 - 40126 Bologna<br/>
-        Per problemi di carattere tecnico contattare #{supporto_unibo_web}<br/>
+        Per problemi di carattere tecnico contattare #{support_mail}<br/>
         <a href="http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali">Privacy</a><br/>
         #{stop_impersonation_link} #{start_impersonation_link}
       </div>
