@@ -1,5 +1,7 @@
 # Dm Unibo Common gem
-Common code for my rails projects
+
+Dm Unibo Common is a Ruby gem (actually a Rails Engine) 
+with code and configurations common to my ruby projects.
 
 # Installation
 
