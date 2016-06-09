@@ -9,6 +9,7 @@ require 'devise'
 require 'devise-i18n'
 require 'omniauth'
 require 'omniauth-shibboleth'
+require 'omniauth-google-oauth2'  
 require 'pretender'
 
 # style
