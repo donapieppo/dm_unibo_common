@@ -16,7 +16,6 @@ require 'pretender'
 require 'font-awesome-sass'
 
 # self
-require 'dm_unibo_common/configuration'
 require 'dm_unibo_common/errors'
 require 'dm_unibo_common/development_mail_interceptor'
 require 'dm_unibo_common/user'

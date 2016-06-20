@@ -6,8 +6,8 @@ module DmUniboMenuHelper
   end
 
   def logout_link
-    dest = Rails.env.production? ? DmUniboCommon::LOGOUT_LINK : DmUniboCommon::LOGOUT_LINK_TEST
-    link_to image_tag(DmUniboCommon::LOGOUT_ICON) + content_tag(:strong, ' Logout'), dest
+    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
+            Rails.configuration.dm_unibo_common[:logout_link]
   end
 
   def logged_user
@@ -35,7 +35,7 @@ module DmUniboMenuHelper
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>|.html_safe +
-    link_to(image_tag(DmUniboCommon::LOGO_IMAGE), DmUniboCommon::LOGO_PAGE, class: 'navbar-brand navbar-image') +
+    link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
     link_to(icon(icon, size: 32), root_path, class: 'navbar-brand navbar-icon') +
     link_to(string.html_safe, root_path, class: 'navbar-brand') +
     %Q|</div><!-- navbar-header -->|.html_safe
