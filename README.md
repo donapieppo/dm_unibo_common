@@ -8,9 +8,51 @@ with code and configurations common to my ruby projects.
 ```bash
 $ git clone https://github.com/donapieppo/dm_unibo_common.git
 $ cd dm_unibo_common
-$ cp doc/configuration.rb lib/dm_unibo_common/configuration.rb 
 $ rake install 
 ```
+
+# Configuration
+
+When you add 
+
+```
+gem 'dm_unibo_common'
+```
+
+to the Gemfile of your project, you also have
+to create a file
+```bash
+/home/rails/got/config/dm_unibo_common.yml
+```
+
+like
+
+```yaml
+production:
+  omniauth_provider: :google_oauth2
+  host:              example.com
+  smtp_address:      mailhost.example.com
+  smtp_domain:       example.com
+  support_mail:      supportoweb@example.com
+  logout_link:       https://idp.example.comt/adfs/ls/?wa=wsignout1.0
+  login_icon:        dm_unibo_common/ssologo18x18.png
+  logout_icon:       dm_unibo_common/ssologo18x18.png
+  logo_page:         http://www.example.com
+  logo_image:        dm_unibo_common/unibo.png
+
+development:
+  omniauth_provider: :shibboleth
+  host:              tester.example.com
+  smtp_address:      mailhost.example.com
+  smtp_domain:       example.com
+  support_mail:      supportoweb@example.com
+  logout_link:       https://idptest.example.com/adfs/ls/?wa=wsignout1.0
+  login_icon:        dm_unibo_common/ssologo18x18.png
+  logout_icon:       dm_unibo_common/ssologo18x18.png
+  logo_page:         http://www.example.com
+  logo_image:        dm_unibo_common/unibo.png
+```
+
 
 
 
