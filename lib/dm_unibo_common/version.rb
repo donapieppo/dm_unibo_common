@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "1.1.0"
+  VERSION = "1.1.1"
 end
+# 1.1.1
+# new yaml configuration
 # 1.1.0
 # integrate google_oauth2 in devise
 # 1.0.1
