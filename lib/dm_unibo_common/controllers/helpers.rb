@@ -19,6 +19,8 @@ module DmUniboCommon
 
       # see Rails.configuration.dm_unibo_common[:omniauth_provider]
       # actually: shibboleth (for unibo) and google_oauth2
+      # Use in app/controllers/application_controller.rb like
+      # before_filter :log_current_user, :force_sso_user
       def force_sso_user
         if ! user_signed_in?
           redirect_to user_omniauth_authorize_path(Rails.configuration.dm_unibo_common[:omniauth_provider]) and return 
