@@ -2,20 +2,20 @@ require 'dsa_search'
 
 module DmUniboCommon::User
 
-  #validates :email, uniqueness: {}
-  #validates :upn, uniqueness: {}
+  # validates :email, uniqueness: {}
+  # validates :upn, uniqueness: {}
   # default_scope { order("users.surname, users.name") }
 
   def cn
-    "#{self.name} #{self.surname}"
+    "%s %s" % [self.name, self.surname]
   end
 
   def cn_militar
-    "#{self.surname}, #{self.name}"
+    "%s %s" % [self.surname, self.name]
   end
 
   def abbr
-    "#{self.name[0]}. #{self.surname}"
+    "%s %s" % [self.name[0], self.surname]
   end
 
   def to_s
@@ -30,6 +30,7 @@ module DmUniboCommon::User
     self.upn
   end
 
+  # Fast Authorizations
   def is_cesia?
     CESIA_UPN.include?(self.upn)
   end
@@ -42,6 +43,23 @@ module DmUniboCommon::User
     self.upn == CHIEF
   end
 
+  # example book with has_and_belongs_to_many
+  # user.owns?(book) if book.user_ids.include?(user.id)
+  def owns?(what)
+    if what.respond_to?(:user_ids)
+      return what.user_ids.include?(self.id)
+    elsif what.respond_to?(:user_id)
+      return what.user_id == self.id
+    end
+    false
+  end
+  
+  def owns!(what)
+    self.owns?(what) or raise DmUniboCommon::NoAccess
+  end
+
+  #
+    
   module ClassMethods
     def admin_mails 
       ADMINS
@@ -107,19 +125,6 @@ module DmUniboCommon::User
 
   def self.included(base)
     base.extend ClassMethods
-  end
-
-  def owns?(what)
-    if what.respond_to?(:user_ids)
-      return what.user_ids.include?(self.id)
-    elsif what.respond_to?(:user_id)
-      return what.user_id == self.id
-    end
-    false
-  end
-  
-  def owns!(what)
-    self.owns?(what) or raise DmUniboCommon::NoAccess
   end
 end
 
