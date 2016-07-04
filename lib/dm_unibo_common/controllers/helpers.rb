@@ -38,6 +38,11 @@ module DmUniboCommon
         params[:return] || 'http://www.unibo.it'
       end
 
+      # https://github.com/plataformatec/devise/wiki/How-To:-redirect-to-a-specific-page-on-successful-sign-in
+      def after_sign_in_path_for(resource)
+        request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+      end
+
       def shibapplicationid
         "_shibsession_" + ENV['Shib-Application-ID'].to_s
       end 
