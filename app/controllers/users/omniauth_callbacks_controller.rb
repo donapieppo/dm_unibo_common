@@ -15,7 +15,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     login_method = Rails.configuration.dm_unibo_common[:login_method] || "log_if_email"
     log_unibo_omniauth
     parse_unibo_omniauth
-    send login_method
+
+    if Rails.configuration.dm_unibo_common[:no_students] and @email !~ /@unibo.it$/
+      logger.info "Students are not allowed"
+      redirect_to no_access_path and return
+    else
+      send login_method
+    end
   end
 
   private 
@@ -28,6 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def parse_unibo_omniauth
+    @upn  = env['omniauth.auth'].uid
     oinfo = env['omniauth.auth'].info
     extra = env['omniauth.auth'].extra.raw_info
 
@@ -37,15 +44,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @isMemberOf = extra.isMemberOf ? extra.isMemberOf.split(';') : []
     set_memberof_session(@isMemberOf)
 
-    @email         = oinfo.email
+    @email         = @upn
     @name          = oinfo.first_name || oinfo.name
     @surname       = oinfo.last_name
     @nationalpin   = extra.codiceFiscale
-
-    if Rails.configuration.dm_unibo_common[:no_students] and @email !~ /@unibo.it$/
-      logger.info "Students are not allowed"
-      redirect_to no_access_path and return
-    end
   end
 
   def set_memberof_session(isMemberOf)
