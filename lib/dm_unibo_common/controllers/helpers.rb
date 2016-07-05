@@ -49,7 +49,8 @@ module DmUniboCommon
       # for session session[:original_request] see for example in seminars app/controllers/application_controller.rb
       # where session[:original_request] = request.fullpath before a redirect to authentication
       def after_sign_in_path_for(resource)
-        session[:original_request] || request.env['omniauth.origin']  || root_path
+        session[:original_request] || root_path
+        # no request.env['omniauth.origin']  
       end
 
       def shibapplicationid
