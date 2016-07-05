@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "1.1.1"
+  VERSION = "1.1.2"
 end
+# 1.1.2
+# after_sign_in_path_for(resource)
 # 1.1.1
 # new yaml configuration
 # 1.1.0
