@@ -1,4 +1,7 @@
-require 'dsa_search'
+if File.file?('/etc/unibo/dsa_search.yml')
+  WITH_DSA_SEARCH = true
+  require 'dsa_search'
+end
 
 module DmUniboCommon::User
 
