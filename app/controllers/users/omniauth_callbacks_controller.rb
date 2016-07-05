@@ -17,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     parse_unibo_omniauth
 
     if Rails.configuration.dm_unibo_common[:no_students] and @email !~ /@unibo.it$/
-      logger.info "Students are not allowed"
+      logger.info "Students are not allowed: #{@email} user not allowed."
       redirect_to no_access_path and return
     else
       send login_method
