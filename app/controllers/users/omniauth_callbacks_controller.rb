@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # https://github.com/plataformatec/devise/issues/2432
-  skip_before_filter :verify_authenticity_token, :force_sso_user, :check_role, :retrive_authlevel, :user_logged_not_raise!
+  skip_before_filter :verify_authenticity_token, :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel
 
   # env["omniauth.auth"].provider == google_oauth2
   # env['omniauth.auth'].info = {email, name, last_name}

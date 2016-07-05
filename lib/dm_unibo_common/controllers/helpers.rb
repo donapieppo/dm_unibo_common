@@ -29,6 +29,13 @@ module DmUniboCommon
         end
       end
 
+      def redirect_unsigned_user
+        if ! user_signed_in?
+          redirect_to root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
+          return
+        end
+      end
+
       # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
       #         ["_lauree_session", "YU5RSTM2OXdYMkRyVjV0SXI1K3c3eDJJdjZQ..... "]
       def after_sign_out_path_for(resource_or_scope)
