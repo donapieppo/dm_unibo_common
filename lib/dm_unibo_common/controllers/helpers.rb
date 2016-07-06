@@ -23,6 +23,7 @@ module DmUniboCommon
       # before_filter :log_current_user, :force_sso_user
       def force_sso_user
         if ! user_signed_in?
+          session[:original_request] = request.fullpath
           redirect_to user_omniauth_authorize_path(Rails.configuration.dm_unibo_common[:omniauth_provider]) and return 
           # redirect_to user_google_oauth2_omniauth_authorize_path and return 
           # redirect_to new_user_session_path and return
