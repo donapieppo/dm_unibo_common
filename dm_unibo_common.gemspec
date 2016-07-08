@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.2.6'
   s.add_dependency 'mysql2', '~> 0.3.18'
 
+  # unibo
+  s.add_dependency 'https://github.com/donapieppo/dm_unibo_user_search.git', ref: 'master'
+
   # auth
   s.add_dependency 'devise'
   s.add_dependency 'devise-i18n'
@@ -41,10 +44,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
-  # only in unibo env
-  if File.file?('/etc/unibo/dsa_search.yml')
-    s.add_dependency 'dsa_search'
-  end
   
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
