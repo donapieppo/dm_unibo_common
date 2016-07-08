@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # https://github.com/plataformatec/devise/issues/2432
-  skip_before_filter :verify_authenticity_token, :force_sso_user, :check_role, :retrive_authlevel, :user_logged_not_raise!
+  skip_before_filter :verify_authenticity_token, :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel
 
   # env["omniauth.auth"].provider == google_oauth2
   # env['omniauth.auth'].info = {email, name, last_name}
@@ -17,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     parse_unibo_omniauth
 
     if Rails.configuration.dm_unibo_common[:no_students] and @email !~ /@unibo.it$/
-      logger.info "Students are not allowed"
+      logger.info "Students are not allowed: #{@email} user not allowed."
       redirect_to no_access_path and return
     else
       send login_method

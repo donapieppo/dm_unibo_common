@@ -23,9 +23,17 @@ module DmUniboCommon
       # before_filter :log_current_user, :force_sso_user
       def force_sso_user
         if ! user_signed_in?
+          session[:original_request] = request.fullpath
           redirect_to user_omniauth_authorize_path(Rails.configuration.dm_unibo_common[:omniauth_provider]) and return 
           # redirect_to user_google_oauth2_omniauth_authorize_path and return 
           # redirect_to new_user_session_path and return
+        end
+      end
+
+      def redirect_unsigned_user
+        if ! user_signed_in?
+          redirect_to root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
+          return
         end
       end
 
@@ -39,8 +47,11 @@ module DmUniboCommon
       end
 
       # https://github.com/plataformatec/devise/wiki/How-To:-redirect-to-a-specific-page-on-successful-sign-in
+      # for session session[:original_request] see for example in seminars app/controllers/application_controller.rb
+      # where session[:original_request] = request.fullpath before a redirect to authentication
       def after_sign_in_path_for(resource)
-        request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+        session[:original_request] || root_path
+        # no request.env['omniauth.origin']  
       end
 
       def shibapplicationid
