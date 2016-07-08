@@ -27,9 +27,9 @@ module DmUniboCommon
 
           # user_omniauth_authorize_path(Rails.configuration.dm_unibo_common[:omniauth_provider])
           # used to work. No more?
-          if Rails.configuration.dm_unibo_common[:omniauth_provider] == 'google_oauth2'
+          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
             redirect_to user_google_oauth2_omniauth_authorize_path and return 
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == 'shibboleth'
+          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
             redirect_to user_shibboleth_omniauth_authorize_path and return 
           else
             raise "problem in omniauth provider"
