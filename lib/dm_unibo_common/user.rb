@@ -18,8 +18,13 @@ module DmUniboCommon::User
     "%s %s" % [self.name[0], self.surname]
   end
 
+  # after create admin withouth searchable_provider name, sn are blank and we show email/upn
   def to_s
-    self.cn
+    if self.surname.blank?
+      self.upn
+    else
+      self.cn
+    end
   end
 
   def description
