@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mysql2', '~> 0.3.18'
 
   # unibo
-  s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
+  # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
 
   # auth
   s.add_dependency 'devise'

@@ -73,45 +73,60 @@ module DmUniboCommon::User
       dsaSearchClient.find_user(str)
     end
 
-    # Always asks to dsa first and then eventually create user
+    # Always asks to remote, updates user data or eventually create new user
     def syncronize(upn_or_id, c = User)
       Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c}' class")
       upn_or_id.blank? and raise DmUniboUserSearch::NoUser
 
       upn = id = false
-      (upn_or_id.is_a? Integer) ? id = upn_or_id : upn = upn_or_id
+      if upn_or_id.is_a? Integer or upn_or_id =~ /^\d+$/
+        id = upn_or_id.to_i
+      else
+        upn = upn_or_id
+      end
 
+      # remote search 
       result = dsaSearchClient.find_user(upn_or_id)
       if result.count < 1
         raise DmUniboUserSearch::NoUser
       elsif result.count > 1 and upn
         raise DmUniboUserSearch::TooManyUsers
-      else
-        dsa_user = nil
-        if id 
-          result.users.each do |u|
-            if u.id_anagrafica_unica.to_i == id
-              dsa_user = u 
-              break
-            end
+      end        
+
+      # remote user
+      dsa_user = nil
+      # if id was given we still have to check that the search resul did not get new results with 
+      # id equal to other numeric fields like matricola...
+      if id 
+        result.users.each do |u|
+          if u.id_anagrafica_unica.to_i == id
+            dsa_user = u 
+            break
           end
-          dsa_user or raise DmUniboUserSearch::NoUser
-        else
-          dsa_user = result.users.first
         end
-        local_user = c.where(:id => dsa_user.id_anagrafica_unica).first
-        if ! local_user
-          local_user = c.new({id:      dsa_user.id_anagrafica_unica,
-                              upn:     dsa_user.upn,
-                              name:    dsa_user.name,
-                              surname: dsa_user.sn})
-          local_user.save!
-          Rails.logger.info("Created User #{local_user.inspect}")
-        end
-        local_user
+        dsa_user or raise DmUniboUserSearch::NoUser
+      else
+        dsa_user = result.users.first
       end
+
+      # local user
+      local_user = c.where(id: dsa_user.id_anagrafica_unica).first
+      if ! local_user
+        local_user = c.new({id:      dsa_user.id_anagrafica_unica,
+                            upn:     dsa_user.upn,
+                            name:    dsa_user.name,
+                            surname: dsa_user.sn})
+        local_user.save!
+        Rails.logger.info("Created User #{local_user.inspect}")
+      end
+
+      local_user
     end
 
+    # User.find_or_syncronize(1203) finds the user by id in local database
+    # if user is not in local database it creates it from remote DmUniboUserSearch
+    # User.find_or_syncronize('pippo@pluto.com') finds the user by upn/mail in local database
+    # if user is not in local database it creates it from remote DmUniboUserSearch
     def find_or_syncronize(upn_or_id)
       upn_or_id = upn_or_id.to_i if upn_or_id =~ /^\d+$/
 
