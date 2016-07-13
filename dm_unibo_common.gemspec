@@ -26,8 +26,6 @@ Gem::Specification.new do |s|
   # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
 
   # auth
-  s.add_dependency 'devise'
-  s.add_dependency 'devise-i18n'
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  

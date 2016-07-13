@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
+  get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
+  get 'auth/developer/callback',    to: 'logins#developer'
+  get 'logins/logout',               to: 'logins#logout',   as: :logout
+  get 'logins/no_access',            to: 'logins#no_access', as: :no_access
 
-  devise_scope :user do 
-    get "logins/logout" => 'devise/sessions#destroy', :as => :logout
-  end
+  get 'who_impersonate',         to: 'impersonations#who_impersonate',    as: :who_impersonate
+  get 'impersonate/:id',         to: 'impersonations#impersonate',        as: :impersonate
+  get 'stop_impersonating',      to: 'impersonations#stop_impersonating', as: :stop_impersonating
 
-  get "who_impersonate"    => 'impersonations#who_impersonate',    :as => :who_impersonate
-  get "impersonate/:id"    => 'impersonations#impersonate',        :as => :impersonate
-  get "stop_impersonating" => 'impersonations#stop_impersonating', :as => :stop_impersonating
-
-  get 'helps/index'      => 'helps#index',      :as => :helps
-  get "logins/no_access" => 'logins#no_access', :as => :no_access
+  get 'helps/index',             to: 'helps#index',      as: :helps
 end
 
 

@@ -5,8 +5,6 @@ require 'sass-rails'
 require 'bootstrap-sass'
 
 # auth
-require 'devise'
-require 'devise-i18n'
 require 'omniauth'
 require 'omniauth-shibboleth'
 require 'omniauth-google-oauth2'  
