@@ -31,6 +31,9 @@ module DmUniboCommon
             redirect_to user_google_oauth2_omniauth_authorize_path and return 
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
             redirect_to user_shibboleth_omniauth_authorize_path and return 
+          # developer solo in localhost
+          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer and request.remote_ip == '127.0.0.1'
+            redirect_to user_developer_omniauth_authorize_path and return
           else
             raise "problem in omniauth provider"
           end
