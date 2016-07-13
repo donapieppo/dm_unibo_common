@@ -11,7 +11,7 @@ module DmUniboMenuHelper
   end
 
   def logged_user
-    if user_signed_in? or sso_user_upn
+    if sso_user_upn
     %Q|<li class="login-name navbar-text">#{sso_user_upn}</li>
        <li class="logout-link">#{logout_link}</li>|.html_safe
     else
