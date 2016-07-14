@@ -67,9 +67,16 @@ module DmUniboCommonHelper
     raw %Q|<i class="fa fa-question-circle pull-right popover-help" data-placement="left" data-toggle="popover" title="#{title}" data-content="#{content}"></i>|
   end
 
+  # dl_field(User.first, :name)
+  # dl_field(:user_name, "Pietro)
   def dl_field(object, what)
-     content_tag(:dt, I18n.t("activerecord.attributes.#{object.class.to_s.downcase}.#{what}")) + 
-     content_tag(:dd, object.send(what))
+    if object.is_a?(Symbol)
+      content_tag(:dt, I18n.t(object)) + 
+      content_tag(:dd, what)
+    else
+      content_tag(:dt, I18n.t("activerecord.attributes.#{object.class.to_s.downcase}.#{what}")) + 
+      content_tag(:dd, object.send(what)) # what is a symbol
+    end
   end
 
   def class_active(x,y)
