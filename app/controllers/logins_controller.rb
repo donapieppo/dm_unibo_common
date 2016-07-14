@@ -1,16 +1,36 @@
+# Take a look at http://railscasts.com/episodes/241-simple-omniauth
+# The main difference is that we mainly use shibboleth authentication.
+#
+# in routes we have
+#   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
+#   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
+#   get 'auth/developer/callback',     to: 'logins#developer'
+#
+# The application that uses DmUniboCommon can define two login_methods:
+# login_method: :allow_if_email
+#   means that only users already present in database can login
+# login_method: :allow_and_create
+#   means that any user that passes omniauth authentication can login
+#   and is saved in database
+#
+# and in app/controllers/application_controller.rb can add
+# before_filter :log_current_user, :force_sso_user
+# or
+# before_filter :log_current_user, :redirect_unsigned_user
+# force_sso_user means that all the pages are protected
+# redirect_unsigned_user means that unsigned user can still see something (to refactor)
+# see lib/dm_unibo_common/controllers/helpers.rb for method definitions.
 class LoginsController < ApplicationController
   skip_before_filter :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel
 
   # env['omniauth.auth'].info = {email, name, last_name}
   def google_oauth2
-    login_method = Rails.configuration.dm_unibo_common[:login_method] || "log_if_email"
     parse_google_omniauth
     send login_method
   end
 
   # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
   def shibboleth
-    login_method = Rails.configuration.dm_unibo_common[:login_method] || "log_if_email"
     log_unibo_omniauth
     parse_unibo_omniauth
 
@@ -25,7 +45,6 @@ class LoginsController < ApplicationController
   def developer
     request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or raise "SOLO LOCAL. YOU ARE #{request.remote_ip}"
     sign_in_and_redirect User.first
-    # raise env['omniauth.auth'].inspect
   end
 
   # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
@@ -33,16 +52,25 @@ class LoginsController < ApplicationController
   def logout
     cookies.delete(Rails.configuration.session_options[:key].to_sym)
     cookies.delete(shibapplicationid.to_sym)
-    logger.info("after_sign_out_path_for: redirect to params[:return] = #{params[:return]}")
     session[:user_id] = nil
-    params[:return] || 'http://www.unibo.it'
+    logger.info("after logout we redirect to params[:return] = #{params[:return]}")
+    redirect_to (params[:return] || 'http://www.unibo.it')
   end
 
   # Not authorized but valid credentials
   def no_access
   end
 
+  def pippo_show
+    raise env.inspect
+  end
+
   private 
+
+  # the default is conservative where you log only if user in database
+  def login_method
+    Rails.configuration.dm_unibo_common[:login_method] || "allow_if_email"
+  end
 
   def parse_google_omniauth
     oinfo = env['omniauth.auth'].info
@@ -73,7 +101,7 @@ class LoginsController < ApplicationController
     session[:isMemberOf] = isMemberOf
   end
 
-  def log_and_create
+  def allow_and_create
     user = @idAnagraficaUnica ? User.where(id: @idAnagraficaUnica).first : User.where(email: @email).first
     if ! user
       logger.info "Authentication: User #{@email} to be CREATED"
@@ -85,14 +113,15 @@ class LoginsController < ApplicationController
       h[:nationalpin] = @nationalpin if User.column_names.include?('nationalpin')
       user = User.create!(h)
     end
-    logger.info "Authentication: log_and_create as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
+    logger.info "Authentication: allow_and_create as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
     sign_in_and_redirect user
   end
+  alias_method :log_and_create, :allow_and_create # old syntax 
 
-  def log_if_email
+  def allow_if_email
     user = @idAnagraficaUnica ? User.where(id: @idAnagraficaUnica).first : User.where(email: @email).first
     if user
-      logger.info "Authentication: log_if_email as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
+      logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
       user.update_attributes(name: @name, surname: @surname)
       sign_in_and_redirect user
     else
@@ -100,6 +129,7 @@ class LoginsController < ApplicationController
       redirect_to no_access_path
     end
   end
+  alias_method :log_if_email, :allow_if_email # old syntax 
 
   def log_unibo_omniauth
     env['omniauth.auth'] or return
