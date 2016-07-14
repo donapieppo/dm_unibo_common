@@ -25,12 +25,14 @@ class LoginsController < ApplicationController
 
   # env['omniauth.auth'].info = {email, name, last_name}
   def google_oauth2
+    Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2 or raise
     parse_google_omniauth
     send login_method
   end
 
   # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
   def shibboleth
+    Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth or raise
     log_unibo_omniauth
     parse_unibo_omniauth
 
@@ -43,7 +45,8 @@ class LoginsController < ApplicationController
   end
 
   def developer
-    request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or raise "SOLO LOCAL. YOU ARE #{request.remote_ip}"
+    Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise
+    request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or request.remote_ip =~ /^172\.17\.\d+\.\d+/  or raise "SOLO LOCAL. YOU ARE #{request.remote_ip}"
     sign_in_and_redirect User.first
   end
 
