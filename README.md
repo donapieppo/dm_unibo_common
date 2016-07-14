@@ -53,6 +53,7 @@ development:
   logo_image:        dm_unibo_common/unibo.png
 ```
 
+We implement google_oauth2 and shibboleth authentication.
 
 
 

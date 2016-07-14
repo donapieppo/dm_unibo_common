@@ -1,23 +1,24 @@
 module DmUniboCommonHelper 
 
-  def icon(name, options = { :text => "", :size => "18" })
+  def icon(name, options = { text: "", size: "18" })
     raw "<i style=\"font-size: #{options[:size]}px\" class=\"fa fa-#{name}\"></i> #{options[:text]}"
   end
 
-  def fwicon(name, options = { :text => "", :size => "18" })
+  def fwicon(name, options = { text: "", size: "18" })
     raw "<i style=\"font-size: #{options[:size]}px\" class=\"fa fa-#{name} fa-fw\"></i> #{options[:text]}"
   end
 
   def big_icon(name, options = {})
-    options[:size] = 26
-    icon(name, options)
+    icon(name, options.update(size: 26))
   end
 
-  # If user is sso logged and has no access should see his eppn
+  # If user is sso logged even if he has no access should see his eppn (and logout link)
   def sso_user_upn
     request.env['HTTP_EPPN'] || (current_user and current_user.upn) || (current_user and current_user.email) 
   end
 
+  # in confiiguration dm_unibo_common[:impersonate_admins] is array of upn/email that can
+  # impersonate (gem pretender)
   def true_user_can_impersonate?
     true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end

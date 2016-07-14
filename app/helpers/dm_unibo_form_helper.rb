@@ -9,7 +9,11 @@ end
 
 module DmUniboFormHelper
   def vertical_form_for(record, options={}, &block)
-    simple_form_for(record, options.merge({html: { class: 'form-vertical' }, wrapper: :vertical_form}), &block)
+    options[:wrapper] = :vertical_form
+    options[:html] ||= {}
+    options[:html][:class] ||= ""
+    options[:html][:class] += ' form-vertical '
+    simple_form_for(record, options, &block)
   end
 
   def horizontal_form_for(record, options={}, &block)
