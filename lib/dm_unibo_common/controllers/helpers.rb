@@ -5,13 +5,18 @@ module DmUniboCommon
       # helper :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
 
       ActiveSupport.on_load(:action_controller) do
-        helper_method :current_user, :user_signed_in?, :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
+        helper_method :current_user, 
+                      :user_signed_in?, 
+                      :user_owns?,  :user_owns!, 
+                      :user_admin?, :user_admin!, 
+                      :user_cesia?, :user_cesia!
       end
 
       def current_user
-        return @current_user if @current_user
-        session[:user_id].to_i > 0 or return nil
-        @current_user = ::User.find(session[:user_id])
+        # return @current_user if @current_user
+        # session[:user_id].to_i > 0 or return nil
+        # @current_user = ::User.find(session[:user_id])
+        (@current_user ||= ::User.find(session[:user_id])) if session[:user_id]
       end
 
       def user_signed_in?
