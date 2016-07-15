@@ -72,10 +72,10 @@ module DmUniboCommonHelper
   # dl_field(:user_name, "Pietro)
   def dl_field(object, what)
     if object.is_a?(Symbol)
-      content_tag(:dt, I18n.t(object)) + 
+      content_tag(:dt, I18n.t(object).capitalize) + 
       content_tag(:dd, what)
     else
-      content_tag(:dt, I18n.t("activerecord.attributes.#{object.class.to_s.downcase}.#{what}")) + 
+      content_tag(:dt, I18n.t("activerecord.attributes.#{object.class.to_s.downcase}.#{what}").capitalize) + 
       content_tag(:dd, object.send(what)) # what is a symbol
     end
   end
