@@ -27,6 +27,8 @@ class ImpersonationsController < ApplicationController
 
   private 
 
+  # for example in config/initializers/project_name.rb you have
+  # config.dm_unibo_common[:impersonate_admins] = ['user.one@unibo.it', 'user.two@unibo.it']
   def true_user_can_impersonate?
     true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
