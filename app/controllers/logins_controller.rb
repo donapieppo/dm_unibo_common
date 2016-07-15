@@ -6,7 +6,7 @@
 #   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #   get 'auth/developer/callback',     to: 'logins#developer'
 #
-# The application that uses DmUniboCommon can define two login_methods:
+# The application that uses dm_unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
 #   means that only users already present in database can login
 # login_method: :allow_and_create
@@ -17,8 +17,10 @@
 # before_filter :log_current_user, :force_sso_user
 # or
 # before_filter :log_current_user, :redirect_unsigned_user
+#
 # force_sso_user means that all the pages are protected
 # redirect_unsigned_user means that unsigned user can still see something (to refactor)
+#
 # see lib/dm_unibo_common/controllers/helpers.rb for method definitions.
 class LoginsController < ApplicationController
   skip_before_filter :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel
@@ -65,7 +67,7 @@ class LoginsController < ApplicationController
   end
 
   def pippo_show
-    raise env.inspect
+    # raise env.inspect
   end
 
   private 
