@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  
   # auth - inpersonation 
-  s.add_dependency 'pretender'
+  s.add_dependency 'pretender', '~> 0.2'
   # standard rails
   s.add_dependency 'uglifier', '>= 1.3.0'
   s.add_dependency 'coffee-rails', '~> 4.1.0'
