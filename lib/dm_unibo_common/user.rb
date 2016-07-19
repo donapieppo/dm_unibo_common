@@ -43,6 +43,7 @@ module DmUniboCommon::User
   def is_admin?
     ADMINS.include?(self.upn)
   end
+  alias_method :admin?, :is_admin?
 
   def is_chief?
     self.upn == CHIEF
