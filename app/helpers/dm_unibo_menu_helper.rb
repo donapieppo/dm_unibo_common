@@ -26,8 +26,10 @@ module DmUniboMenuHelper
            </header>| + privacy_alert
   end
 
-  def dm_header(icon, title, subtitle = nil)
-    string = title + (subtitle ? "<small>#{subtitle}</small>" : "")
+  def dm_header
+    icon   = Rails.configuration.header_icon || 'flag'
+    string = (Rails.configuration.header_title || 'title') + 
+             content_tag(:small, (Rails.configuration.header_subtitle || 'subtitle'))
     %Q|<div class="navbar-header">
          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse">
            <span class="sr-only">Toggle navigation</span>
