@@ -1,5 +1,5 @@
 module DmUniboCommon
-  VERSION = "1.2.0"
+  VERSION = "1.3.0"
 end
 # 1.3
 # with rails 5.0.0
