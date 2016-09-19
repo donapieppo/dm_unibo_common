@@ -1,6 +1,8 @@
 module DmUniboCommon
   VERSION = "1.2.0"
 end
+# 1.3
+# with rails 5.0.0
 # 1.2.0
 # no more devise, only omniauth
 # 1.1.2
