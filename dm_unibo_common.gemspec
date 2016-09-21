@@ -42,6 +42,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
+
+  s.add_dependency 'listen', '~> 3.0.5'
   
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'listen', '~> 3.0.5'
