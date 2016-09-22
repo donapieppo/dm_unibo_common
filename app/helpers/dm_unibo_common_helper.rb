@@ -44,8 +44,8 @@ module DmUniboCommonHelper
 
       type = type.to_sym
       type = :success if type.to_s == :notice.to_s
-      type = :danger if type.to_s == :alert.to_s
-      type = :danger if type.to_s == :error.to_s
+      type = :danger  if type.to_s == :alert.to_s
+      type = :danger  if type.to_s == :error.to_s
       next unless ALERT_TYPES.include?(type)
 
       Array(message).each do |msg|
