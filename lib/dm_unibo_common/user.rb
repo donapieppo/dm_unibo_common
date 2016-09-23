@@ -82,7 +82,7 @@ module DmUniboCommon::User
     # Always asks to remote, updates user data or eventually create new user
     def syncronize(upn_or_id, c = User)
       Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c}' class")
-      upn_or_id.blank? and raise DmUniboUserSearch::NoUser
+      upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       upn = id = false
       if upn_or_id.is_a? Integer or upn_or_id =~ /^\d+$/
@@ -94,9 +94,9 @@ module DmUniboCommon::User
       # remote search 
       result = dsaSearchClient.find_user(upn_or_id)
       if result.count < 1
-        raise DmUniboUserSearch::NoUser
+        raise DmUniboCommon::NoUser
       elsif result.count > 1 and upn
-        raise DmUniboUserSearch::TooManyUsers
+        raise DmUniboCommon::TooManyUsers
       end        
 
       # remote user
@@ -110,7 +110,7 @@ module DmUniboCommon::User
             break
           end
         end
-        dsa_user or raise DmUniboUserSearch::NoUser
+        dsa_user or raise DmUniboCommon::NoUser
       else
         dsa_user = result.users.first
       end
