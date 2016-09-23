@@ -4,8 +4,16 @@ module DmUniboCommon
   class NoAccess             < RuntimeError; end
   class MismatchOrganization < RuntimeError; end
 
-  class NoUser               < RuntimeError; end
-  class TooManyUsers         < RuntimeError; end
+  class NoUser       < RuntimeError
+    def to_s
+      I18n.t 'dm_unibo_common.no_user'
+    end
+  end
+  class TooManyUsers < RuntimeError
+    def to_s
+      I18n.t 'dm_unibo_common.too_many_users'
+    end
+  end
 end
 
 
