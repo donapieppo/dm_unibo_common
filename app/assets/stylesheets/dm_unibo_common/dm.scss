@@ -146,7 +146,7 @@ input[type="file"] {
 }
 
 // ul with links expanded
-li { list-style-type: none; }
+ul > li { list-style-type: none; }
 ul.all_clickable {
   @extend .list-group;
   a {
