@@ -79,16 +79,16 @@ class LoginsController < ApplicationController
   end
 
   def parse_google_omniauth
-    oinfo = env['omniauth.auth'].info
+    oinfo = request.env['omniauth.auth'].info
     @email   = oinfo.email
     @name    = oinfo.name
     @surname = oinfo.last_name
   end
 
   def parse_unibo_omniauth
-    @upn  = env['omniauth.auth'].uid
-    oinfo = env['omniauth.auth'].info
-    extra = env['omniauth.auth'].extra.raw_info
+    @upn  = request.env['omniauth.auth'].uid
+    oinfo = request.env['omniauth.auth'].info
+    extra = request.env['omniauth.auth'].extra.raw_info
 
     @idAnagraficaUnica = extra.idAnagraficaUnica.to_i
     @idAnagraficaUnica > 0 or raise "NO idAnagraficaUnica"
@@ -138,10 +138,10 @@ class LoginsController < ApplicationController
   alias_method :log_if_email, :allow_if_email # old syntax 
 
   def log_unibo_omniauth
-    env['omniauth.auth'] or return
-    logger.info("Authentication: uid   = #{env['omniauth.auth'].uid}")
-    logger.info("Authentication: info  = #{env['omniauth.auth'].info}")
-    logger.info("Authentication: extra = #{env['omniauth.auth'].extra}")
+    request.env['omniauth.auth'] or return
+    logger.info("Authentication: uid   = #{request.env['omniauth.auth'].uid}")
+    logger.info("Authentication: info  = #{request.env['omniauth.auth'].info}")
+    logger.info("Authentication: extra = #{request.env['omniauth.auth'].extra}")
   end
 
   def sign_in_and_redirect(user)
