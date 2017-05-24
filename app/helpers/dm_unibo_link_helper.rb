@@ -6,8 +6,8 @@ module DmUniboLinkHelper
 
   alias back_link_to :link_to_back
 
-  def link_to_delete(name = "", url)
-    link_to icon('trash-o') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'} 
+  def link_to_delete(name = "", url, button: false)
+    link_to icon('trash-o') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
   def link_to_download(url)
@@ -19,8 +19,8 @@ module DmUniboLinkHelper
     link_to icon('search') + " " + name, url, title: "Mostra dettagli"
   end
 
-  def link_to_edit(name = "", url)
-    link_to icon('pencil') + " " + name, url, title: "Inserisci/modifica dati"
+  def link_to_edit(name = "", url, button: false)
+    link_to icon('pencil') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button' : '')
   end
 
   def link_to_edit2(name = "", url)
