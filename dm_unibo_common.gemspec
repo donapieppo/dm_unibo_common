@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder', '~> 2.5'
   # style 
-  s.add_dependency 'simple_form'
+  s.add_dependency 'simple_form', '~> 3.5.0'
   s.add_dependency 'bootstrap-sass'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
