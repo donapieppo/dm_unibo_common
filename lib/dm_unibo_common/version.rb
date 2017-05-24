@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "1.3.1"
+  VERSION = "1.3.2"
 end
+# 1.3.2
+# rails 5.1.1
 # 1.3.1
 # env is deprecated and will be removed from Rails 5.1
 # 1.3
