@@ -2,13 +2,22 @@
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic');
 
-h1, h2, h3, h4, h5 {
-  color: $dm-green;
+body {
+  font-family: 'Roboto Condensed', sans-serif;
 }
-h1:first-letter, h2:first-letter {
-  font-size:      130%;
-  text-transform: capitalize;
+.centered {
+  margin-left:  auto; 
+  margin-right: auto; 
+  text-align:   center;
+}
+h1, h2 {
+  //color: $dm-green;
+  @extend .centered;
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 hr {
   color: $dm-green;
