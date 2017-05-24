@@ -57,7 +57,7 @@ module DmUniboCommon::User
     elsif what.respond_to?(:user_id)
       return what.user_id == self.id
     end
-    false
+    return self.is_cesia?
   end
   
   def owns!(what)
