@@ -4,12 +4,21 @@ module DmUniboCommon
       # extend ActiveSupport::Concern
       # helper :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
 
-      ActiveSupport.on_load(:action_controller) do
-        helper_method :current_user, 
-                      :user_signed_in?, 
-                      :user_owns?,  :user_owns!, 
-                      :user_admin?, :user_admin!, 
-                      :user_cesia?, :user_cesia!
+      # ActiveSupport.on_load(:action_controller) do
+      #   helper_method :current_user, 
+      #                 :user_signed_in?, 
+      #                 :user_owns?,  :user_owns!, 
+      #                 :user_admin?, :user_admin!, 
+      #                 :user_cesia?, :user_cesia!
+      # end
+
+      def self.included(base)
+        base.extend Helpers
+        base.helper_method :current_user, 
+          :user_signed_in?, 
+          :user_owns?,  :user_owns!, 
+          :user_admin?, :user_admin!, 
+          :user_cesia?, :user_cesia!
       end
 
       def current_user
