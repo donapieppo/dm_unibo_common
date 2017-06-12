@@ -4,32 +4,45 @@ module DmUniboCommon
       # extend ActiveSupport::Concern
       # helper :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
 
+      # helper_method in AbstractController::Helpers::ClassMethods
+      # Declare a controller method as a helper. 
       # ActiveSupport.on_load(:action_controller) do
-      #   helper_method :current_user, 
-      #                 :user_signed_in?, 
-      #                 :user_owns?,  :user_owns!, 
-      #                 :user_admin?, :user_admin!, 
-      #                 :user_cesia?, :user_cesia!
+      #   if respond_to?(:helper_method)
+      #     helper_method :current_user, 
+      #                   :user_signed_in?, 
+      #                   :user_owns?,  :user_owns!, 
+      #                   :user_admin?, :user_admin!, 
+      #                   :user_cesia?, :user_cesia!
+      #   end
       # end
+
 
       def self.included(base)
         base.extend Helpers
-        base.helper_method :current_user, 
-          :user_signed_in?, 
-          :user_owns?,  :user_owns!, 
-          :user_admin?, :user_admin!, 
-          :user_cesia?, :user_cesia!
+        if base.respond_to? :helper_method
+          base.helper_method :current_user, 
+            :user_signed_in?, 
+            :user_owns?,  :user_owns!, 
+            :user_admin?, :user_admin!, 
+            :user_cesia?, :user_cesia!
+        end
       end
 
+      protected 
+
       def current_user
-        # return @current_user if @current_user
-        # session[:user_id].to_i > 0 or return nil
-        # @current_user = ::User.find(session[:user_id])
         (@current_user ||= ::User.find(session[:user_id])) if session[:user_id]
       end
 
       def user_signed_in?
-        current_user
+        !!current_user
+      end
+
+      # FIXME da pensare
+      def set_current_user(user)
+        logger.info("Setting current_user=#{user.email}")
+        @current_user = user
+        session[:user_id] = user.id
       end
 
       def log_current_user
@@ -53,7 +66,6 @@ module DmUniboCommon
             redirect_to auth_google_oauth2_callback_path and return 
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
             redirect_to auth_shibboleth_callback_path and return 
-          # developer solo in localhost
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer 
             redirect_to auth_developer_callback_path and return
           else
