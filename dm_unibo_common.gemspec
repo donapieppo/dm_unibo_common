@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 5.1.2'
+  s.add_dependency 'rails', '~> 5.1.5'
   s.add_dependency 'mysql2', '>= 0.3.18', '< 0.5'
 
   # unibo
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jbuilder', '~> 2.5'
   # style 
   s.add_dependency 'simple_form', '~> 3.5.0'
-  s.add_dependency 'bootstrap-sass'
+  s.add_dependency 'bootstrap', '~> 4.0.0'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
 

@@ -2,7 +2,7 @@
 require 'mysql2'
 require 'jquery-rails'
 require 'sass-rails'
-require 'bootstrap-sass'
+require 'bootstrap'
 
 # auth
 require 'omniauth'
