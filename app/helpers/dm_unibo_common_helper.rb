@@ -1,15 +1,23 @@
 module DmUniboCommonHelper 
 
-  def icon(name, options = { text: "", size: "18" })
-    raw "<i style=\"font-size: #{options[:size]}px\" class=\"fa fa-#{name}\"></i> #{options[:text]}"
+  def main_title(srt)
+    if @modal_page
+      javascript_tag("$('#main-modal .modal-title').html('#{j srt}')")
+    else
+      content_tag(:h1, srt)
+    end
   end
 
-  def fwicon(name, options = { text: "", size: "18" })
-    raw "<i style=\"font-size: #{options[:size]}px\" class=\"fa fa-#{name} fa-fw\"></i> #{options[:text]}"
+  def icon(name, text: "", size: 18, reg: nil)
+    content_tag(:i, '', style: "font-size: #{size}px", class: "#{reg ? 'far' : 'fa'} fa-#{name}") + text
   end
 
-  def big_icon(name, options = {})
-    icon(name, options.update(size: 26))
+  def fwicon(name, text: "", size: 18, reg: nil)
+    raw "<i style=\"font-size: #{size}px\" class=\"fa fa-#{name} fa-fw\"></i> #{text}"
+  end
+
+  def big_icon(name, size: 26, reg: nil)
+    icon(name, size: size, reg: reg)
   end
 
   # If user is sso logged even if he has no access should see his eppn (and logout link)
@@ -25,9 +33,17 @@ module DmUniboCommonHelper
 
   def bootstrap_modal_div
     raw %Q|
-      <div class="modal fade" id="main-modal" >
-        <div class="modal-dialog">
+      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="gemma_modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
           </div><!-- .modal-content -->
         </div><!-- .modal-dialog -->
       </div><!-- .modal -->
@@ -39,7 +55,6 @@ module DmUniboCommonHelper
   def bootstrap_flash
     flash_messages = []
     flash.each do |type, message|
-      # Skip empty messages, e.g. for devise messages set to nothing in a locale file.
       next if message.blank?
 
       type = type.to_sym
@@ -50,8 +65,8 @@ module DmUniboCommonHelper
 
       Array(message).each do |msg|
         text = content_tag(:div,
-                           content_tag(:button, raw("&times;"), :class => "close", "data-dismiss" => "alert") +
-                           msg, :class => "alert fade in alert-#{type}")
+                           h(msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
+                           class: "alert alert-#{type} alert-dismissible fade show", role: 'alert')
         flash_messages << text if msg
       end
     end
@@ -60,7 +75,7 @@ module DmUniboCommonHelper
 
   def tooltip(key)
     message = Tooltip.message(key)
-    raw %$<h3 class="info"> $ + image_tag("info.png", :width => '15') + 
+    raw %$<h3 class="info"> $ + image_tag("info.png", width: '15') + 
         %$ #{message[0]} <span>#{message[1]}</span></h3>$
   end
 
@@ -80,8 +95,21 @@ module DmUniboCommonHelper
     end
   end
 
+  def class_active_val(x,y)
+    (x.to_s.downcase == y.to_s.downcase) ? 'active' : ''
+  end
+
   def class_active(x,y)
-    x == y ? 'class="active"'.html_safe : ''
+    (x.to_s.downcase == y.to_s.downcase) ? 'class="active"'.html_safe : ''
+  end
+
+  def dm_card(title: '')
+    content_tag :div, class: 'dm-card' do
+      content_tag(:div, title, class: 'dm-card-title') +
+      content_tag(:div, class: 'dm-card-body') do
+        yield
+      end
+    end
   end
 end
 
