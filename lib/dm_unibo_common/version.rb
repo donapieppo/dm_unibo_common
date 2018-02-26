@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "1.3.3"
+  VERSION = "2.0.1"
 end
+# 2.0.1
+# bootstrap4
 # 1.3.3
 # rails 5.1.3
 # no roboto font
