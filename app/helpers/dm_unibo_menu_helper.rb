@@ -12,49 +12,49 @@ module DmUniboMenuHelper
 
   def logged_user
     if sso_user_upn
-    %Q|<li class="login-name navbar-text">#{sso_user_upn}</li>
-       <li class="logout-link">#{logout_link}</li>|.html_safe
+    %Q|<span class="navbar-text">#{sso_user_upn}</span>
+       <ul class="navbar-nav">
+       <li>#{logout_link}</li>|.html_safe
     else
-      %Q|<li>#{login_link}</li>|.html_safe
+      %Q|<li>#{login_link}</li></ul>|.html_safe
     end
   end
 
-  def dm_menu(&block)
-    raw %Q|<header class="navbar navbar-default navbar-inverse" role="banner">
-             <div class="container">| + capture(&block) + 
-        %Q|  </div><!-- container -->
-           </header>| + privacy_alert
+  def toggle_button
+    raw %Q|<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-controls="bs-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span></button>|
   end
 
-  def dm_header(icon: nil, title: nil, subtitle: nil)
-    icon   ||= Rails.configuration.header_icon || icon
-    string = (title || Rails.configuration.header_title) + 
-             content_tag(:small, (subtitle || Rails.configuration.header_subtitle))
-    %Q|<div class="navbar-header">
-         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse">
-           <span class="sr-only">Toggle navigation</span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-         </button>|.html_safe +
+  def dm_menu(&block)
+    raw %Q|<nav class="dm-navbar"> #{toggle_button} | + capture(&block) + %Q|</nav>| + privacy_alert
+  end
+
+  def dm_header
+    string = (Rails.configuration.header_title) + content_tag(:small, Rails.configuration.header_subtitle)
+
     link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
-    link_to(icon(icon, size: 32), root_path, class: 'navbar-brand navbar-icon') +
-    link_to(string.html_safe, root_path, class: 'navbar-brand') +
-    %Q|</div><!-- navbar-header -->|.html_safe
+    link_to(icon(Rails.configuration.header_icon, size: 32), root_path, class: 'navbar-brand navbar-icon') +
+    link_to(string.html_safe, root_path, class: 'navbar-brand') 
   end
 
   def dm_nav(&block)
-    %Q|<nav class="collapse navbar-collapse" id="bs-navbar-collapse">
-        <ul class="nav navbar-nav">|.html_safe + capture(&block) +
-    %Q| </ul>
-       <!-- right -->
-       <ul class="nav navbar-nav navbar-right">|.html_safe + logged_user +
-    %Q|</ul>
-       </nav>|.html_safe
+    %Q|<div class="collapse navbar-collapse" id="bs-navbar-collapse">
+         <ul class="navbar-nav mr-auto">|.html_safe + capture(&block) +
+    %Q|  </ul> |.html_safe + logged_user +
+    %Q|</div>|.html_safe
+  end
+
+  def dropdown_menu(id, title, &block)
+    raw %Q|
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="#{id}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#{title}</a>
+  <div class="dropdown-menu" aria-labelledby="#{id}">| +
+    capture(&block) + %Q|
+  </div>
+</li>|
   end
 
   def dm_footer
-    %Q|
+    raw %Q|
     <div id="footer" role="navigation">
       <div class="container" style="text-align: center">
         &mdash; <strong><a href="http://www.matematica.unibo.it">Dipartimento di Matematica</a></strong> &mdash;<br/>
@@ -64,16 +64,7 @@ module DmUniboMenuHelper
         <a href="http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali">Privacy</a><br/>
         #{stop_impersonation_link} #{start_impersonation_link}
       </div>
-    </div>|.html_safe
-  end
-
-  def dropdown_menu(title, &block)
-    raw %Q|<li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{title} <b class="caret"></b></a>
-      <ul class="dropdown-menu">| + 
-      capture(&block) + %Q|
-      </ul>
-      </li>|
+    </div>|
   end
 
 end

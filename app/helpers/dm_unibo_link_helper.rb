@@ -7,7 +7,7 @@ module DmUniboLinkHelper
   alias back_link_to :link_to_back
 
   def link_to_delete(name = "", url, button: false)
-    link_to icon('trash-o') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
+    link_to icon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
   def link_to_download(url)
@@ -19,24 +19,24 @@ module DmUniboLinkHelper
     link_to icon('search') + " " + name, url, title: "Mostra dettagli"
   end
 
-  def link_to_edit(name = "", url, button: false)
-    link_to icon('pencil') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button' : '')
+  def link_to_edit(name = "", url, button: false, modal: false)
+    link_to icon('edit') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
   end
 
   def link_to_edit2(name = "", url)
-    link_to icon('pencil') + "  " + name, url, class: :button
+    link_to icon('edit') + "  " + name, url, class: :button
   end
 
-  def link_to_new(name = "", url)
-    link_to icon('plus-circle') + "  " + name, url, class: :button
+  def link_to_new(name = "", url, button: true, modal: false)
+    link_to icon('plus-circle') + "  " + name, url, class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
   end
 
   # REMOTE
-  def link_to_remote_edit(url)
-    link_to icon('pencil'), url, title: 'Inserisci/modifica dati', data: { toggle: "modal", target: "#main-modal" }
+  def link_to_modal_edit(url)
+    link_to icon('edit'), url, title: 'Inserisci/modifica dati', data: { toggle: "modal", target: "#main-modal" }
   end
 
-  def link_to_remote_new(name = "", url)
+  def link_to_modal_new(name = "", url)
     link_to icon('plus-circle') + " " + name, url, class: :button, data: { toggle: "modal", target: "#main-modal" }
   end
 
@@ -45,7 +45,7 @@ module DmUniboLinkHelper
     if (current_user == true_user)
       "" 
     else
-      "You (#{true_user.upn}) are impersonating <strong>#{current_user.upn}</strong><br/> #{link_to icon('reply') + " back to admin", stop_impersonating_path}"
+      "You (#{h true_user.upn}) are impersonating <strong>#{h current_user.upn}</strong><br/> #{link_to icon('reply') + " back to admin", stop_impersonating_path}".html_safe
     end
   end
 
