@@ -8,6 +8,15 @@ module SimpleForm
 end
 
 module DmUniboFormHelper
+  def dm_form_for(record, options={}, &block)
+    content_tag :div, class: "dm-form" do
+      concat(content_tag(:div, options[:title] || @dm_form_title, class: "dm-form-title"))
+      concat(content_tag(:div, class: "dm-form-body") do
+        simple_form_for(record, options, &block)
+      end)
+    end
+  end
+
   def vertical_form_for(record, options={}, &block)
     options[:wrapper] = :vertical_form
     options[:html] ||= {}
