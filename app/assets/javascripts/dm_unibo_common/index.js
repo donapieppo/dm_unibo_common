@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
+//= require popper.min
+//= require bootstrap
 //= require ./dm_unibo_common
 
