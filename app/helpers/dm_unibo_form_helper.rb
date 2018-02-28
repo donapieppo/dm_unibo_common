@@ -10,7 +10,9 @@ end
 module DmUniboFormHelper
   def dm_form_for(record, options={}, &block)
     content_tag :div, class: "dm-form" do
-      concat(content_tag(:div, options[:title] || @dm_form_title, class: "dm-form-title"))
+      unless (options[:title] || @dm_form_title).blank?
+        concat(content_tag(:div, options[:title] || @dm_form_title, class: "dm-form-title"))
+      end
       concat(content_tag(:div, class: "dm-form-body") do
         simple_form_for(record, options, &block)
       end)
