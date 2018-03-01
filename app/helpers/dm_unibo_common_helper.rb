@@ -80,7 +80,7 @@ module DmUniboCommonHelper
   end
 
   def popover_help(title, content)
-    raw %Q|<i class="fa fa-question-circle pull-right popover-help" data-placement="left" data-toggle="popover" title="#{title}" data-content="#{content}"></i>|
+    raw %Q|<span class="float-right"><i class="fa fa-question-circle pull-right popover-help" data-placement="left" data-toggle="popover" title="#{title}" data-content="#{content}"></i></span>|
   end
 
   # dl_field(User.first, :name)
