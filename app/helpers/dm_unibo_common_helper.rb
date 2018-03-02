@@ -33,7 +33,7 @@ module DmUniboCommonHelper
 
   def bootstrap_modal_div
     raw %Q|
-      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="gemma_modal" aria-hidden="true">
+      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="main_modal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
