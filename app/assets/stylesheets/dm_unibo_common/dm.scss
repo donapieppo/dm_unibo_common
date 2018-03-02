@@ -14,7 +14,8 @@ body {
   text-align:   center;
 }
 h1 {
-  @extend .centered;
+  font-size: 160%;
+  // @extend .centered;
   &:first-letter { 
     text-transform: capitalize; 
   }
@@ -45,6 +46,9 @@ h1 {
 }
 .dm-card-body {
   @extend .card-body;
+}
+.dm-card-footer {
+  @extend .card-footer;
 }
 
 .button {
