@@ -6,7 +6,6 @@ html {
   font-size: 14px;
 } 
 body {
-  padding-top: 6rem;
 }
 
 .centered {
@@ -26,6 +25,10 @@ h1 {
   //@extend .navbar-default;
   margin-top: 20px;
   padding: 20px 0;
+  color: rgba(0, 0, 0, 0.7) !important;
+  a {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
 }
 
 // DM-CARD

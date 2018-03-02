@@ -3,24 +3,28 @@
   @extend .navbar;
   @extend .navbar-expand-lg;
   @extend .navbar-light;
-  @extend .fixed-top;
+  @extend .mb-3;
+
   border-bottom: 2px solid rgb(187,46,41);
 
   // background-color: rgb(187,46,41);
   // background-color: $dm-green;
   // background-color: #009688;
-  background-color: rgb(146, 186, 1);
+  // background-color: rgb(146, 186, 1);
+  background-color: $dm-green;
 
   .navbar-nav {
     li {
       @extend .nav-item;
       a {
         @extend .nav-link;
+        color: rgba(0, 0, 0, 0.7) !important;
       }
     }
     div.dropdown-menu {
       a {
         @extend .dropdown-item;
+        color: rgba(0, 0, 0, 0.7) !important;
       }
     }
   }
@@ -35,5 +39,20 @@
 }
 .dropdown-menu i {
   @extend .fa-fw;
+}
+
+.navbar-icon i {
+  font-size: 32px;
+}
+@media (max-width: 450px) {
+  .navbar-brand {
+    font-size: 14px;
+  }
+  .navbar-icon i {
+    font-size: 18px;
+  }
+  .navbar-image {
+    display: none;
+  }
 }
 
