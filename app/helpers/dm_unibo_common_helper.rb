@@ -1,7 +1,8 @@
 module DmUniboCommonHelper 
 
   def main_title(srt)
-    if @modal_page
+    srt = srt.to_s unless srt.is_a?(String)
+    if modal_page
       javascript_tag("$('#main-modal .modal-title').html('#{j srt}')")
     else
       content_tag(:h1, srt)
@@ -109,6 +110,20 @@ module DmUniboCommonHelper
       content_tag(:div, class: 'dm-card-body') do
         yield
       end
+    end
+  end
+
+  def dm_modal_js_helper
+    javascript_tag do
+      raw %Q|
+  $('.modal-link').click(function(event){
+    event.preventDefault();
+    var url = $(this).attr('href');
+    var separator = url.indexOf('?') > -1 ? '&' : '?';
+    $('#main-modal .modal-body').load(url + separator + "modal=yyy");
+    $('#main-modal').modal('show');
+  });
+  |
     end
   end
 end
