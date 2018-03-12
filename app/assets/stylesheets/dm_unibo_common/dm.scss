@@ -8,17 +8,26 @@ html {
 body {
 }
 
+a {
+  color: rgb(0, 120, 160);
+}
 .centered {
   margin-left:  auto; 
   margin-right: auto; 
   text-align:   center;
 }
 h1 {
-  font-size: 160%;
-  // @extend .centered;
+
+  font-size: 180%;
+  @extend .mb-3;
+  @extend .mt-3;
+  @extend .centered;
   &:first-letter { 
     text-transform: capitalize; 
   }
+}
+h2 {
+  font-size: 140%;
 }
 
 #footer {
@@ -38,7 +47,7 @@ h1 {
   @extend .mb-3;
   @extend .mt-3;
 }
-.dm-card-title {
+.dm-card-title, .dm-card-header {
   @extend .mb-0;
   @extend .card-header;
   font-weight: bold;

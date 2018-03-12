@@ -2,7 +2,7 @@
 .dm-navbar {
   @extend .navbar;
   @extend .navbar-expand-lg;
-  @extend .navbar-light;
+  // @extend .navbar-light;
   @extend .mb-3;
 
   border-bottom: 2px solid rgb(187,46,41);
@@ -18,7 +18,8 @@
       @extend .nav-item;
       a {
         @extend .nav-link;
-        color: rgba(0, 0, 0, 0.7) !important;
+        // color: rgba(0, 0, 0, 0.7) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
       }
     }
     div.dropdown-menu {
@@ -32,6 +33,7 @@
 .navbar-brand {
   //font-size: 14px;
   //line-height: 14px;
+  color: rgba(255, 255, 255, 0.9) !important;
   small {
     display: block;
     font-size: 12px;
