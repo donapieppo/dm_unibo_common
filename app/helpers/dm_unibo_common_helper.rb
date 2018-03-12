@@ -10,7 +10,7 @@ module DmUniboCommonHelper
   end
 
   def icon(name, text: "", size: 18, reg: nil)
-    content_tag(:i, '', style: "font-size: #{size}px", class: "#{reg ? 'far' : 'fa'} fa-#{name}") + text
+    content_tag(:i, '', style: "font-size: #{size}px", class: "#{reg ? 'far' : 'fa'} fa-#{name}") + " " + text
   end
 
   def fwicon(name, text: "", size: 18, reg: nil)
@@ -39,7 +39,7 @@ module DmUniboCommonHelper
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size: 42px">&times;</span></button>
             </div>
             <div class="modal-body">
             </div>
@@ -64,9 +64,11 @@ module DmUniboCommonHelper
       type = :danger  if type.to_s == :error.to_s
       next unless ALERT_TYPES.include?(type)
 
+      icon = (type == :danger) ? 'exclamation-triangle' : 'info-circle'
+
       Array(message).each do |msg|
         text = content_tag(:div,
-                           h(msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
+                           icon(icon) + ' ' + h(msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
                            class: "alert alert-#{type} alert-dismissible fade show", role: 'alert')
         flash_messages << text if msg
       end

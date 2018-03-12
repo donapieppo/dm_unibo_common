@@ -12,12 +12,13 @@ module DmUniboMenuHelper
   end
 
   def logged_user
-    if sso_user_upn
-    %Q|<span class="navbar-text">#{sso_user_upn}</span>
-       <ul class="navbar-nav">
-       <li>#{logout_link}</li>|.html_safe
-    else
-      %Q|<li>#{login_link}</li></ul>|.html_safe
+    content_tag :ul, class: "navbar-nav" do 
+      if sso_user_upn
+        %Q|<span class="navbar-text">#{sso_user_upn}</span>
+           <li>#{logout_link}</li>|.html_safe
+      else
+        %Q|<li>#{login_link}</li>|.html_safe
+      end
     end
   end
 

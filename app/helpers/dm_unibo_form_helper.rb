@@ -8,11 +8,15 @@ module SimpleForm
 end
 
 module DmUniboFormHelper
+  def dm_form_default_title(record)
+    record = record[-1] if record.is_a?(Array)
+    (record.new_record? ? t(:new) : t(:edit)) + " " + t("activerecord.models." + record.model_name.to_s.downcase).downcase
+  end
+
   def dm_form_for(record, options={}, &block)
+    title = options[:title] || @dm_form_title || dm_form_default_title(record)
     content_tag :div, class: "dm-form" do
-      unless (options[:title] || @dm_form_title).blank?
-        concat(content_tag(:div, options[:title] || @dm_form_title, class: "dm-form-title"))
-      end
+      concat(content_tag(:div, title, class: "dm-form-title"))
       concat(content_tag(:div, class: "dm-form-body") do
         simple_form_for(record, options, &block)
       end)
@@ -35,9 +39,6 @@ module DmUniboFormHelper
     simple_form_for(record, options, &block)
   end
 
-  def form_legend(what)
-    raw "<legend>" + (what.new_record? ? "Nuovo " : "Modifica ") + (what.model_name.human.downcase) + "</legend>"
-  end
 end
 
 
