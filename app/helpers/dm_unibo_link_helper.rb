@@ -10,8 +10,8 @@ module DmUniboLinkHelper
     link_to icon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
-  def link_to_download(url)
-    link_to icon('download'), url
+  def link_to_download(url, txt = "")
+    link_to icon('download') + txt, url
   end
   alias_method :download_link, :link_to_download
 
