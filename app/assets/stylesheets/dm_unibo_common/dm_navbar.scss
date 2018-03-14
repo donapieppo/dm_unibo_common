@@ -2,7 +2,7 @@
 .dm-navbar {
   @extend .navbar;
   @extend .navbar-expand-lg;
-  // @extend .navbar-light;
+  @extend .navbar-light; // necessary for .navbar-dark .navbar-toggler-icon
   @extend .mb-3;
 
   border-bottom: 2px solid rgb(187,46,41);
