@@ -9,16 +9,16 @@ module DmUniboCommonHelper
     end
   end
 
-  def icon(name, text: "", size: 18, reg: nil)
-    content_tag(:i, '', style: "font-size: #{size}px", class: "#{reg ? 'far' : 'fa'} fa-#{name}") + " " + text
+  def icon(name, text: "", size: 18, prefix: 'fas')
+    content_tag(:i, '', style: "font-size: #{size}px", class: "#{prefix} fa-#{name}") + " " + text
   end
 
-  def fwicon(name, text: "", size: 18, reg: nil)
-    raw "<i style=\"font-size: #{size}px\" class=\"fa fa-#{name} fa-fw\"></i> #{text}"
+  def fwicon(name, text: "", size: 18, prefix: 'fas')
+    raw "<i style=\"font-size: #{size}px\" class=\"#{prefix} fa-#{name} fa-fw\"></i> #{text}"
   end
 
-  def big_icon(name, size: 26, reg: nil)
-    icon(name, size: size, reg: reg)
+  def big_icon(name, text: "", size: 26, prefix: 'fas')
+    icon(name, text: text, size: size, prefix: prefix)
   end
 
   # If user is sso logged even if he has no access should see his eppn (and logout link)
