@@ -19,8 +19,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 5.1.5'
+  s.add_dependency 'rails', '~> 5.2.0'
   s.add_dependency 'mysql2', '>= 0.3.18', '< 0.5'
+
+  s.add_dependency 'bootsnap', '>= 1.1.0' # , require: false
+  s.add_dependency 'mini_magick', '~> 4.8'
 
   # unibo
   # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
@@ -38,8 +41,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder', '~> 2.5'
   # style 
-  s.add_dependency 'simple_form', '~> 3.5.0'
-  s.add_dependency 'bootstrap', '~> 4.0.0'
+  s.add_dependency 'simple_form', '~> 4'
+  s.add_dependency 'bootstrap', '~> 4.1'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
 
@@ -48,7 +51,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'listen', '~> 3.0.5'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'database_cleaner'
 
   # s.add_development_dependency 'capybara', '~> 2.13'
