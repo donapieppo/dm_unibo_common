@@ -34,7 +34,7 @@ module DmUniboMenuHelper
     string = (Rails.configuration.header_title) + content_tag(:small, Rails.configuration.header_subtitle)
 
     link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
-    link_to('<i class="fa fa-shopping-cart"></i>'.html_safe, root_path, class: 'navbar-brand navbar-icon') +
+    link_to(big_icon(Rails.configuration.header_icon), root_path, class: 'navbar-brand navbar-icon') +
     link_to(string.html_safe, root_path, class: 'navbar-brand') 
   end
 
