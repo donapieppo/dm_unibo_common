@@ -5,6 +5,12 @@
 html {
   font-size: 14px;
 } 
+@media (max-width: 450px) {
+  html {
+    font-size: 12px;
+  } 
+}
+
 body {
 }
 
@@ -17,17 +23,20 @@ a {
   text-align:   center;
 }
 h1 {
-
   font-size: 180%;
   @extend .mb-3;
   @extend .mt-3;
   @extend .centered;
+  color: #30373b;
+  font-weight: 500;
   &:first-letter { 
     text-transform: capitalize; 
   }
 }
 h2 {
   font-size: 140%;
+  color: #30373b;
+  font-weight: 500;
 }
 
 #footer {
@@ -107,6 +116,21 @@ ul.bordered {
 }
 span.actions {
   @extend .float-right;
+}
+
+dl.dl-horizontal {
+  @extend .row;
+  dt {
+    @extend .col-sm-3;
+    text-align: right;
+  }
+  dd {
+    @extend .col-sm-9;
+    @extend .mb-0;
+  }
+  dd + dd {
+    @extend .offset-sm-3;
+  }
 }
 
 @import "dm_form";
