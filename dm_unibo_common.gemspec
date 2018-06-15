@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'rails', '~> 5.2.0'
-  s.add_dependency 'mysql2', '>= 0.3.18', '< 0.5'
-
+  s.add_dependency 'mysql2', '>= 0.4.4', '< 0.6.0'
+  s.add_dependency 'sass-rails', '~> 5.0'
   s.add_dependency 'bootsnap', '>= 1.1.0' # , require: false
   s.add_dependency 'mini_magick', '~> 4.8'
 
@@ -33,11 +33,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  
   # auth - inpersonation 
-  s.add_dependency 'pretender', '~> 0.2.1'
+  s.add_dependency 'pretender', '~> 0.3'
   # standard rails
   s.add_dependency 'uglifier', '>= 1.3.0'
   s.add_dependency 'coffee-rails', '~> 4.2'
-  s.add_dependency 'sass-rails', '~> 5.0'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder', '~> 2.5'
   # style 
