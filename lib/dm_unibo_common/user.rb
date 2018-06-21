@@ -11,7 +11,7 @@ module DmUniboCommon::User
   end
 
   def cn_militar
-    "%s %s" % [self.surname, self.name]
+    "%s, %s" % [self.surname, self.name]
   end
 
   def abbr
