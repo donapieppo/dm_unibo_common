@@ -73,7 +73,7 @@ module DmUniboCommon
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer 
             redirect_to auth_developer_callback_path and return
           else
-            raise "problem in omniauth provider"
+            raise "problem in omniauth provider (not in :google_oauth2, :shibboleth, :developer)"
           end
           # redirect_to user_google_oauth2_omniauth_authorize_path and return 
           # redirect_to new_user_session_path and return
