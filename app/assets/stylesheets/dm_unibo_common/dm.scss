@@ -10,13 +10,9 @@ html {
     font-size: 12px;
   } 
 }
-
-body {
-}
-
-a {
-  color: rgb(0, 120, 160);
-}
+// a {
+//   color: rgb(0, 120, 160);
+// }
 .centered {
   margin-left:  auto; 
   margin-right: auto; 
@@ -24,8 +20,7 @@ a {
 }
 h1 {
   font-size: 180%;
-  @extend .mb-3;
-  @extend .mt-3;
+  @extend .my-3;
   @extend .centered;
   color: #30373b;
   font-weight: 500;
@@ -50,25 +45,6 @@ h2 {
   }
 }
 
-// DM-CARD
-.dm-card {
-  @extend .card;
-  @extend .mb-3;
-  @extend .mt-3;
-}
-.dm-card-title, .dm-card-header {
-  @extend .mb-0;
-  @extend .card-header;
-  font-weight: bold;
-  border-bottom: 2px solid rgb(187,46,41);
-}
-.dm-card-body {
-  @extend .card-body;
-}
-.dm-card-footer {
-  @extend .card-footer;
-}
-
 .button {
   @extend .btn;
   @extend .btn-primary;
@@ -89,49 +65,11 @@ table {
   text-align: center;
   margin: 10px;
 }
-input.date_picker {
-  width: 10em;
-}
-input.datetime_picker {
-  width: 15em;
-}
 select.hour {
   width: 5em;
 }
 
-// ul with links expanded
-ul > li { list-style-type: none; }
-ul.all_clickable {
-  @extend .list-group;
-  @extend .list-group-item-action;
-  a {
-    @extend .list-group-item;
-    @extend .list-group-item-action;
-    span { @extend .float-right; }
-  }
-}
-ul.bordered {
-  @extend .list-group;
-  li { @extend .list-group-item; }
-}
-span.actions {
-  @extend .float-right;
-}
-
-dl.dl-horizontal {
-  @extend .row;
-  dt {
-    @extend .col-sm-3;
-    text-align: right;
-  }
-  dd {
-    @extend .col-sm-9;
-    @extend .mb-0;
-  }
-  dd + dd {
-    @extend .offset-sm-3;
-  }
-}
-
+@import "dm_card";
 @import "dm_form";
 @import "dm_navbar";
+@import "dm_list";

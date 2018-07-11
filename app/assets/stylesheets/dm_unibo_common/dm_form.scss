@@ -1,4 +1,4 @@
-/* FORMS */
+// DM-FORM
 .dm-form {
   @extend .dm-card;
 }
@@ -8,6 +8,7 @@
 .dm-form-body {
   @extend .card-body;
 }
+// SUMBIT
 input[type="submit"] {
   @extend .btn;
   @extend .btn-primary;
@@ -15,59 +16,51 @@ input[type="submit"] {
 .simple_form input[type="submit"] {
   @extend .offset-sm-3;
 }
-.has-error {
-  input.form-control {
-     @extend .is-invalid;
-   }
-}
-.form-error-block {
-  @extend .text-danger;
-}
-.control-label {
+.form-group label {
   font-weight: bold;
   text-align: right;
 }
-.help-block {
-  font-style: italic;
-}
-//input[type="file"] {
-//  border: 0;
-//  width: auto;
-//}
-//input.boolean {
-//  width: auto;
-//}
 input.integer {
   width: 8em;
-  text-align: right;
 }
 
-.radio {
-  display: block;
-  label {
-    display: inline;
-    input {
-      display: inline;
-    }
-  }
-}
-.radio input[type="radio"], .checkbox input[type="checkbox"] {
-  width: 30px;
-  margin-left: 0px;
-  height: auto;
-}
-.radio label, .checkbox label {
-  margin-left: 20px;
-}
-.form-control-inline {
-  @extend .form-control;
-  display: inline;
-}
-input[type="file"] {
-  border: 0;
-  box-shadow: 0px 0px 0px 0px;
-  height: auto;
-}
-.missing-field {
-  // color: $brand-danger;
-}
+// .has-error {
+//   input.form-control {
+//      @extend .is-invalid;
+//    }
+// }
+// .form-error-block {
+//   @extend .text-danger;
+// }
+// .help-block {
+//   font-style: italic;
+// }
+// .radio {
+//   display: block;
+//   label {
+//     display: inline;
+//     input {
+//       display: inline;
+//     }
+//   }
+// }
+// .radio input[type="radio"], .checkbox input[type="checkbox"] {
+//   width: 30px;
+//   margin-left: 0px;
+//   height: auto;
+// }
+// .radio label, .checkbox label {
+//   margin-left: 20px;
+// }
+// .form-control-inline {
+//   @extend .form-control;
+//   display: inline;
+// }
+// input[type="file"] {
+//   border: 0;
+//   box-shadow: 0px 0px 0px 0px;
+//   height: auto;
+// }
+// .missing-field {
+//   // color: $brand-danger;
+// }
