@@ -53,6 +53,13 @@ development:
   logo_image:        dm_unibo_common/unibo.png
 ```
 
+and load in `config/application.rb` with
+
+```ruby
+config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
+```
+
+
 We implement google_oauth2 and shibboleth authentication.
 
 
