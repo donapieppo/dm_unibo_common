@@ -35,8 +35,6 @@ h2 {
 }
 
 #footer {
-  //@extend .navbar;
-  //@extend .navbar-default;
   margin-top: 20px;
   padding: 20px 0;
   color: rgba(0, 0, 0, 0.7) !important;
@@ -56,17 +54,10 @@ table {
   @extend .alert; 
   @extend .alert-info;
 }
-.strong-info {
-  @extend .alert; 
-  @extend .alert-danger;
-}
 .centered_action {
   width: 100%;
   text-align: center;
   margin: 10px;
-}
-select.hour {
-  width: 5em;
 }
 
 @import "dm_card";

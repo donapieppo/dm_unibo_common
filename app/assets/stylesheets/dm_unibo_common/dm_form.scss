@@ -23,6 +23,13 @@ input[type="submit"] {
 input.integer {
   width: 8em;
 }
+select.hour {
+  width: 5em;
+}
+// simple-form 2.0 bad choice
+small.form-text {
+  font-size: 100%
+}
 
 // .has-error {
 //   input.form-control {
