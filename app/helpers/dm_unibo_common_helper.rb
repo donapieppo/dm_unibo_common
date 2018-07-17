@@ -68,9 +68,9 @@ module DmUniboCommonHelper
 
       Array(message).each do |msg|
         text = content_tag(:div,
-                           icon(icon) + ' ' + h(msg) + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
+                           icon(icon) + ' ' + msg.html_safe + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
                            class: "alert alert-#{type} alert-dismissible fade show", role: 'alert')
-        flash_messages << text if msg
+        flash_messages << text.html_safe if msg
       end
     end
     flash_messages.join("\n").html_safe
@@ -128,6 +128,11 @@ module DmUniboCommonHelper
   |
     end
   end
+
+  def mail_to_contact
+    mail_to Rails.configuration.contact_mail, Rails.configuration.contact_mail
+  end
+
 end
 
 #module SimpleForm
