@@ -16,7 +16,7 @@ class DevelopmentMailInterceptor
         message.bcc = message.bcc ? [message.bcc] : []
       end
     end
-    if Rails.configuration.dm_unibo_common[:message_footer]
+    if Rails.configuration.dm_unibo_common[:message_footer] and ! Rails.configuration.dm_unibo_common[:message_footer].blank?
       message.body = message.body.to_s + "\n ------------------- \n" + Rails.configuration.dm_unibo_common[:message_footer]
     end
   end  
