@@ -1,7 +1,7 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     def dm_error_notification(options = {})
-      options[:message] = self.error :base if self.error :base 
+      options[:message] = self.object.errors[:base] unless self.object.errors[:base].blank?
       SimpleForm::ErrorNotification.new(self, options).render
     end
   end
