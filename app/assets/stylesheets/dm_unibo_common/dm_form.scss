@@ -20,6 +20,11 @@ input[type="submit"] {
   font-weight: bold;
   text-align: right;
 }
+@media (max-width: 576px) {
+  .form-group label {
+    text-align: left;
+  }
+}
 input.integer {
   width: 8em;
 }
