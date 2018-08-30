@@ -59,6 +59,7 @@ class LoginsController < ApplicationController
     cookies.delete(Rails.configuration.session_options[:key].to_sym)
     cookies.delete(shibapplicationid.to_sym)
     session[:user_id] = nil
+    reset_session
     logger.info("after logout we redirect to params[:return] = #{params[:return]}")
     redirect_to (params[:return] || 'http://www.unibo.it')
   end
