@@ -1,7 +1,8 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     def dm_error_notification(options = {})
-      options[:message] = self.object.errors[:base] unless self.object.errors[:base].blank?
+      options[:message] = self.error :base if self.error :base 
+      # options[:message] = self.object.errors[:base].first unless self.object.errors[:base].first.blank?
       SimpleForm::ErrorNotification.new(self, options).render
     end
   end
@@ -38,7 +39,6 @@ module DmUniboFormHelper
     options[:html][:class] += ' form-horizontal '
     simple_form_for(record, options, &block)
   end
-
 end
 
 
