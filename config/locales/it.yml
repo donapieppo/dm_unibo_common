@@ -208,6 +208,8 @@ it:
       long:    ! '%d %B %Y %H:%M'
       short:   ! '%d %b %H:%M'
       date_picker: ! "%d/%m/%Y"
+      hour_picker: "%H"
+      min_picker: "%M"
       datetime_picker: "%d/%m/%Y %H:%M"
       with_day_name: '%A %d %B %Y ore %H:%M'
 
