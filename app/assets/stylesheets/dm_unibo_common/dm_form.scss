@@ -1,6 +1,9 @@
 // DM-FORM
 .dm-form {
   @extend .dm-card;
+  input.input-small {
+    width: 10em;
+  }
 }
 .dm-form-title {
   @extend .dm-card-title;
@@ -36,6 +39,9 @@ small.form-text {
   font-size: 100%
 }
 
+label.collection_check_boxes {
+  @extend .ml-1;
+}
 // .has-error {
 //   input.form-control {
 //      @extend .is-invalid;
@@ -60,9 +66,6 @@ small.form-text {
 //   width: 30px;
 //   margin-left: 0px;
 //   height: auto;
-// }
-// .radio label, .checkbox label {
-//   margin-left: 20px;
 // }
 // .form-control-inline {
 //   @extend .form-control;
