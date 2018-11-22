@@ -15,7 +15,7 @@ module DmUniboCommon::User
   end
 
   def abbr
-    "%s %s" % [self.name[0], self.surname]
+    "%s. %s" % [self.name[0], self.surname]
   end
 
   # after create admin withouth searchable_provider name, sn are blank and we show email/upn
