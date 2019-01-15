@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "2.0.1"
+  VERSION = "2.0.2"
 end
+# 2.0.2
+# move modal codes
 # 2.0.1
 # bootstrap4
 # 1.3.3
