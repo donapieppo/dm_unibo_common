@@ -32,25 +32,6 @@ module DmUniboCommonHelper
     true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
 
-  def bootstrap_modal_div
-    raw %Q|
-      <div class="modal fade" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="main_modal" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size: 42px">&times;</span></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-      </div><!-- .modal -->
-      |
-  end
-
   # from https://github.com/seyhunak/twitter-bootstrap-rails
   ALERT_TYPES = [:success, :info, :warning, :danger]
   def bootstrap_flash
@@ -112,20 +93,6 @@ module DmUniboCommonHelper
       content_tag(:div, class: 'dm-card-body') do
         yield
       end
-    end
-  end
-
-  def dm_modal_js_helper
-    javascript_tag do
-      raw %Q|
-  $('.modal-link').click(function(event){
-    event.preventDefault();
-    var url = $(this).attr('href');
-    var separator = url.indexOf('?') > -1 ? '&' : '?';
-    $('#main-modal .modal-body').load(url + separator + "modal=yyy");
-    $('#main-modal').modal('show');
-  });
-  |
     end
   end
 
