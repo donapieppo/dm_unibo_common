@@ -22,33 +22,32 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 5.2.0'
   s.add_dependency 'mysql2', '>= 0.4.4', '< 0.6.0'
   s.add_dependency 'sass-rails', '~> 5.0'
-  s.add_dependency 'bootsnap', '>= 1.1.0' # , require: false
-  s.add_dependency 'mini_magick', '~> 4.8'
+  s.add_dependency 'bootsnap', '>= 1.3' # , require: false
+  s.add_dependency 'mini_magick', '~> 4.9'
 
   # unibo
   # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
 
   # auth
-  s.add_dependency 'omniauth', '~> 1.6.1'
+  s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  
   # auth - inpersonation 
   s.add_dependency 'pretender', '~> 0.3'
   # standard rails
-  s.add_dependency 'uglifier', '>= 1.3.0'
-  s.add_dependency 'coffee-rails', '~> 4.2'
+  s.add_dependency 'uglifier'
+  s.add_dependency 'coffee-rails'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'jbuilder', '~> 2.5'
+  s.add_dependency 'jbuilder'
   # style 
   s.add_dependency 'simple_form', '~> 4'
-  s.add_dependency 'bootstrap', '~> 4.1'
+  s.add_dependency 'bootstrap', '~> 4.2'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
 
   s.add_dependency 'listen', '~> 3.0.5'
   
   s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'listen', '~> 3.0.5'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'database_cleaner'
