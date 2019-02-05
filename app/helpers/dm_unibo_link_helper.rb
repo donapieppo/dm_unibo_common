@@ -7,11 +7,11 @@ module DmUniboLinkHelper
   alias back_link_to :link_to_back
 
   def link_to_delete(name = "", url, button: false)
-    link_to icon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
+    link_to fwicon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
   def link_to_download(url, txt = "")
-    link_to icon('download') + txt, url
+    link_to fwicon('download') + txt, url
   end
   alias_method :download_link, :link_to_download
 
@@ -20,15 +20,15 @@ module DmUniboLinkHelper
   end
 
   def link_to_edit(name = "", url, button: false, modal: false)
-    link_to icon('edit') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
+    link_to fwicon('edit') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
   end
 
   def link_to_edit2(name = "", url)
-    link_to icon('edit') + "  " + name, url, class: :button
+    link_to fwicon('edit') + "  " + name, url, class: :button
   end
 
   def link_to_new(name = "", url, button: true, modal: false)
-    link_to icon('plus-circle') + "  " + name, url, class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
+    link_to fwicon('plus-circle') + "  " + name, url, class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
   end
 
   # IMPERSONATION
