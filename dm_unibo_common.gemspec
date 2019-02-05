@@ -20,10 +20,10 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'rails', '~> 5.2.0'
-  s.add_dependency 'mysql2', '>= 0.4.4', '< 0.6.0'
-  s.add_dependency 'sass-rails', '~> 5.0'
-  s.add_dependency 'bootsnap', '>= 1.3' # , require: false
-  s.add_dependency 'mini_magick', '~> 4.9'
+  s.add_dependency 'mysql2'
+  s.add_dependency 'sassc-rails'
+  s.add_dependency 'bootsnap'
+  s.add_dependency 'mini_magick'
 
   # unibo
   # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  
   # auth - inpersonation 
-  s.add_dependency 'pretender', '~> 0.3'
+  s.add_dependency 'pretender'
   # standard rails
   s.add_dependency 'uglifier'
   s.add_dependency 'coffee-rails'
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jbuilder'
   # style 
   s.add_dependency 'simple_form', '~> 4'
-  s.add_dependency 'bootstrap', '~> 4.2'
+  s.add_dependency 'bootstrap', '~> 4'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
 
