@@ -1,7 +1,7 @@
 module DmUniboModalHelper
 
-  def modal_link_to(name, url)
-    link_to name, url, class: 'modal-link', modal: true
+  def modal_link_to(name, url, addclass: '')
+    link_to name, url, class: "modal-link #{addclass}", modal: true
   end
 
   def link_to_modal_edit(url)
