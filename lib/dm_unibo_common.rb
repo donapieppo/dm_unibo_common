@@ -1,7 +1,7 @@
 # rails
 require 'mysql2'
 require 'jquery-rails'
-require 'sass-rails'
+require 'sassc-rails'
 require 'bootstrap'
 
 # auth
