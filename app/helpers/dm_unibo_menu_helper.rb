@@ -30,8 +30,8 @@ module DmUniboMenuHelper
     raw %Q|<nav class="dm-navbar"> #{toggle_button} | + capture(&block) + %Q|</nav>| + privacy_alert
   end
 
-  def dm_header
-    string = (Rails.configuration.header_title) + content_tag(:small, Rails.configuration.header_subtitle)
+  def dm_header(dm_header_title: Rails.configuration.header_title, dm_header_subtitle: Rails.configuration.header_subtitle)
+    string = (dm_header_title) + content_tag(:small, dm_header_subtitle)
 
     link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
     link_to(big_icon(Rails.configuration.header_icon), root_path, class: 'navbar-brand navbar-icon') +
