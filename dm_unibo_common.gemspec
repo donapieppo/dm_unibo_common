@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 5.2.0'
+  s.add_dependency 'rails', '~> 5.2'
   s.add_dependency 'mysql2'
   s.add_dependency 'sassc-rails'
   s.add_dependency 'bootsnap'
@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
 
-  s.add_dependency 'listen', '~> 3.0.5'
+  s.add_dependency 'listen', '~> 3'
   
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
