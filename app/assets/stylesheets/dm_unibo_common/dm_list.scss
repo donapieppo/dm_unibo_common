@@ -29,6 +29,11 @@ dl.dl-horizontal {
   dd + dd {
     @extend .offset-sm-3;
   }
+  @media (max-width: 576px) {
+    dt {
+      text-align: left;
+    }
+  }
 }
 
 
