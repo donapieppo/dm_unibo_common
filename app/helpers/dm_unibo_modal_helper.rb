@@ -4,13 +4,13 @@ module DmUniboModalHelper
     link_to name, url, class: "modal-link #{addclass}", modal: true
   end
 
-  def link_to_modal_edit(url)
-    link_to icon('edit'), url, title: 'Inserisci/modifica dati', data: { toggle: "modal", target: "#main-modal" }
-  end
+  # def link_to_modal_edit(url)
+  #   link_to icon('edit'), url, title: 'Inserisci/modifica dati', data: { toggle: "modal", target: "#main-modal" }
+  # end
 
-  def link_to_modal_new(name = "", url)
-    link_to icon('plus-circle') + " " + name, url, class: :button, data: { toggle: "modal", target: "#main-modal" }
-  end
+  # def link_to_modal_new(name = "", url)
+  #   link_to icon('plus-circle') + " " + name, url, class: :button, data: { toggle: "modal", target: "#main-modal" }
+  # end
 
   # def main_title(srt)
   #   srt = srt.to_s unless srt.is_a?(String)
