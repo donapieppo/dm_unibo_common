@@ -1,6 +1,12 @@
 module DmUniboCommon
-  VERSION = "2.0.2"
+  VERSION = "2.1.0"
 end
+# 2.1.0
+# with version 0.2.0 of dm_unibo_search
+# to resolve bug with search with id_anagrafica_unica for 
+# teacher and find a old student
+# This version provides methods to syncronize with a select proc
+# def syncronize_with_select(upn_or_id, c = User, select_proc = nil)
 # 2.0.2
 # move modal codes
 # 2.0.1
