@@ -71,16 +71,24 @@ module DmUniboCommon::User
       ADMINS
     end
 
-    def dsaSearchClient
+    def dm_unibo_user_search_client
       @@dsa ||= DmUniboUserSearch::Client.new
     end
 
     def search(str)
-      dsaSearchClient.find_user(str)
+      dm_unibo_user_search_client.find_user(str)
     end
 
     # Always asks to remote, updates user data or eventually create new user
+    # to mantain old compatibility 
     def syncronize(upn_or_id, c = User)
+      syncronize_with_select(upn_or_id, c, nil)
+    end
+
+    # Always asks to remote, updates user data or eventually create new user
+    # accept a third parameter with a proc toi select users
+    # syncronize_with_select(12324, User, -> (u) {u.upn.name == 'Pietro')
+    def syncronize_with_select(upn_or_id, select_proc = nil, c = User)
       Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c}' class")
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
@@ -92,7 +100,7 @@ module DmUniboCommon::User
       end
 
       # remote search 
-      result = dsaSearchClient.find_user(upn_or_id)
+      result = dm_unibo_user_search_client.find_user(upn_or_id, select_proc)
       if result.count < 1
         raise DmUniboCommon::NoUser
       elsif result.count > 1 and upn
