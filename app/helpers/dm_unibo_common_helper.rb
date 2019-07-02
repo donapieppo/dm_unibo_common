@@ -87,8 +87,8 @@ module DmUniboCommonHelper
     (x.to_s.downcase == y.to_s.downcase) ? 'class="active"'.html_safe : ''
   end
 
-  def dm_card(title: '')
-    content_tag :div, class: 'dm-card' do
+  def dm_card(title: '', add_class: '')
+    content_tag :div, class: "dm-card #{add_class}" do
       content_tag(:div, title, class: 'dm-card-title') +
       content_tag(:div, class: 'dm-card-body') do
         yield
