@@ -82,14 +82,14 @@ module DmUniboCommon::User
     # Always asks to remote, updates user data or eventually create new user
     # to mantain old compatibility 
     def syncronize(upn_or_id, c = User)
-      syncronize_with_select(upn_or_id, c, nil)
+      syncronize_with_select(upn_or_id, nil, c)
     end
 
     # Always asks to remote, updates user data or eventually create new user
     # accept a third parameter with a proc toi select users
     # syncronize_with_select(12324, User, -> (u) {u.upn.name == 'Pietro')
     def syncronize_with_select(upn_or_id, select_proc = nil, c = User)
-      Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c}' class")
+      Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c.to_s}' class")
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       upn = id = false
