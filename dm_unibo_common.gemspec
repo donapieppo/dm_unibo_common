@@ -19,14 +19,13 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'rails', '~> 6.0'
+  s.add_dependency 'webpacker', '~> 4.0'
+
   s.add_dependency 'mysql2'
   s.add_dependency 'sassc-rails'
-  s.add_dependency 'bootsnap'
+  s.add_dependency 'bootsnap', '>= 1.4.2'
   s.add_dependency 'mini_magick'
-
-  # unibo
-  # s.add_dependency 'dm_unibo_user_search', '= 0.1.0'
 
   # auth
   s.add_dependency 'omniauth'
@@ -34,11 +33,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-google-oauth2'  
   # auth - inpersonation 
   s.add_dependency 'pretender'
+  s.add_dependency 'pundit'
+
   # standard rails
   s.add_dependency 'uglifier'
-  s.add_dependency 'coffee-rails'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder'
+
   # style 
   s.add_dependency 'simple_form', '~> 4'
   s.add_dependency 'bootstrap', '~> 4'
@@ -52,6 +53,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'capybara'
+  s.add_development_dependency 'spring'
+  s.add_development_dependency 'spring-watcher-listen', '~> 2.0.0'
+
   # s.add_development_dependency 'selenium-webdriver'
 end
 
