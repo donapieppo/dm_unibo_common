@@ -1,3 +1,10 @@
+include DmUniboMenuHelper
+include DmUniboPrivacyHelper 
+include DmUniboFormHelper
+include DmUniboLinkHelper
+include DmUniboModalHelper
+include DmUniboOrganizationsHelper
+
 module DmUniboCommonHelper 
 
   def main_title(srt)
@@ -9,16 +16,16 @@ module DmUniboCommonHelper
     end
   end
 
-  def icon(name, text: "", size: 18, prefix: 'fas')
+  def dmicon(name, text: "", size: 18, prefix: 'fas')
     content_tag(:i, '', style: "font-size: #{size}px", class: "#{prefix} fa-#{name}") + " " + text
   end
 
-  def fwicon(name, text: "", size: 18, prefix: 'fas')
+  def fwdmicon(name, text: "", size: 18, prefix: 'fas')
     raw "<i style=\"font-size: #{size}px\" class=\"#{prefix} fa-#{name} fa-fw\"></i> #{text}"
   end
 
-  def big_icon(name, text: "", size: 26, prefix: 'fas')
-    icon(name, text: text, size: size, prefix: prefix)
+  def big_dmicon(name, text: "", size: 26, prefix: 'fas')
+    dmicon(name, text: text, size: size, prefix: prefix)
   end
 
   # If user is sso logged even if he has no access should see his eppn (and logout link)
@@ -45,11 +52,11 @@ module DmUniboCommonHelper
       type = :danger  if type.to_s == :error.to_s
       next unless ALERT_TYPES.include?(type)
 
-      icon = (type == :danger) ? 'exclamation-triangle' : 'info-circle'
+      i = (type == :danger) ? 'exclamation-triangle' : 'info-circle'
 
       Array(message).each do |msg|
         text = content_tag(:div,
-                           icon(icon) + ' ' + msg.html_safe + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
+                           dmicon(i) + ' ' + msg.html_safe + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
                            class: "alert alert-#{type} alert-dismissible fade show", role: 'alert')
         flash_messages << text.html_safe if msg
       end
