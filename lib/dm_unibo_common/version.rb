@@ -1,5 +1,5 @@
 module DmUniboCommon
-  VERSION = "2.1.0"
+  VERSION = "3.0.1"
 end
 # 2.1.0
 # with version 0.2.0 of dm_unibo_search
