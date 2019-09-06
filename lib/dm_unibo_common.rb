@@ -1,3 +1,5 @@
+require "dm_unibo_common/engine"
+
 # rails
 require 'mysql2'
 require 'jquery-rails'
@@ -9,8 +11,8 @@ require 'omniauth'
 require 'omniauth-shibboleth'
 require 'omniauth-google-oauth2'  
 require 'pretender'
+require 'pundit'
 
-# style
 require 'font-awesome-sass'
 
 # self
@@ -21,8 +23,6 @@ require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
 
 module DmUniboCommon
-  class Engine < Rails::Engine
-  end
 end
 
 # http://guides.rubyonrails.org/engines.html
