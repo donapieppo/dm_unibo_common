@@ -16,7 +16,6 @@ module DmUniboCommon
       #   end
       # end
 
-
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
@@ -27,8 +26,6 @@ module DmUniboCommon
             :user_cesia?, :user_cesia!
         end
       end
-
-      protected 
 
       def modal_page
         params[:modal] && params[:modal] == 'yyy'
