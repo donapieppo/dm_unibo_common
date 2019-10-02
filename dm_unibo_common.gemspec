@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'webpacker', '~> 4.0'
 
   s.add_dependency 'mysql2'
-  s.add_dependency 'sassc-rails'
+  s.add_dependency 'sass-rails', '~> 5'
   s.add_dependency 'bootsnap', '>= 1.4.2'
   s.add_dependency 'mini_magick'
 
@@ -47,6 +47,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-sass'
 
   s.add_dependency 'listen', '~> 3'
+  #
+  # Use Active Model has_secure_password
+  # gem 'bcrypt', '~> 3.1.7'
+
+  # Use Active Storage variant
+  # gem 'image_processing', '~> 1.2'
   
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
