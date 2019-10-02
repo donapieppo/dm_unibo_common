@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jbuilder'
 
   # style 
-  s.add_dependency 'simple_form', '~> 4'
+  s.add_dependency 'simple_form', '~> 5'
   s.add_dependency 'bootstrap', '~> 4'
   # s.add_dependency 'bh', '~> 1.3'
   s.add_dependency 'font-awesome-sass'
