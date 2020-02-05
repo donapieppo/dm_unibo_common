@@ -43,11 +43,14 @@ module DmUniboCommon::User
   def is_admin?
     ADMINS.include?(self.upn)
   end
-  alias_method :admin?, :is_admin?
 
   def is_chief?
     self.upn == CHIEF
   end
+
+  alias_method :cesia?, :is_cesia?
+  alias_method :admin?, :is_admin?
+  alias_method :chief?, :is_chief?
 
   # example book with has_and_belongs_to_many
   # user.owns?(book) if book.user_ids.include?(user.id)

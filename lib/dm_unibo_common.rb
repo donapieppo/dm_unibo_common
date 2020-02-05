@@ -19,6 +19,8 @@ require 'font-awesome-sass'
 require 'dm_unibo_common/errors'
 require 'dm_unibo_common/development_mail_interceptor'
 require 'dm_unibo_common/user'
+require 'dm_unibo_common/organization'
+require 'dm_unibo_common/permission'
 require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
 

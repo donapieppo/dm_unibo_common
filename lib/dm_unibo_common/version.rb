@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "3.0.1"
+  VERSION = "4.0.0"
 end
+# 4.0.0
+# new auh and permission in module
 # 2.1.0
 # with version 0.2.0 of dm_unibo_search
 # to resolve bug with search with id_anagrafica_unica for 
