@@ -2,8 +2,8 @@
 module DmUniboCommon
 class Permission < ActiveRecord::Base
 
-  belongs_to :organization
-  belongs_to :user
+  belongs_to :organization, class_name: '::Organization'
+  belongs_to :user, class_name: '::User'
 
   validates :organization, presence: true
   validates :user, presence: true

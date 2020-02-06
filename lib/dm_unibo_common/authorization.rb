@@ -19,7 +19,8 @@ class Authorization
 
     update_authlevels_by_user(@user)
 
-    if @is_cesia and o = Organization.first
+    # FIXME
+    if @is_cesia and o = ::Organization.first
       @authlevels[o.id] = TO_CESIA
     end
   end

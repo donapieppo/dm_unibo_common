@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+DmUniboCommon::Engine.routes.draw do  
   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
   get 'auth/developer/callback',     to: 'logins#developer'
