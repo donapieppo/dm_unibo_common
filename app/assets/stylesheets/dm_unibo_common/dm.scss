@@ -1,6 +1,16 @@
-@import "bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@import '~bootstrap/scss/bootstrap'; // never forget the semicolon at the end
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'; 
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+// @import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700&display=swap");
+
+//@import "bootstrap";
+//@import "font-awesome-sprockets";
+//@import "font-awesome";
 
 html {
   font-size: 14px;
