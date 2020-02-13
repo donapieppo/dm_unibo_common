@@ -1,10 +1,17 @@
 require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
+  # livello di accesso (integer definito in Authentication)
+  attr_accessor :authorization 
+  attr_accessor :current_organization
 
-  # validates :email, uniqueness: {}
-  # validates :upn, uniqueness: {}
-  # default_scope { order("users.surname, users.name") }
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :permissions, class_name: "DmUniboCommon::Permission"
+    validates :email, uniqueness: {}
+    validates :upn, uniqueness: {}
+  end
 
   def cn
     "%s %s" % [self.name, self.surname]
@@ -35,7 +42,7 @@ module DmUniboCommon::User
     self.upn
   end
 
-  # Fast Authorizations
+  # Fast Authorizations if defined CESIA_UPN or ADMINS CHIEF
   def is_cesia?
     CESIA_UPN.include?(self.upn)
   end
@@ -67,9 +74,10 @@ module DmUniboCommon::User
     self.owns?(what) or raise DmUniboCommon::NoAccess
   end
 
-  #
+  # ClassMethods
     
   module ClassMethods
+    # if ADMINS exists
     def admin_mails 
       ADMINS
     end
