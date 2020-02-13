@@ -21,10 +21,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 6.0'
   s.add_dependency 'webpacker', '~> 4.0'
+  s.add_dependency 'bootsnap'
 
   s.add_dependency 'mysql2'
-  s.add_dependency 'sass-rails', '~> 5'
-  s.add_dependency 'bootsnap', '>= 1.4.2'
   s.add_dependency 'mini_magick'
 
   # auth
@@ -40,11 +39,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder'
 
+  s.add_dependency 'dm_unibo_user_search'
+
   # style 
   s.add_dependency 'simple_form', '~> 5'
-  s.add_dependency 'bootstrap', '~> 4'
+  # s.add_dependency 'bootstrap', '~> 4'
   # s.add_dependency 'bh', '~> 1.3'
-  s.add_dependency 'font-awesome-sass'
+  # s.add_dependency 'font-awesome-sass'
 
   s.add_dependency 'listen', '~> 3'
   #
@@ -54,15 +55,10 @@ Gem::Specification.new do |s|
   # Use Active Storage variant
   # gem 'image_processing', '~> 1.2'
   
-  s.add_development_dependency 'sqlite3'
+  # s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_bot_rails'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'spring'
-  s.add_development_dependency 'spring-watcher-listen', '~> 2.0.0'
-
-  # s.add_development_dependency 'selenium-webdriver'
+  s.add_development_dependency 'sqlite3'
 end
 
 # Development dependencies aren't installed by default and aren't activated when a gem is required.
