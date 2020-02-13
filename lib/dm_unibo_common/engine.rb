@@ -1,8 +1,11 @@
 module DmUniboCommon
   class Engine < ::Rails::Engine
-    # This call is responsible for isolating the controllers, models, routes, and other things into their own namespace
     isolate_namespace DmUniboCommon
+
+    config.generators do |g|
+      g.test_framework :rspec
+      g.fixture_replacement :factory_bot
+      g.factory_bot dir: 'spec/factories'
+    end 
   end
 end
-
-
