@@ -1,13 +1,16 @@
 module DmUniboCommon
 class Authorization
-  # authlevels: hash with organization_id as key e authlevel as value.
-  # @authlevel[46] = Authorization::TO_ADMIN 
-  # means that seld.user can admin organization with id=46
-  attr_reader :authlevels
-
   TO_READ   = 1
   TO_MANAGE = 2
   TO_CESIA  = 3
+
+  # @@authlevel[123][46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # means that user 123 can admin organization with id=46
+  attr_reader :authlevels
+
+  # @@authlevel[123][46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # means that user 123 can admin organization with id=46
+  @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
 
   # Authorization depends on client ip and user
   def initialize(client_ip, user)
@@ -15,18 +18,31 @@ class Authorization
     @client_ip = client_ip
     @is_cesia  = CESIA_UPN.include?(@user.upn) 
 
-    @authlevels = Hash.new
+    update_authlevels_cache_by_user(@user)
 
-    update_authlevels_by_user(@user)
+    @authlevels = @@authlevels_cache[@user.id] || {}
+  end
 
-    # FIXME
-    if @is_cesia and o = ::Organization.first
-      @authlevels[o.id] = TO_CESIA
-    end
+  # to clear cache !!!!
+  def self.authlevels_reload!
+    @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
+  end
+
+  def has_authorization?
+    @authlevels.size > 0
+  end
+
+  def multi_organizations?
+    @authlevels.size > 1 
   end
 
   def organizations
     Organization.order(:name).find(@authlevels.keys)
+  end
+
+  def authlevel(o)
+    i = o.is_a?(Organization) ? o.id : o
+    authlevels[i]
   end
 
   # multi_organizations e' false/true se l'utente
@@ -88,13 +104,19 @@ class Authorization
 
   # un user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
-  def update_authlevels_by_user(user)
+  def update_authlevels_cache_by_user(user)
+    return @@authlevels_cache[user.id] if @@authlevels_cache.key?(user.id)
+
     user.permissions.each do |permission|
       if @is_cesia
-        @authlevels[permission.organization_id] = TO_CESIA
+        @@authlevels_cache[user.id][permission.organization_id] = TO_CESIA
       else
-        @authlevels[permission.organization_id] = permission.authlevel.to_i
+        @@authlevels_cache[user.id][permission.organization_id] = permission.authlevel.to_i
       end
+    end
+    # FIXME
+    if @is_cesia and o = ::Organization.first
+      @@authlevels_cache[user.id][o.id] = TO_CESIA
     end
   end
 end

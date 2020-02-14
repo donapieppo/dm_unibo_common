@@ -19,11 +19,10 @@ module DmUniboCommon
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
-          base.helper_method :modal_page, :current_user, 
-            :user_signed_in?, 
-            :user_owns?,  :user_owns!, 
-            :user_admin?, :user_admin!, 
-            :user_cesia?, :user_cesia!
+          base.helper_method :modal_page, :current_user, :user_signed_in?, 
+                             :user_owns?,  :user_owns!, 
+                             :user_admin?, :user_admin!, 
+                             :user_cesia?, :user_cesia!
         end
       end
 
@@ -87,6 +86,12 @@ module DmUniboCommon
       def shibapplicationid
         "_shibsession_" + ENV['Shib-Application-ID'].to_s
       end 
+
+      def retrive_authlevels
+        if current_user
+          current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user)
+        end
+      end
 
       #
       # PERMISSIONS

@@ -1,7 +1,7 @@
 require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
-  # livello di accesso (integer definito in Authentication)
+  # DmUniboCommon::Authorization: livello di accesso
   attr_accessor :authorization 
   attr_accessor :current_organization
 
