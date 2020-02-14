@@ -5,6 +5,8 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 require "dm_unibo_common"
 
+CESIA_UPN=['pietro.donatini@unibo.it']
+
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
