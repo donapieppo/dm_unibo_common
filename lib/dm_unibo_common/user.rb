@@ -9,8 +9,8 @@ module DmUniboCommon::User
 
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
-    validates :email, uniqueness: {}
-    validates :upn, uniqueness: {}
+    validates :email, uniqueness: { case_sensitive: false }
+    validates :upn, uniqueness: { case_sensitive: false }
   end
 
   def cn
