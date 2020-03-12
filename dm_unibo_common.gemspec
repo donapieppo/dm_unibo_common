@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootsnap'
 
   s.add_dependency 'mysql2'
+  s.add_dependency 'sqlite3'
   s.add_dependency 'mini_magick'
 
   # auth
@@ -48,6 +49,7 @@ Gem::Specification.new do |s|
   # s.add_dependency 'font-awesome-sass'
 
   s.add_dependency 'listen', '~> 3'
+
   #
   # Use Active Model has_secure_password
   # gem 'bcrypt', '~> 3.1.7'
