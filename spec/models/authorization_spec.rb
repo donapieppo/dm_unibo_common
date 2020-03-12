@@ -21,7 +21,7 @@ RSpec.describe Authorization, type: :model do
   context "when user has auth 1 in org1" do
     let!(:permission) { FactoryBot.create(:permission, user: user, organization: org1, authlevel: 1) }
 
-    it "gives authlevel(org1) 1" do
+    it ".authlevel(org1) equals 1" do
       expect(Authorization.new('123.123.123.123', user).authlevel(org1)).to eq(1)
     end
 
@@ -38,17 +38,17 @@ RSpec.describe Authorization, type: :model do
     let!(:permission1) { FactoryBot.create(:permission, user: user, organization: org1, authlevel: 1) }
     let!(:permission2) { FactoryBot.create(:permission, user: user, organization: org2, authlevel: 2) }
 
-    it "gives authlevels[org1.id] 1 and authlevels[org2.id] 2" do
+    it ".authlevels[org1.id] eq 1 and .authlevels[org2.id] eq 2" do
       expect(Authorization.new('123.123.123.123', user).authlevels[org1.id]).to eq(1)
       expect(Authorization.new('123.123.123.123', user).authlevels[org2.id]).to eq(2)
     end
 
-    it "gives authlevel(org1) 1 and authlevel(org2) 2" do
+    it ".authlevel(org1) eq 1 and .authlevel(org2) eq 2" do
       expect(Authorization.new('123.123.123.123', user).authlevel(org1)).to eq(1)
       expect(Authorization.new('123.123.123.123', user).authlevel(org2)).to eq(2)
     end
 
-    it "gives authlevel(org1.id) 1" do
+    it ".authlevel(org1.id) eq 1" do
       expect(Authorization.new('123.123.123.123', user).authlevel(org1.id)).to eq(1)
     end
 
