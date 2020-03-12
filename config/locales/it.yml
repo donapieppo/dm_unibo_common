@@ -14,6 +14,7 @@ it:
       short: ! '%d %b'
       date_picker: "%d/%m/%Y"
       datetime_html5: ! "%Y-%m-%d"
+      date_html5: ! "%Y-%m-%d"
       datetime_picker: ! "%d/%m/%Y %H:%M"
       with_day_name: '%A %d %B %Y'
     abbr_day_names:
@@ -210,6 +211,7 @@ it:
       short:   ! '%d %b %H:%M'
       date_picker: ! "%d/%m/%Y"
       datetime_html5: ! "%Y-%m-%d"
+      date_html5: ! "%Y-%m-%d"
       hour_picker: "%H"
       min_picker: "%M"
       datetime_picker: "%d/%m/%Y %H:%M"
