@@ -1,7 +1,6 @@
-<%= main_title("ciao") %>  
-<h1>Amministratori</h1>
+<%= main_title("Amministratori") %>  
 
-<% Organization.find_each do |organization| %>  
+<% @organizations.each do |organization| %>  
   <h2 class="mt-3"><%= organization %></h2>
   <ul class="list-group my-3">
     <% organization.permissions.each do |p|%>  
@@ -13,7 +12,7 @@
     <% end %>
   </ul>
   <div style="text-align: center">
-    <%= link_to_new 'Nuovo utente amministratore', new_permission_path(organization_id: organization.id) %>  
+    <%= link_to_new 'Nuovo utente amministratore', new_organization_permission_path(organization.id) %>  
   </div>
 <% end %>
 

@@ -2,7 +2,8 @@ class DmUniboCommon::PermissionsController < ApplicationController
   before_action :check_cesia!
 
   def index
-    authorize :permission
+    @organizations = Organization.order(:name)
+    authorize :permission, policy_class: DmUniboCommon::PermissionPolicy
   end
 
   def new
