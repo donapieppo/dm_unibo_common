@@ -1,7 +1,7 @@
 module DmUniboCommon::Organization
 
   def to_s
-    self.name.upcase + " " + self.description.upcase
+   "#{self.name} #{self.description}".upcase
   end
 
   def short_description
