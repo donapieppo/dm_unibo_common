@@ -10,6 +10,14 @@ Rails.application.routes.draw do
   get 'impersonate/:id',    to: 'impersonations#impersonate',        as: :impersonate
   get 'stop_impersonating', to: 'impersonations#stop_impersonating', as: :stop_impersonating
 
+  resources :users
+  resources :permissions
+  resources :organizations
+
+  resources :organizations do
+    resources :permissions
+  end
+
   get 'helps/index', to: 'helps#index', as: :helps
 end
 
