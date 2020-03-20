@@ -10,17 +10,18 @@ class DmUniboCommon::OrganizationsController < ApplicationController
   # *** okkio all'@organization in sessione che compare in hedaer della pagina ***
   def new
     @organization = Organization.new
-    authorize @organization
+    authorize @organization, policy_class: DmUniboCommon::OrganizationPolicy
   end
 
-  # def create
-  #   @organization = Organization.new(organization_params)
-  #   if @organization.save
-  #     redirect_to organizations_path, notice: 'La struttura è stata creata.' 
-  #   else
-  #     render action: :new
-  #   end
-  # end
+  def create
+    @organization = Organization.new(organization_params)
+    authorize @organization, policy_class: DmUniboCommon::OrganizationPolicy
+    if @organization.save
+      redirect_to organizations_path, notice: 'La struttura è stata creata.' 
+    else
+      render action: :new
+    end
+  end
 
   # def edit
   # end
