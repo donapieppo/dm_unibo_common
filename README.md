@@ -86,10 +86,12 @@ class DmUniboCommon::Authorization
 and are configured in ApplicationController with retrive_authlevels
 
 ```ruby
- before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user, :retrive_authlevels
+ before_action :log_current_user, :set_locale, :set_organization, :update_current_user_authlevels
 ```
 
 (under the curtains current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user))
+
+
 
 
 
