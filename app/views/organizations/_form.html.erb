@@ -3,6 +3,7 @@
   <% if current_user.is_cesia? %>  
     <%= o.input :name %>
     <%= o.input :description, as: :text %>
+    <%= o.submit %>
   <% end %>
 <% end %>
 
