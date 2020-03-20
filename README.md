@@ -63,7 +63,7 @@ DmUniboCommon implements google_oauth2 and shibboleth authentication.
 
 # How to use in your rails project
 
-In your app:
+In your app
 
 ```ruby
 class User < ApplicationRecord 
@@ -83,14 +83,22 @@ User ha authorizations that comes from
 class DmUniboCommon::Authorization
 ```
 
-and are configured in ApplicationController with retrive_authlevels
+and are configured in ApplicationController with update_current_user_authlevels
 
 ```ruby
  before_action :log_current_user, :set_locale, :set_organization, :update_current_user_authlevels
 ```
 
-(under the curtains current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user))
+(under the curtains current_user.authorization = DmUniboCommon::Authorization.new(ip, self))
 
+DmUniboCommon::Authorization dives the next methods:
+
+
+    - has_authorization? -> true/false (has some organziation with some level of access?)
+    - multi_organizations? -> true/false (has more than one organization with some level of access?)
+    - organizations -> array of organizations where user has some level of access 
+    - authlevel(org) -> int (level of authorization in organization)
+    -  
 
 
 
