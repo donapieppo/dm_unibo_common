@@ -88,9 +88,7 @@ module DmUniboCommon
       end 
 
       def update_current_user_authlevels
-        if current_user
-          current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user)
-        end
+        current_user.update_authorization_by_ip(request.remote_ip) if current_user
       end
 
       # no security hidden. 
@@ -102,7 +100,7 @@ module DmUniboCommon
         # fallback to default organization
         session[:oid] ||= 1
 
-        @current_organization = Organization.find(session[:oid].to_i)
+        @current_organization = ::Organization.find(session[:oid].to_i)
         if current_user
           current_user.current_organization = @current_organization
         end
