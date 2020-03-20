@@ -2,7 +2,7 @@ require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
   # DmUniboCommon::Authorization: livello di accesso
-  attr_accessor :authorization 
+  attr_reader :authorization 
   attr_accessor :current_organization
 
   extend ActiveSupport::Concern
@@ -11,6 +11,10 @@ module DmUniboCommon::User
     has_many :permissions, class_name: "DmUniboCommon::Permission"
     validates :email, uniqueness: { case_sensitive: false }
     validates :upn, uniqueness: { case_sensitive: false }
+  end
+
+  def update_authorization_by_ip(ip)
+    @authorization = DmUniboCommon::Authorization.new(ip, self)
   end
 
   def cn
