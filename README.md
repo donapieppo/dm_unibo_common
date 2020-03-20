@@ -59,8 +59,42 @@ and load in `config/application.rb` with
 config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
 ```
 
+DmUniboCommon implements google_oauth2 and shibboleth authentication.
 
-We implement google_oauth2 and shibboleth authentication.
+# How to use in your rails project
+
+In your app:
+
+```ruby
+class User < ApplicationRecord 
+  include DmUniboCommon::User
+```
+
+```ruby
+class Organization < ApplicationRecord
+  include DmUniboCommon::Organization
+
+  has_many :permissions, class_name: "DmUniboCommon::Permission"
+```
+
+User ha authorizations that comes from 
+
+```
+class DmUniboCommon::Authorization
+```
+
+and are configured in ApplicationController with retrive_authlevels
+
+```ruby
+ before_action :log_current_user, :set_locale, :set_organization, :redirect_unsigned_user, :retrive_authlevels
+```
+
+(under the curtains current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user))
+
+
+
+
+
 
 
 
