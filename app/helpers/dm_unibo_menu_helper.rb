@@ -3,11 +3,11 @@ module DmUniboMenuHelper
   # example user_google_oauth2_omniauth_authorize_path
   def login_link
     url = send('auth_' + Rails.configuration.dm_unibo_common[:omniauth_provider].to_s + '_callback_path')
-    link_to image_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
+    link_to image_pack_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
   end
 
   def logout_link
-    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
+    link_to image_pack_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
             Rails.configuration.dm_unibo_common[:logout_link]
   end
 
@@ -33,7 +33,7 @@ module DmUniboMenuHelper
   def dm_header(dm_header_title: Rails.configuration.header_title, dm_header_subtitle: Rails.configuration.header_subtitle)
     string = (dm_header_title) + content_tag(:small, dm_header_subtitle)
 
-    link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
+    link_to(image_pack_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand navbar-image') +
     link_to(big_dmicon(Rails.configuration.header_icon), root_path, class: 'navbar-brand navbar-icon') +
     link_to(string.html_safe, root_path, class: 'navbar-brand') 
   end
