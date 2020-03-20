@@ -11,6 +11,14 @@ class OrganizationPolicy
     @user && @user.cesia?
   end
 
+  def new?
+    create?
+  end
+
+  def create?
+    @user && @user.cesia?
+  end
+
   def show?
     @user && @user.cesia?
   end
