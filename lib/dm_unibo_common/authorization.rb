@@ -29,11 +29,12 @@ class Authorization
   end
 
   def has_authorization?
-    @authlevels.size > 0
+    @authlevels && @authlevels.size > 0
   end
-
+  
+  # multi_organizations?: false/true if user has access to more than one organization
   def multi_organizations?
-    @authlevels.size > 1 
+    @authlevels && @authlevels.size > 1 
   end
 
   def organizations
@@ -42,17 +43,7 @@ class Authorization
 
   def authlevel(o)
     i = o.is_a?(Organization) ? o.id : o
-    authlevels[i]
-  end
-
-  # multi_organizations e' false/true se l'utente
-  # ha accesso ad una sola struttura o a piu' 
-  def multi_organizations?
-    @authlevels and @authlevels.size > 1 
-  end
-
-  def get_authlevel_for_organization(organization)
-    @authlevels[organization.id]
+    @authlevels[i]
   end
 
   def first_organization_id
@@ -71,6 +62,7 @@ class Authorization
     end
   end
 
+  # TO_CESIA only by file configuration 
   def self.all_level_list
     [TO_READ, TO_MANAGE]
   end
