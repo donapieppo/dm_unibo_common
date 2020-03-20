@@ -87,11 +87,27 @@ module DmUniboCommon
         "_shibsession_" + ENV['Shib-Application-ID'].to_s
       end 
 
-      def retrive_authlevels
+      def update_current_user_authlevels
         if current_user
           current_user.authorization = DmUniboCommon::Authorization.new(request.remote_ip, current_user)
         end
       end
+
+      # no security hidden. 
+      # We set organization with params[:__org__] as organization_id in config/routes
+      def set_organization
+        if params[:__org__]
+          session[:oid] = params[:__org__].to_i 
+        end
+        # fallback to default organization
+        session[:oid] ||= 1
+
+        @current_organization = Organization.find(session[:oid].to_i)
+        if current_user
+          current_user.current_organization = @current_organization
+        end
+      end
+
 
       #
       # PERMISSIONS
