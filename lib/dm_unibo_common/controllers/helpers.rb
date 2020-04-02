@@ -78,7 +78,7 @@ module DmUniboCommon
 
       def redirect_unsigned_user
         if ! user_signed_in?
-          redirect_to root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
+          redirect_to main_app.root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
           return
         end
       end
@@ -92,15 +92,12 @@ module DmUniboCommon
       end
 
       # no security hidden. 
-      # We set organization with params[:__org__] as organization_id in config/routes
+      # ?__org__=mat
+      # or /mat/seminars
       def set_organization
         if params[:__org__]
-          session[:oid] = params[:__org__].to_i 
+          @current_organization = ::Organization.find_by_code(params[:__org__])
         end
-        # fallback to default organization
-        session[:oid] ||= 1
-
-        @current_organization = ::Organization.find(session[:oid].to_i)
         if current_user
           current_user.current_organization = @current_organization
         end

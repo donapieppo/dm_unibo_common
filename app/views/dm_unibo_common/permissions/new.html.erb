@@ -1,4 +1,5 @@
-<%= dm_form_for [@organization, @permission], title: 'Nuovo amministratore' do |p| %>  
+<h1><%= @organization %></h1>
+<%= dm_form_for [@organization, @permission], title: "New permission" do |p| %>  
   <%= p.association :user, collection: @users, label_method: :cn_militar %>  
   <% collection = DmUniboCommon::Authorization.all_level_list.map {|x| [DmUniboCommon::Authorization.level_description(x), x] } %>
   <%= p.input :authlevel, as: :radio_buttons, collection: collection %>  

@@ -36,13 +36,13 @@ module DmUniboLinkHelper
     if (current_user == true_user)
       "" 
     else
-      "You (#{h true_user.upn}) are impersonating <strong>#{h current_user.upn}</strong><br/> #{link_to fwdmicon('reply') + " back to admin", stop_impersonating_path}".html_safe
+      "You (#{h true_user.upn}) are impersonating <strong>#{h current_user.upn}</strong><br/> #{link_to fwdmicon('reply') + " back to admin", dm_unibo_common.stop_impersonating_path}".html_safe
     end
   end
 
   def start_impersonation_link
     if true_user_can_impersonate?
-      link_to fwdmicon('user') + " impersona", who_impersonate_path
+      link_to fwdmicon('user') + " impersona", dm_unibo_common.who_impersonate_path
     end
   end
 

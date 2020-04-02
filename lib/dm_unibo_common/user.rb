@@ -1,7 +1,7 @@
 require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
-  # DmUniboCommon::Authorization: livello di accesso
+  # DmUniboCommon::Authorization: access levels based on organization
   attr_reader :authorization 
   attr_accessor :current_organization
 

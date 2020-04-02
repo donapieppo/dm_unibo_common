@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+DmUniboCommon::Engine.routes.draw do
   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
   get 'auth/developer/callback',     to: 'logins#developer'
@@ -17,6 +17,13 @@ Rails.application.routes.draw do
   resources :organizations do
     resources :permissions
   end
+ 
+  # example: with https://example.it/math your working on
+  # Organization.find_by_code('math')
+  # restart app after adding new organization
+  #Organization.find_each do |o|
+  #  get o.code, to: "home#index", __org__: o.code
+  #end
 
   get 'helps/index', to: 'helps#index', as: :helps
 end

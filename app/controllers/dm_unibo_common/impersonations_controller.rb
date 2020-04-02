@@ -1,10 +1,10 @@
-class ImpersonationsController < ApplicationController
+class DmUniboCommon::ImpersonationsController < ApplicationController
   def who_impersonate
     if true_user_can_impersonate?
       @users = User.order(:surname)
       @main_users = User.where(upn: Rails.configuration.dm_unibo_common[:main_impersonations] || [])
     else
-      redirect_to root_path and return 
+      redirect_to main_app.root_path and return 
     end
   end
 
@@ -15,14 +15,14 @@ class ImpersonationsController < ApplicationController
       session[:new_impersonation] = true
       impersonate_user(user)
     end
-    redirect_to root_path and return
+    redirect_to main_app.root_path and return
   end
 
   # do not require admin for this method if access control
   # is performed on the current_user instead of true_user
   def stop_impersonating
     stop_impersonating_user
-    redirect_to root_path and return
+    redirect_to main_app.root_path and return
   end
 
   private 
