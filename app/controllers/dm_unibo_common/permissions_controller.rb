@@ -1,5 +1,4 @@
 class DmUniboCommon::PermissionsController < ApplicationController
-  before_action :check_cesia!
 
   def index
     @organizations = Organization.order(:name)
@@ -15,7 +14,7 @@ class DmUniboCommon::PermissionsController < ApplicationController
   end
 
   def create
-    @organization = ::Organization.find(params[:permission][:organization_id])
+    @organization = ::Organization.find(params[:organization_id])
     @permission = @organization.permissions.new(user_id: params[:permission][:user_id], 
                                                 authlevel: params[:permission][:authlevel])
     authorize @permission
