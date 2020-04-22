@@ -28,8 +28,8 @@ class Authorization
     @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
   end
 
-  def has_authorization?
-    @authlevels && @authlevels.size > 0
+  def any?
+    @authlevels.any?
   end
   
   # multi_organizations?: false/true if user has access to more than one organization
@@ -38,11 +38,11 @@ class Authorization
   end
 
   def organizations
-    Organization.order(:name).find(@authlevels.keys)
+    ::Organization.order(:name).find(@authlevels.keys)
   end
 
   def authlevel(o)
-    i = o.is_a?(Organization) ? o.id : o
+    i = o.is_a?(::Organization) ? o.id : o
     @authlevels[i]
   end
 
@@ -68,12 +68,12 @@ class Authorization
   end
 
   def can_read?(oid)
-    oid = oid.id if oid.is_a?(Organization)
+    oid = oid.id if oid.is_a?(::Organization)
     @authlevels[oid] && @authlevels[oid] >= TO_READ
   end
 
   def can_manage?(oid)
-    oid = oid.id if oid.is_a?(Organization)
+    oid = oid.id if oid.is_a?(::Organization)
     @authlevels[oid] && @authlevels[oid] >= TO_MANAGE
   end
 
