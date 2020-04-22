@@ -1,6 +1,12 @@
 require_dependency "dm_unibo_common/application_record"
 
-# user_id, organization_id, authlevel
+# user_id
+# organization_id
+# authlevel in DmUniboCommon::Authorization.all_level_list
+#   class Authorization
+#     TO_READ   = 1
+#     TO_MANAGE = 2
+#     TO_CESIA  = 3
 module DmUniboCommon
 class Permission < ApplicationRecord
   belongs_to :organization, class_name: '::Organization'
