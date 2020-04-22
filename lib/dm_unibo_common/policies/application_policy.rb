@@ -7,16 +7,16 @@ class ApplicationPolicy
     @record = record
   end
 
-  def record_owner?
+  def owner?
     @user && @record.user_id == @user.id
   end
 
-  def organization_manager?
+  def record_organization_manager?
     @user && @user.authorization.can_manage?(@record.organization_id)
   end
 
-  def owner_or_organization_manager?
-    organization_manager? || record_owner?
+  def owner_or_record_organization_manager?
+    record_organization_manager? || owner?
   end
 
   def index?
