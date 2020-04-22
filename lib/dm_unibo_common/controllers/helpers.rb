@@ -20,9 +20,9 @@ module DmUniboCommon
         base.extend Helpers
         if base.respond_to? :helper_method
           base.helper_method :modal_page, :current_user, :user_signed_in?, 
-                             :user_owns?,  :user_owns!, 
-                             :user_admin?, :user_admin!, 
-                             :user_cesia?, :user_cesia!
+                             :current_user_owns?,  :current_user_owns!, 
+                             :current_user_admin?, :current_user_admin!, 
+                             :current_user_cesia?, :current_user_user_cesia!
         end
       end
 
@@ -97,7 +97,10 @@ module DmUniboCommon
       def set_organization
         if params[:__org__]
           @current_organization = ::Organization.find_by_code(params[:__org__])
+        elsif current_user
+          @current_organization = current_user.authorization.organizations.first if current_user.has_some_authorization?
         end
+
         if current_user
           current_user.current_organization = @current_organization
         end
@@ -108,27 +111,27 @@ module DmUniboCommon
       # PERMISSIONS
       #
 
-      def user_owns?(what)
-        current_user and current_user.owns?(what)
+      def current_user_owns?(what)
+        current_user && current_user.owns?(what)
       end
 
-      def user_owns!(what)
-        user_owns?(what) or raise DmUniboCommon::NoAccess
+      def current_user_owns!(what)
+        current_user_owns?(what) or raise DmUniboCommon::NoAccess
       end
 
-      def user_admin?
-        current_user and current_user.is_admin? 
+      def current_user_admin?
+        current_user && current_organization && current_user.authorization.can_manage?(current_organization)
       end
 
-      def user_admin!
-        user_admin? or raise DmUniboCommon::NoAccess
+      def current_user_admin!
+        current_user_admin? or raise DmUniboCommon::NoAccess
       end
 
-      def user_cesia?
+      def current_user_cesia?
         current_user and current_user.is_cesia? 
       end
 
-      def user_cesia!
+      def current_user_cesia!
         user_cesia? or raise DmUniboCommon::NoAccess
       end
     end
