@@ -19,7 +19,8 @@ module DmUniboCommon
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
-          base.helper_method :modal_page, :current_user, :user_signed_in?, 
+          base.helper_method :modal_page, 
+                             :current_user, :user_signed_in?, :current_organization,  
                              :current_user_owns?,  :current_user_owns!, 
                              :current_user_admin?, :current_user_admin!, 
                              :current_user_cesia?, :current_user_user_cesia!
@@ -36,6 +37,10 @@ module DmUniboCommon
 
       def user_signed_in?
         !!current_user
+      end
+
+      def current_organization
+        @_current_organization
       end
 
       # FIXME da pensare
@@ -63,11 +68,11 @@ module DmUniboCommon
           session[:original_request] = request.fullpath
 
           if Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
-            redirect_to auth_google_oauth2_callback_path and return 
+            redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return 
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
-            redirect_to auth_shibboleth_callback_path and return 
+            redirect_to dm_unibo_common.auth_shibboleth_callback_path and return 
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer 
-            redirect_to auth_developer_callback_path and return
+            redirect_to dm_unibo_common.auth_developer_callback_path and return
           else
             raise "problem in omniauth provider (not in :google_oauth2, :shibboleth, :developer)"
           end
@@ -96,13 +101,9 @@ module DmUniboCommon
       # or /mat/seminars
       def set_organization
         if params[:__org__]
-          @current_organization = ::Organization.find_by_code(params[:__org__])
+          @_current_organization = ::Organization.find_by_code(params[:__org__])
         elsif current_user
-          @current_organization = current_user.authorization.organizations.first if current_user.has_some_authorization?
-        end
-
-        if current_user
-          current_user.current_organization = @current_organization
+          @_current_organization = current_user.authorization.organizations.first if current_user.has_some_authorization?
         end
       end
 
