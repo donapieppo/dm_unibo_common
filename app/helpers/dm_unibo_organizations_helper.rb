@@ -1,9 +1,9 @@
 module DmUniboOrganizationsHelper 
   def check_organization!(obj)
     if (obj.is_a?(Integer))
-      (obj == @current_organization.id) or raise DmUniboCommon::MismatchOrganization, "Struttura Sbagliata"
+      (obj == current_organization.id) or raise DmUniboCommon::MismatchOrganization, "Struttura Sbagliata"
     else
-      (obj.organization_id == @current_organization.id) or raise DmUniboCommon::MismatchOrganization, "Struttura Sbagliata"
+      (obj.organization_id == current_organization.id) or raise DmUniboCommon::MismatchOrganization, "Struttura Sbagliata"
     end
   end
 
