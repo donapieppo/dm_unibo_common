@@ -1,7 +1,10 @@
 require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
-  # DmUniboCommon::Authorization: access levels based on organization
+  # DmUniboCommon::Authorization (access levels to organizations)
+  # To be set from controller with update_authorization_by_ip(request.remote_ip)
+  # DmUniboCommon provides a helper
+  # before_action :update_current_user_authlevels
   attr_reader :authorization 
   attr_accessor :current_organization
 
@@ -15,6 +18,10 @@ module DmUniboCommon::User
 
   def update_authorization_by_ip(ip)
     @authorization = DmUniboCommon::Authorization.new(ip, self)
+  end
+
+  def has_some_authorization?
+    @authorization && @authorization.any?
   end
 
   def cn
@@ -46,23 +53,11 @@ module DmUniboCommon::User
     self.upn
   end
 
-  # Fast Authorizations if defined CESIA_UPN or ADMINS CHIEF
+  # Fast Authorizations if defined CESIA_UPN 
   def is_cesia?
     CESIA_UPN.include?(self.upn)
   end
  
-  def is_admin?
-    ADMINS.include?(self.upn)
-  end
-
-  def is_chief?
-    self.upn == CHIEF
-  end
-
-  alias_method :cesia?, :is_cesia?
-  alias_method :admin?, :is_admin?
-  alias_method :chief?, :is_chief?
-
   # example book with has_and_belongs_to_many
   # user.owns?(book) if book.user_ids.include?(user.id)
   def owns?(what)
