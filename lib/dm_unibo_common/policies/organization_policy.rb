@@ -1,26 +1,14 @@
-module DmUniboCommon
-class OrganizationPolicy 
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
+class DmUniboCommon::OrganizationPolicy < DmUniboCommon::ApplicationPolicy
   def index?
-    @user && @user.cesia?
-  end
-
-  def new?
-    create?
-  end
-
-  def create?
-    @user && @user.cesia?
+    @user && @user.is_cesia?
   end
 
   def show?
-    @user && @user.cesia?
+    @user && @user.is_cesia?
+  end
+
+  def create?
+    @user && @user.is_cesia?
   end
 
   def read?
@@ -30,5 +18,4 @@ class OrganizationPolicy
   def manage?
     @user && @user.authorization.can_manage?(@record)
   end
-end
 end
