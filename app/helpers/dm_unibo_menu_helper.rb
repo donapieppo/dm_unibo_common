@@ -1,8 +1,18 @@
 module DmUniboMenuHelper
 
-  # example user_google_oauth2_omniauth_authorize_path
+  # DmUniboCommon::Engine.routes.url_helpers.send("auth_shibboleth_callback_path") => "/dm_unibo_common/auth/shibboleth/callback" 
+  # Rails.application.routes.url_helpers.send('dm_unibo_common.auth_shibboleth_callback_path') -> undefined method `dm_unibo_common.auth_shibboleth_callback_path' 
+  # dm_unibo_common.auth_shibboleth_callback_path.inspect -> "/seminari/dm_unibo_common/auth/shibboleth/callback" 
+  # root_path -> seminari
   def login_link
-    url = send('auth_' + Rails.configuration.dm_unibo_common[:omniauth_provider].to_s + '_callback_path')
+    url = case Rails.configuration.dm_unibo_common[:omniauth_provider]
+    when :shibboleth
+      dm_unibo_common.auth_shibboleth_callback_path
+    when :google_oauth2
+      dm_unibo_common.auth_google_oauth2_callback_path
+    when :developer
+      dm_unibo_common.auth_developer_callback_path
+    end
     link_to image_pack_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
   end
 
