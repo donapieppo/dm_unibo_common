@@ -6,4 +6,5 @@ RSpec.describe Organization, type: :model do
   it "first test" do
     p subject
   end
+
 end
