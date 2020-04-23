@@ -1,4 +1,8 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
+  configure do |config|
+    config.path_prefix = '/dm_unibo_common/auth'
+  end
+
   # donatini
   # :request_type => 'header' necessario con passenger 5 che non setta piu' in env
   # "eppn"=>"pippo.pluto@unibo.it" etc etc
