@@ -12,8 +12,8 @@ module DmUniboCommon::User
 
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
-    validates :email, uniqueness: { case_sensitive: false }
-    validates :upn, uniqueness: { case_sensitive: false }
+    validates :email, uniqueness: { case_sensitive: false }, allow_blank: true 
+    validates :upn, uniqueness: { case_sensitive: false }, allow_blank: true 
   end
 
   def update_authorization_by_ip(ip)
