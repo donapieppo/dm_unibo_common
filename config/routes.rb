@@ -26,5 +26,9 @@ DmUniboCommon::Engine.routes.draw do
   #end
 
   get 'helps/index', to: 'helps#index', as: :helps
+
+  # remember !!!!
+  # scope ":__org__" do
+  #   get '/', to: 'home#index', as: 'current_organization_root'
 end
 
