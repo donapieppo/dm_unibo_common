@@ -23,7 +23,8 @@ module DmUniboCommon
                              :current_user, :user_signed_in?, :current_organization,  
                              :current_user_owns?,  :current_user_owns!, 
                              :current_user_admin?, :current_user_admin!, 
-                             :current_user_cesia?, :current_user_user_cesia!
+                             :current_user_cesia?, :current_user_user_cesia!,
+                             :current_user_has_some_authorization?, :current_user_possible_organizations 
         end
       end
 
@@ -102,8 +103,10 @@ module DmUniboCommon
       def set_organization
         if params[:__org__]
           @_current_organization = ::Organization.find_by_code(params[:__org__])
-        elsif current_user
-          @_current_organization = current_user.authorization.organizations.first if current_user.has_some_authorization?
+        elsif current_user_has_some_authorization?
+          @_current_organization = current_user.authorization.organizations.first 
+        else
+          @_current_organization = ::Organization.find_by_code('mat')
         end
       end
 
@@ -111,6 +114,14 @@ module DmUniboCommon
       #
       # PERMISSIONS
       #
+
+      def current_user_has_some_authorization?
+        current_user && current_user.authorization && current_user.authorization.any?
+      end
+      
+      def current_user_possible_organizations
+        (current_user && current_user.authorization) ? current_user.authorization.organizations : []
+      end
 
       def current_user_owns?(what)
         current_user && current_user.owns?(what)

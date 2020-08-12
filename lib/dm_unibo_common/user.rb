@@ -20,10 +20,6 @@ module DmUniboCommon::User
     @authorization = DmUniboCommon::Authorization.new(ip, self)
   end
 
-  def has_some_authorization?
-    @authorization && @authorization.any?
-  end
-
   def cn
     "%s %s" % [self.name, self.surname]
   end
