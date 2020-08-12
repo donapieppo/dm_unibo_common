@@ -4,7 +4,10 @@ module DmUniboCommon::Organization
 
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
-    validates :name, uniqueness: { case_sensitive: false, message: "Esiste già una struttura con lo stesso nome." }
+    validates :code, uniqueness: { case_sensitive: false, message: "Esiste già una struttura con lo stesso nome." }
+    validates :code, presence: {}
+    validates :name, uniqueness: { case_sensitive: false, message: "Esiste già una struttura con lo stesso codice." }
+    validates :name, presence: {}
   end
 
   def to_s
