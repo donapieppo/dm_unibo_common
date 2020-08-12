@@ -110,7 +110,7 @@ class DmUniboCommon::LoginsController < ApplicationController
   end
 
   def allow_and_create
-    user = @idAnagraficaUnica ? User.where(id: @idAnagraficaUnica).first : User.where(email: @email).first
+    user = @idAnagraficaUnica ? ::User.where(id: @idAnagraficaUnica).first : ::User.where(email: @email).first
     if ! user
       logger.info "Authentication: User #{@email} to be CREATED"
       h = {id:      @idAnagraficaUnica || 0,
@@ -118,8 +118,8 @@ class DmUniboCommon::LoginsController < ApplicationController
            email:   @email,
            name:    @name, 
            surname: @surname }
-      h[:nationalpin] = @nationalpin if User.column_names.include?('nationalpin')
-      user = User.create!(h)
+      h[:nationalpin] = @nationalpin if ::User.column_names.include?('nationalpin')
+      user = ::User.create!(h)
     end
     logger.info "Authentication: allow_and_create as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
     sign_in_and_redirect user
@@ -127,7 +127,7 @@ class DmUniboCommon::LoginsController < ApplicationController
   alias_method :log_and_create, :allow_and_create # old syntax 
 
   def allow_if_email
-    user = @idAnagraficaUnica ? User.where(id: @idAnagraficaUnica).first : User.where(email: @email).first
+    user = @idAnagraficaUnica ? ::User.where(id: @idAnagraficaUnica).first : ::User.where(email: @email).first
     if user
       logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
       user.update_attributes(name: @name, surname: @surname)
