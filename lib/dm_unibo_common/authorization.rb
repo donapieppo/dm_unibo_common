@@ -4,7 +4,7 @@ class Authorization
   TO_MANAGE = 2
   TO_CESIA  = 3
 
-  # @@authlevel[123][46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # @authlevels[46] = DmUniboCommon::Authorization::TO_ADMIN 
   # means that user 123 can admin organization with id=46
   attr_reader :authlevels
 
@@ -17,10 +17,15 @@ class Authorization
     @user      = user
     @client_ip = client_ip
     @is_cesia  = CESIA_UPN.include?(@user.upn) 
+    @authlevels_cache_key = "#{user.id}:#{client_ip}"
 
-    update_authlevels_cache_by_user(@user)
+    update_authlevels_cache
 
-    @authlevels = @@authlevels_cache[@user.id] || {}
+    @authlevels = @@authlevels_cache[@authlevels_cache_key] || {}
+  end
+
+  def authlevels_cache_key(client_ip, user)
+    "#{user.id}:#{client_ip}"
   end
 
   # to clear cache !!!!
@@ -94,21 +99,21 @@ class Authorization
   def update_authlevels_by_network(net)
   end
 
-  # un user puo' essere in diverse organizations con diversi authlevels
+  # uno user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
-  def update_authlevels_cache_by_user(user)
-    return @@authlevels_cache[user.id] if @@authlevels_cache.key?(user.id)
+  def update_authlevels_cache
+    return @@authlevels_cache[@authlevels_cache_key] if @@authlevels_cache.key?(@authlevels_cache_key)
 
-    user.permissions.each do |permission|
+    @user.permissions.each do |permission|
       if @is_cesia
-        @@authlevels_cache[user.id][permission.organization_id] = TO_CESIA
+        @@authlevels_cache[@authlevels_cache_key][permission.organization_id] = TO_CESIA
       else
-        @@authlevels_cache[user.id][permission.organization_id] = permission.authlevel.to_i
+        @@authlevels_cache[@authlevels_cache_key][permission.organization_id] = permission.authlevel.to_i
       end
     end
     # FIXME
     if @is_cesia and o = ::Organization.first
-      @@authlevels_cache[user.id][o.id] = TO_CESIA
+      @@authlevels_cache[@authlevels_cache_key][o.id] = TO_CESIA
     end
   end
 end
