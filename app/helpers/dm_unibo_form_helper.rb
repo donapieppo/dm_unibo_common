@@ -14,7 +14,7 @@ module DmUniboFormHelper
   end
 
   def dm_form_for(record, options={}, &block)
-    title = options[:title] || @dm_form_title || dm_form_default_title(record)
+    title = options.delete(:title) || @dm_form_title || dm_form_default_title(record)
     content_tag :div, class: "dm-form" do
       concat(content_tag(:div, title, class: "dm-form-title"))
       concat(content_tag(:div, class: "dm-form-body") do
