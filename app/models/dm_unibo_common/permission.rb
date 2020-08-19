@@ -1,6 +1,6 @@
 require_dependency "dm_unibo_common/application_record"
 
-# Corresponding to DB table user_id, organization_id, authlevel
+# Corresponding to DB table with columns user_id, organization_id, authlevel
 # where
 # user_id -> User < ApplicationRecord with include DmUniboCommon::User
 # organization_id -> Organization Organization < ApplicationRecord with include DmUniboCommon::Organization
