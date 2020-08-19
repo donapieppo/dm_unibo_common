@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder'
 
-  s.add_dependency 'dm_unibo_user_search'
+  # s.add_dependency 'dm_unibo_user_search'
 
   # style 
   s.add_dependency 'simple_form', '~> 5'
