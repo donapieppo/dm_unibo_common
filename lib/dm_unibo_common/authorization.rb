@@ -21,7 +21,7 @@ class Authorization
     @is_cesia  = CESIA_UPN.include?(@user.upn) 
     @authlevels_cache_key = "#{user.id}:#{client_ip}"
 
-    update_authlevels_cache
+    update_authlevels_cache(@authlevels_cache_key)
 
     @authlevels = @@authlevels_cache[@authlevels_cache_key] || {}
   end
