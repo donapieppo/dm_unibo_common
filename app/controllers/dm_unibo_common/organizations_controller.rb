@@ -51,7 +51,7 @@ class DmUniboCommon::OrganizationsController < ApplicationController
 
   def organization_params
     p =  []
-    p += [:name, :description, :booking] if current_user.is_cesia?
+    p += [:code, :name, :description, :booking] if current_user.is_cesia?
     params[:organization].permit(p)
   end
 
