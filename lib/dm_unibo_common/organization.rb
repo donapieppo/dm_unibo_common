@@ -1,3 +1,6 @@
+# Use with 
+# include DmUniboCommon::Organization
+#
 module DmUniboCommon::Organization
 
   extend ActiveSupport::Concern
@@ -11,7 +14,7 @@ module DmUniboCommon::Organization
   end
 
   def to_s
-   "#{self.name} #{self.description}".upcase
+    "#{self.code} - #{self.name} (#{self.description})".upcase
   end
 
   def short_description
