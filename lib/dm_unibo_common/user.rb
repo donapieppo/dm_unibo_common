@@ -1,23 +1,13 @@
 require 'dm_unibo_user_search'
 
 module DmUniboCommon::User
-  # DmUniboCommon::Authorization (access levels to organizations)
-  # To be set from controller with update_authorization_by_ip(request.remote_ip)
-  # DmUniboCommon provides a helper
-  # before_action :update_current_user_authlevels
-  attr_reader :authorization 
-  attr_accessor :current_organization
-
   extend ActiveSupport::Concern
 
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
+
     validates :email, uniqueness: { case_sensitive: false }, allow_blank: true 
     validates :upn, uniqueness: { case_sensitive: false }, allow_blank: true 
-  end
-
-  def update_authorization_by_ip(ip)
-    @authorization = DmUniboCommon::Authorization.new(ip, self)
   end
 
   def cn

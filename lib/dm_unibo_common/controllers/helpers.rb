@@ -20,7 +20,10 @@ module DmUniboCommon
         base.extend Helpers
         if base.respond_to? :helper_method
           base.helper_method :modal_page, 
-                             :current_user, :user_signed_in?, :current_organization,  
+                             :set_current_user, :current_user, 
+                             :set_current_organization, :current_organization,  
+                             :update_authorization,
+                             :user_signed_in?, 
                              :current_user_owns?,  :current_user_owns!, 
                              :current_user_admin?, :current_user_admin!, 
                              :current_user_cesia?, :current_user_user_cesia!,
@@ -32,23 +35,23 @@ module DmUniboCommon
         params[:modal] && params[:modal] == 'yyy'
       end
 
+      def set_current_user
+        if session[:user_id]
+          @_current_user = DmUniboCommon::CurrentUser.find(session[:user_id])
+        end
+      end
+
+      # to separate from set_current_user because of impersonation
+      def update_authorization
+        current_user.update_authorization_by_ip(request.remote_ip)
+      end
+
       def current_user
-        (@current_user ||= ::User.find(session[:user_id])) if session[:user_id]
+        @_current_user
       end
 
       def user_signed_in?
         !!current_user
-      end
-
-      def current_organization
-        @_current_organization
-      end
-
-      # FIXME da pensare
-      def set_current_user(user)
-        logger.info("Setting current_user=#{user.email}")
-        @current_user = user
-        session[:user_id] = user.id
       end
 
       def log_current_user
@@ -93,14 +96,10 @@ module DmUniboCommon
         "_shibsession_" + ENV['Shib-Application-ID'].to_s
       end 
 
-      def update_current_user_authlevels
-        current_user.update_authorization_by_ip(request.remote_ip) if current_user
-      end
-
       # no security hidden. 
       # ?__org__=mat
       # or /mat/seminars
-      def set_organization
+      def set_current_organization
         if params[:__org__]
           @_current_organization = ::Organization.find_by_code(params[:__org__])
         elsif current_user_has_some_authorization?
@@ -110,6 +109,9 @@ module DmUniboCommon
         end
       end
 
+      def current_organization
+        @_current_organization
+      end
 
       #
       # PERMISSIONS
