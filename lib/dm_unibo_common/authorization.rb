@@ -1,3 +1,5 @@
+# initialize(client_ip, user)
+# from ip and user reads the permissions on all organizations
 module DmUniboCommon
 class Authorization
   TO_READ   = 1
@@ -5,11 +7,11 @@ class Authorization
   TO_CESIA  = 3
 
   # @authlevels[46] = DmUniboCommon::Authorization::TO_ADMIN 
-  # means that user 123 can admin organization with id=46
+  # means that "user:ip" can admin organization with id=46
   attr_reader :authlevels
 
-  # @@authlevel[123][46] = DmUniboCommon::Authorization::TO_ADMIN 
-  # means that user 123 can admin organization with id=46
+  # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # means that key k can admin organization with id=46
   @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
 
   # Authorization depends on client ip and user
@@ -22,10 +24,6 @@ class Authorization
     update_authlevels_cache
 
     @authlevels = @@authlevels_cache[@authlevels_cache_key] || {}
-  end
-
-  def authlevels_cache_key(client_ip, user)
-    "#{user.id}:#{client_ip}"
   end
 
   # to clear cache !!!!
@@ -101,19 +99,19 @@ class Authorization
 
   # uno user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
-  def update_authlevels_cache
-    return @@authlevels_cache[@authlevels_cache_key] if @@authlevels_cache.key?(@authlevels_cache_key)
+  def update_authlevels_cache(k)
+    return @@authlevels_cache[k] if @@authlevels_cache.key?(k)
 
     @user.permissions.each do |permission|
       if @is_cesia
-        @@authlevels_cache[@authlevels_cache_key][permission.organization_id] = TO_CESIA
+        @@authlevels_cache[k][permission.organization_id] = TO_CESIA
       else
-        @@authlevels_cache[@authlevels_cache_key][permission.organization_id] = permission.authlevel.to_i
+        @@authlevels_cache[k][permission.organization_id] = permission.authlevel.to_i
       end
     end
     # FIXME
     if @is_cesia and o = ::Organization.first
-      @@authlevels_cache[@authlevels_cache_key][o.id] = TO_CESIA
+      @@authlevels_cache[k][o.id] = TO_CESIA
     end
   end
 end
