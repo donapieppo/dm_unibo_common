@@ -35,10 +35,4 @@ class DmUniboCommon::PermissionsController < ApplicationController
     end
     redirect_to permissions_path
   end
-
-  private
-
-  def check_cesia!
-    current_user.is_cesia? or raise
-  end
 end
