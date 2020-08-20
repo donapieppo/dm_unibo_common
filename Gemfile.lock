@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/donapieppo/dm_unibo_user_search.git
+  revision: a62701d6597a047acc6458244ce4d844ad51753e
+  ref: master
+  branch: master
+  specs:
+    dm_unibo_user_search (0.2.0)
+      rails
+      savon
+
 PATH
   remote: .
   specs:
@@ -77,6 +87,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    akami (1.3.1)
+      gyoku (>= 0.4.0)
+      nokogiri
     bootsnap (1.4.8)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -95,7 +108,12 @@ GEM
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
     hashie (4.1.0)
+    httpi (2.4.5)
+      rack
+      socksify
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
@@ -129,6 +147,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    nori (2.6.0)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -203,9 +222,18 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
+    savon (2.12.1)
+      akami (~> 1.2)
+      builder (>= 2.1.2)
+      gyoku (~> 1.2)
+      httpi (~> 2.3)
+      nokogiri (>= 1.8.1)
+      nori (~> 2.4)
+      wasabi (~> 3.4)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    socksify (1.7.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -220,6 +248,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    wasabi (3.5.0)
+      httpi (~> 2.0)
+      nokogiri (>= 1.4.2)
     webpacker (4.3.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -234,6 +265,7 @@ PLATFORMS
 
 DEPENDENCIES
   dm_unibo_common!
+  dm_unibo_user_search!
   factory_bot_rails
   rspec-rails
   sqlite3
