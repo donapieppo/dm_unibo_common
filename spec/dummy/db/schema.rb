@@ -1,6 +1,7 @@
 ActiveRecord::Schema.define(version: 2020_02_13_095950) do
 
   create_table "organizations", force: :cascade do |t|
+    t.string "code"
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
@@ -21,5 +22,12 @@ ActiveRecord::Schema.define(version: 2020_02_13_095950) do
     t.integer "user_id", unsigned: true
     t.integer "authlevel"
   end
+
+  create_table "things", force: :cascade do |t|
+    t.integer "organization_id", unsigned: true
+    t.integer "user_id", unsigned: true
+    t.text "name"
+  end
+
 end
 

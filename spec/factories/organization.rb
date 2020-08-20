@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :organization do 
-    sequence(:name) { |n| "A.SpecO#{n}" }
-    description     { "SpecTest" }
+    sequence(:code) { |n| "A.CodeO#{n}" }
+    sequence(:name) { |n| "Organization Name#{n}" }
+    description     { "Organization SpecTest" }
   end
 end
 
