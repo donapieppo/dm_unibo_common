@@ -1,8 +1,9 @@
-class DmUniboCommon::ImpersonationsController < ApplicationController
+module DmUniboCommon
+class ImpersonationsController < ::ApplicationController
   def who_impersonate
     if true_user_can_impersonate?
-      @users = User.order(:surname)
-      @main_users = User.where(upn: Rails.configuration.dm_unibo_common[:main_impersonations] || [])
+      @users = ::User.order(:surname)
+      @main_users = ::User.where(upn: Rails.configuration.dm_unibo_common[:main_impersonations] || [])
     else
       redirect_to main_app.root_path and return 
     end
@@ -10,7 +11,7 @@ class DmUniboCommon::ImpersonationsController < ApplicationController
 
   def impersonate
     if true_user_can_impersonate?
-      user = User.find(params[:id])
+      user = ::User.find(params[:id])
       logger.info("IMPERSONATION: #{current_user.inspect} -> #{user.inspect}")
       session[:new_impersonation] = true
       impersonate_user(user)
@@ -33,6 +34,5 @@ class DmUniboCommon::ImpersonationsController < ApplicationController
     true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
 end
-
-
+end
 
