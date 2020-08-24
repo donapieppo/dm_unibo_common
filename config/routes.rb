@@ -10,9 +10,12 @@ DmUniboCommon::Engine.routes.draw do
   get 'impersonate/:id',    to: 'impersonations#impersonate',        as: :impersonate
   get 'stop_impersonating', to: 'impersonations#stop_impersonating', as: :stop_impersonating
 
+  # in App model User with include DmUniboCommon::User
   resources :users
-  resources :permissions
+  # in App model Organization with include DmUniboCommon::Organization
   resources :organizations
+  # in app/models/dm_unibo_common
+  resources :permissions
 
   resources :organizations do
     resources :permissions
@@ -21,9 +24,9 @@ DmUniboCommon::Engine.routes.draw do
   # example: with https://example.it/math your working on
   # Organization.find_by_code('math')
   # restart app after adding new organization
-  #Organization.find_each do |o|
-  #  get o.code, to: "home#index", __org__: o.code
-  #end
+  # Organization.find_each do |o|
+  #   get o.code, to: "home#index", __org__: o.code
+  # end
 
   get 'helps/index', to: 'helps#index', as: :helps
 
