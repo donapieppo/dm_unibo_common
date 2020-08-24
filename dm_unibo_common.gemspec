@@ -40,7 +40,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jbuilder'
 
-  # s.add_dependency 'dm_unibo_user_search'
+  # in Gemfile
+  #s.add_dependency 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
 
   # style 
   s.add_dependency 'simple_form', '~> 5'
@@ -50,14 +51,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'listen', '~> 3'
 
-  #
   # Use Active Model has_secure_password
   # gem 'bcrypt', '~> 3.1.7'
 
   # Use Active Storage variant
   # gem 'image_processing', '~> 1.2'
   
-  # s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'sqlite3'
