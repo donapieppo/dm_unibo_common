@@ -100,7 +100,7 @@ DmUniboCommon provides some helpers (see that comes from
 `lib/dm_unibo_common/controllers/helpers.rb`).
 
 When you define ApplicationController as subclass of DmUniboCommon::ApplicationController
-you get all the new helpers, [Pundit|https://github.com/varvet/pundit] authorization system 
+you get all the new helpers, [Pundit](https://github.com/varvet/pundit) authorization system 
 and a list of the following default `before_actions`:
 
 **set_current_user**
