@@ -36,14 +36,14 @@ module DmUniboCommon
       end
 
       def set_current_user
-        if session[:user_id]
-          @_current_user = DmUniboCommon::CurrentUser.find(session[:user_id])
+        if request.session[:user_id]
+          @_current_user = ::User.find(session[:user_id])
         end
       end
 
-      # to separate from set_current_user because of impersonation
+      # to separate from set_current_user because of impersonation (Pretender gem)
       def update_authorization
-        current_user.update_authorization_by_ip(request.remote_ip)
+        current_user && current_user.extend(DmUniboCommon::CurrentUser) && current_user.update_authorization_by_ip(request.remote_ip)
       end
 
       def current_user
@@ -106,7 +106,7 @@ module DmUniboCommon
           @_current_organization = current_user.authorization.organizations.first 
         else
           @_current_organization = ::Organization.find_by_code('mat')
-        end
+         end
       end
 
       def current_organization
