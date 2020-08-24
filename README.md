@@ -97,29 +97,29 @@ Rails.application.routes.draw do
 # DmUniboCommon helpers
 
 DmUniboCommon provides some helpers (see that comes from 
-lib/dm_unibo_common/controllers/helpers.rb).
+`lib/dm_unibo_common/controllers/helpers.rb`).
 
 When you define ApplicationController as subclass of DmUniboCommon::ApplicationController
-you get all the new helpers, [https://github.com/varvet/pundit|Pundit] authorization system 
-and a list of the following default before_actions:
+you get all the new helpers, [Pundit|https://github.com/varvet/pundit] authorization system 
+and a list of the following default `before_actions`:
 
-** set_current_user **
+**set_current_user**
 
-Sets the current_user. DmUniboCommon provides also the helper `current_user`
+Sets the `current_user`. `DmUniboCommon` provides also the helper `current_user`
 
-** update_authorization **
+**update_authorization**
 
 If there is a current_user it gets the DmUniboCommon::CurrentUser methods
-(see app/models/dm_unibo_common/current_user.rb, used as
-current_user.extend(DmUniboCommon::CurrentUser). 
+(see `app/models/dm_unibo_common/current_user.rb`, used as
+`current_user.extend(DmUniboCommon::CurrentUser`). 
 
-This means that the current_user (a User istance usually) gets the 
+This means that the `current_user` (a `User` istance usually) gets the 
 authorization attribute that carries the current authorization of the user in 
 application (see below)
 
-** set_current_organization **
+**set_current_organization**
 
-Sets the current_organization.
+Sets the `current_organization`.
 DmUniboCommon provides also the helper `current_organization`.
 
 # current_organization
