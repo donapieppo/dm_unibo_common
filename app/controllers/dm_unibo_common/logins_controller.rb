@@ -22,7 +22,8 @@
 # redirect_unsigned_user means that unsigned user can still see something (to refactor)
 #
 # see lib/dm_unibo_common/controllers/helpers.rb for method definitions.
-class DmUniboCommon::LoginsController < ApplicationController
+module DmUniboCommon
+class LoginsController < ::ApplicationController
   # raise: false see http://api.rubyonrails.org/classes/ActiveSupport/Callbacks/ClassMethods.html#method-i-skip_callback
   skip_before_action :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel, raise: false
   skip_after_action :verify_authorized
@@ -150,5 +151,6 @@ class DmUniboCommon::LoginsController < ApplicationController
     session[:user_id] = user.id
     redirect_to session[:original_request] || main_app.root_path
   end
+end
 end
 

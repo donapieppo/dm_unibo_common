@@ -1,7 +1,9 @@
-class DmUniboCommon::PermissionsController < ApplicationController
+module DmUniboCommon
+class PermissionsController < ::ApplicationController
+  before_action :check_user_is_cesia
 
   def index
-    @organizations = Organization.order(:name)
+    @organizations = ::Organization.order(:name)
     authorize :permission, policy_class: DmUniboCommon::PermissionPolicy
   end
 
@@ -35,4 +37,5 @@ class DmUniboCommon::PermissionsController < ApplicationController
     end
     redirect_to permissions_path
   end
+end
 end
