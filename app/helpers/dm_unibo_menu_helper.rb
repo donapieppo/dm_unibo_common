@@ -61,8 +61,8 @@ module DmUniboMenuHelper
     raw %Q|
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="#{id}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#{title}</a>
-  <div class="dropdown-menu" aria-labelledby="#{id}">| +
-    capture(&block) + %Q|
+  <div class="dropdown-menu" aria-labelledby="#{id}">
+    #{capture(&block)}
   </div>
 </li>|
   end
