@@ -7,11 +7,15 @@ require_dependency "dm_unibo_common/application_record"
 # authlevel -> int in DmUniboCommon::Authorization.all_level_list
 module DmUniboCommon
 class Permission < ApplicationRecord
+  extend DmUniboCommon::UserUpnMethods::ClassMethods
+
+  belongs_to_dsa_user :user 
+
   belongs_to :organization, class_name: '::Organization'
   belongs_to :user, class_name: '::User'
 
   validates :organization, presence: true
-  validates :user, presence: true
+  # validates :user, presence: true
   validates :authlevel, inclusion: { in: DmUniboCommon::Authorization.all_level_list, message: "Errore interno al sistema su Admin.authlevel. Contattare Assistenza." }
 
   # FIXME not nice
