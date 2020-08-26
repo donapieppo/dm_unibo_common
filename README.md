@@ -144,28 +144,20 @@ This is defined in `config/routes.rb` as seen before.
 
 # DmUniboCommon::Authorization
 
-current_user ha authorizations 
+`current_user` has authorization in the form of an instance of
 
 ```
 class DmUniboCommon::Authorization
 ```
 
-and are configured in DmUniboCommon::ApplicationController with update_authorization
-
-```ruby
- before_action :log_current_user, :set_locale, :set_organization, :update_current_user_authlevels
-```
-
 (under the curtains current_user.authorization = DmUniboCommon::Authorization.new(ip, self))
 
-DmUniboCommon::Authorization dives the next methods:
-
+DmUniboCommon::Authorization provides the next methods:
 
     - has_authorization? -> true/false (has some organziation with some level of access?)
     - multi_organizations? -> true/false (has more than one organization with some level of access?)
     - organizations -> array of organizations where user has some level of access 
     - authlevel(org) -> int (level of authorization in organization)
-    -  
 
 
 
