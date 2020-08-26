@@ -1,5 +1,6 @@
 module DmUniboCommon
 class ImpersonationsController < ::ApplicationController
+  layout 'dm_unibo_common_layout'
   def who_impersonate
     if true_user_can_impersonate?
       @users = ::User.order(:surname)

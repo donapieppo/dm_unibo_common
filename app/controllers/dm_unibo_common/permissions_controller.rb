@@ -1,5 +1,6 @@
 module DmUniboCommon
 class PermissionsController < ::ApplicationController
+  layout 'dm_unibo_common_layout'
   before_action :check_user_is_cesia
 
   def index

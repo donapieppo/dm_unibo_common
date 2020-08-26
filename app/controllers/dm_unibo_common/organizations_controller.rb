@@ -1,5 +1,6 @@
 module DmUniboCommon
 class OrganizationsController < ::ApplicationController
+  layout 'dm_unibo_common_layout'
   before_action :check_user_is_cesia
   before_action :get_organization_and_check_permission, only: [:show, :edit, :update, :destroy]
 
