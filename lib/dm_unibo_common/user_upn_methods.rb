@@ -26,18 +26,18 @@ module DmUniboCommon
         args.each do |user_class|
           belongs_to user_class.to_sym, class_name: '::User', foreign_key: "#{user_class.to_s}_id".to_sym
 
-          # examiner_upn
+          # supervisor_upn
           define_method(user_class.to_s + "_upn") do
             upns_cache[user_class] || self.send(user_class).try(:upn)
           end
 
-          # examiner_upn=
+          # supervisor_upn=
           define_method(user_class.to_s + "_upn=") do |upn|
             upns_cache[user_class] = upn
           end
 
-          # validate_examiner
-          # se e' definito @@_user_upn[:examiner] setto examiner da dsa
+          # dsa_validate_supervisor
+          # se e' definito @@_user_upn[:superuser] setto superuser da dsa
           define_method("dsa_validate_" + user_class.to_s) do 
             # il nil non comporta nulla. Se si vuole nil si mette thesis.supervisor = nil e non 
             # thesis.supervisor_upn = nil.
@@ -49,7 +49,7 @@ module DmUniboCommon
               self.send(user_class.to_s + '=', nil)
             else
               begin
-                # examiner = User.find_or_syncronize(...)
+                # supervisor = User.find_or_syncronize(...)
                 # self.send("#{user_class.to_s}=", self.send(user_class).class.find_or_syncronize(@@_user_upn[user_class]))
                 self.send(user_class.to_s + '=', ::User.find_or_syncronize(upns_cache[user_class]))
               rescue => e
