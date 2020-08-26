@@ -11,6 +11,10 @@ class DmUniboCommon::OrganizationPolicy < DmUniboCommon::ApplicationPolicy
     @user && @user.is_cesia?
   end
 
+  def update?
+    @user && @user.is_cesia?
+  end
+
   def read?
     @user && @user.authorization.can_read?(@record)
   end
