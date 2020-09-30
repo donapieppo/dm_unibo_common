@@ -16,6 +16,7 @@ it:
       datetime_html5: ! "%Y-%m-%d"
       date_html5: ! "%Y-%m-%d"
       datetime_picker: ! "%d/%m/%Y %H:%M"
+      short_with_day_name: '%A %d %B %Y'
       with_day_name: '%A %d %B %Y'
     abbr_day_names:
     - Dom
