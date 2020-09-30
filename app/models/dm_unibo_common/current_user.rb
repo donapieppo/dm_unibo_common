@@ -14,4 +14,12 @@ module DmUniboCommon::CurrentUser
   def my_organizations
     @_authorization ? @_authorization.organizations : []
   end
+
+  def can_read?(oid)
+    @_authorization.can_read?(oid)
+  end
+
+  def can_manage?(oid)
+    @_authorization.can_manage?(oid)
+  end
 end
