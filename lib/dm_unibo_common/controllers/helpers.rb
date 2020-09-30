@@ -15,7 +15,9 @@ module DmUniboCommon
       #                   :user_cesia?, :user_cesia!
       #   end
       # end
-
+      #
+      # With Rails.configuration.dm_unibo_common[:default_current_organization] 
+      # you can set a default organization to redirect urls without organization
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
