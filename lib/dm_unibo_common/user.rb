@@ -31,10 +31,6 @@ module DmUniboCommon::User
     end
   end
 
-  def description
-    self.cn
-  end
-
   def mail
     self.upn
   end
