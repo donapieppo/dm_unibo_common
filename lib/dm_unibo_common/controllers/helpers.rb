@@ -108,7 +108,7 @@ module DmUniboCommon
           @_current_organization = current_user.my_organizations.first 
         elsif Rails.configuration.dm_unibo_common[:default_current_organization]
           @_current_organization = ::Organization.find_by_code(Rails.configuration.dm_unibo_common[:default_current_organization])
-         end
+        end
       end
 
       def current_organization
@@ -116,15 +116,15 @@ module DmUniboCommon
       end
 
       #
-      # PERMISSIONS
+      # PERMISSIONS (FIXME TODO Move all to dm_unibo_common/app/models/dm_unibo_common/current_user)
       #
 
       def current_user_has_some_authorization?
-        current_user && current_user.authorization && current_user.authorization.any?
+        current_user && current_user.has_some_authorization?
       end
       
       def current_user_possible_organizations
-        (current_user && current_user.authorization) ? current_user.authorization.organizations : []
+        current_user ? current_user.my_organizations : []
       end
 
       def current_user_owns?(what)
