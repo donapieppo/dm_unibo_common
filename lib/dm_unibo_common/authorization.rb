@@ -1,3 +1,6 @@
+# the authlevel is just a number in this constants
+# and depends from  client ip and login name (upn)
+
 # initialize(client_ip, user)
 # from ip and user reads the permissions on all organizations
 module DmUniboCommon
