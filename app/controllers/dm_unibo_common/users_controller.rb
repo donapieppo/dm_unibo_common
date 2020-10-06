@@ -17,14 +17,15 @@ class UsersController < ::ApplicationController
 
   def create
     request.remote_ip == '137.204.134.32' or raise 
-    if r = /\A(\w+\.\w+)(@unibo.it)?\z/.match(params[:upn])
-      upn = r[1] + '@unibo.it'
+    #if r = /\A(\w+\.\w+)(@unibo.it)?\z/.match(params[:upn])
+    #  upn = r[1] + '@unibo.it'
+      upn = params[:upn]
       begin
         ::User.syncronize(upn)
       rescue DmUniboCommon::NoUser
         flash[:alert] = "Non esiste l'utente selezionato nel database di Ateneo."
       end
-    end
+    #end
     redirect_to users_path
   end
 end

@@ -1,9 +1,9 @@
 <h1>Aggiungi nuovo utente</h1>
 
 <div style="text-align: center">
-<%= form_tag users_path do %>  
-  <p><%= text_field_tag :upn %> @unibo.it</p>
-  <p><%= submit_tag("Crea") %></p>
-<% end %>
+  <%= form_tag users_path do %>  
+    <p><%= label_tag 'upn: ' %> <%= text_field_tag :upn %></p>
+    <p><%= submit_tag("Crea") %></p>
+  <% end %>
 </div>
 
