@@ -122,6 +122,11 @@ module DmUniboCommon::User
                             upn:     dsa_user.upn,
                             name:    dsa_user.name,
                             surname: dsa_user.sn})
+
+        if local_user.respond_to?(:employeeNumber)
+          local_user.employeeNumber = dsa_user.employee_id
+        end
+
         local_user.save!
         Rails.logger.info("Created User #{local_user.inspect}")
       end
