@@ -21,7 +21,7 @@ module DmUniboCommon::Organization
 
   def users_with_permission_level(l = 0)
     return [] if l == 0
-    DmUniboCommon::Authorization.all_level_list.includes(l) or raise "Unknown DmUniboCommon::Authorization level #{l}"   
+    DmUniboCommon::Authorization.all_level_list.include(l) or raise "Unknown DmUniboCommon::Authorization level #{l}"   
     self.permissions.includes(:user).where(authlevel: l.to_i).map(&:user)
   end
 end
