@@ -58,9 +58,10 @@ class LoginsController < ::ApplicationController
   # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
   #         ["_lauree_session", "YU5RSTM2OXdYMkRyVjV0SXI1K3c3eDJJdjZQ..... "]
   def logout
-    cookies.delete(Rails.configuration.session_options[:key].to_sym)
-    cookies.delete(shibapplicationid.to_sym)
+    #cookies.delete(Rails.configuration.session_options[:key].to_sym)
+    #cookies.delete(shibapplicationid.to_sym)
     session[:user_id] = nil
+    cookies.clear
     reset_session
     logger.info("after logout we redirect to params[:return] = #{params[:return]}")
     redirect_to (params[:return] || 'http://www.unibo.it')
