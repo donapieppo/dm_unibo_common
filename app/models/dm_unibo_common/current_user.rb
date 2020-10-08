@@ -1,3 +1,7 @@
+# see dm_unibo_common/lib/dm_unibo_common/controllers/helpers.rb for
+# update_authorization where current_user.extend(DmUniboCommon::CurrentUser) && current_user.update_authorization_by_ip(request.remote_ip)
+# in app/controlers/application_controller.rb
+# before_action :set_current_user, :update_authorization
 module DmUniboCommon::CurrentUser
   def authorization
     @_authorization
@@ -16,10 +20,10 @@ module DmUniboCommon::CurrentUser
   end
 
   def can_read?(oid)
-    @_authorization.can_read?(oid)
+    @_authorization && @_authorization.can_read?(oid)
   end
 
   def can_manage?(oid)
-    @_authorization.can_manage?(oid)
+    @_authorization && @_authorization.can_manage?(oid)
   end
 end
