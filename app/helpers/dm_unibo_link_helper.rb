@@ -16,7 +16,7 @@ module DmUniboLinkHelper
   alias_method :download_link, :link_to_download
 
   def link_to_show(name = "", url)
-    link_to icon('search') + " " + name, url, title: "Mostra dettagli"
+    link_to dmicon('search') + " " + name, url, title: "Mostra dettagli"
   end
 
   def link_to_edit(name = "", url, button: false, modal: false)
