@@ -15,11 +15,15 @@ class DmUniboCommon::OrganizationPolicy < DmUniboCommon::ApplicationPolicy
     @user && @user.is_cesia?
   end
 
-  def read?
-    @user && @user.authorization.can_read?(@record)
-  end
+  def self.configure_authlevels(h)
+    h.each do |name, number|
+      define_method :"#{name}?" do 
+        @user && @user.authorization.send("can_#{name}?", @record)
+      end
 
-  def manage?
-    @user && @user.authorization.can_manage?(@record)
+      define_method :"only_#{name}?" do 
+        @user && @user.authorization.send("can_only_#{name}?", @record)
+      end
+    end
   end
 end
