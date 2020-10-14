@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "4.0.0"
+  VERSION = "5.0.0"
 end
+# 5.0.0
+# authlevels configurable in application
 # 4.0.0
 # new auh and permission in module
 # isolate_namespace DmUniboCommon !!!!!!!
