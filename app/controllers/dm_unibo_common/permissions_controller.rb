@@ -5,7 +5,7 @@ class PermissionsController < ::ApplicationController
 
   def index
     @organizations = ::Organization.order(:name)
-    authorize :permission, policy_class: DmUniboCommon::PermissionPolicy
+    authorize DmUniboCommon::Permission
   end
 
   def new
@@ -18,7 +18,7 @@ class PermissionsController < ::ApplicationController
 
   def create
     @organization = ::Organization.find(params[:organization_id])
-    @permission = @organization.permissions.new(user_id: params[:permission][:user_id], 
+    @permission = @organization.permissions.new(user_id:   params[:permission][:user_id], 
                                                 authlevel: params[:permission][:authlevel])
     authorize @permission
     if @permission.save
