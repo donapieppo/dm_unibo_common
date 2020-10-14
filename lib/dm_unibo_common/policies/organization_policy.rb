@@ -15,6 +15,8 @@ class DmUniboCommon::OrganizationPolicy < DmUniboCommon::ApplicationPolicy
     @user && @user.is_cesia?
   end
 
+  # read? only_read?
+  # manage? onlu_manage?
   def self.configure_authlevels(h)
     h.each do |name, number|
       define_method :"#{name}?" do 
