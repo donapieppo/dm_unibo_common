@@ -11,8 +11,12 @@ module DmUniboCommon
       @user && @record.user_id == @user.id
     end
 
+    def current_organization_manager?
+      @user && OrganizationPolicy.new(@user, @user.current_organization).manage?
+    end
+
     def record_organization_manager?
-      @user && @user.authorization.can_manage?(@record.organization_id)
+      @user && OrganizationPolicy.new(@user, @record.organization_id).manage?
     end
 
     def owner_or_record_organization_manager?
