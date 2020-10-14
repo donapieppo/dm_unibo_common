@@ -1,13 +1,11 @@
-# the authlevel is just a number in this constants
+# the authlevel is just a list of authlevel on organizations
 # and depends from  client ip and login name (upn)
 
-# initialize(client_ip, user)
+# a = DmUniboCommon::Authorization.new(client_ip, user)
+# a.can_read?(Organization.first)
 # from ip and user reads the permissions on all organizations
-module DmUniboCommon
-class Authorization
-  TO_READ   = 1
-  TO_MANAGE = 2
-  TO_CESIA  = 3
+module DmUniboCommon::Authorization
+  TO_CESIA = 100
 
   # @authlevels[46] = DmUniboCommon::Authorization::TO_ADMIN 
   # means that "user:ip" can admin organization with id=46
@@ -16,6 +14,10 @@ class Authorization
   # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN 
   # means that key k can admin organization with id=46
   @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
+
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
 
   # Authorization depends on client ip and user
   def initialize(client_ip, user)
@@ -29,15 +31,10 @@ class Authorization
     @authlevels = @@authlevels_cache[@authlevels_cache_key] || {}
   end
 
-  # to clear cache !!!!
-  def self.authlevels_reload!
-    @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
-  end
-
   def any?
     @authlevels.any?
   end
-  
+
   # multi_organizations?: false/true if user has access to more than one organization
   def multi_organizations?
     @authlevels && @authlevels.size > 1 
@@ -56,35 +53,60 @@ class Authorization
     @authlevels.keys.first
   end
 
-  # per visualizzazione livelli di autorizzazione
-  def self.level_description(level, html=1)
-    case level
-      when TO_READ
-        I18n.t(:can_read)
-      when TO_MANAGE
-        I18n.t(:can_manage)
-      when TO_CESIA
-        I18n.t(:is_cesia)
-    end
-  end
-
-  # TO_CESIA only by file configuration 
-  def self.all_level_list
-    [TO_READ, TO_MANAGE]
-  end
-
-  def can_read?(oid)
+  def organization_authlevel(oid)
     oid = oid.id if oid.is_a?(::Organization)
-    @authlevels[oid] && @authlevels[oid] >= TO_READ
-  end
-
-  def can_manage?(oid)
-    oid = oid.id if oid.is_a?(::Organization)
-    @authlevels[oid] && @authlevels[oid] >= TO_MANAGE
+    @authlevels[oid]
   end
 
   def is_cesia?
     @is_cesia
+  end
+
+  # FIXME !!!!
+  def can_manage_an_organization?
+    @authlevels.values.select{|n| n >= 40}.any?
+  end
+
+  module ClassMethods
+    # example: h = { read: 10, manage: 20 }
+    # creates methods like can_read?, can_manage?  
+    # use in config/initializers
+    def configure_authlevels(h)
+      @@authlevels = h
+
+      @@authlevels.each do |name, number|
+        define_method :"can_#{name}?" do |oid|
+          a = organization_authlevel(oid)
+          a && a >= number
+        end
+
+        define_method :"can_only_#{name}?" do |oid|
+          a = organization_authlevel(oid)
+          a && a == number
+        end
+      end
+    end
+
+    def all_authlevels
+      @@authlevels
+    end
+    
+    # TO_CESIA only by file configuration 
+    def all_level_list
+      @@authlevels.values
+    end
+
+    # to clear cache !!!!
+    def authlevels_reload!
+      @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
+    end
+
+    # per visualizzazione livelli di autorizzazione
+    def level_description(level, html=1)
+      p = @@authlevels.select{|s,n| n==level}
+      I18n.t("can_#{p.keys.first}")
+    end
+
   end
 
   private 
@@ -117,5 +139,4 @@ class Authorization
       @@authlevels_cache[k][o.id] = TO_CESIA
     end
   end
-end
 end
