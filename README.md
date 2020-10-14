@@ -78,6 +78,20 @@ class Organization < ApplicationRecord
   has_many :permissions, class_name: "DmUniboCommon::Permission"
 ```
 
+```ruby
+class Authorization
+  include DmUniboCommon::Authorization
+
+  _authlevels = { 
+    read:   1, 
+    manage: 2, 
+    pippo: 3
+  }
+
+  configure_authlevels(_authlevels)
+  DmUniboCommon::OrganizationPolicy.configure_authlevels(_authlevels)
+```
+
 Your ApplicationController has to be a subclass of DmUniboCommon::ApplicationController
 ```ruby
 class ApplicationController < DmUniboCommon::ApplicationController
