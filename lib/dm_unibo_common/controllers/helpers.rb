@@ -109,6 +109,10 @@ module DmUniboCommon
         elsif Rails.configuration.dm_unibo_common[:default_current_organization]
           @_current_organization = ::Organization.find_by_code(Rails.configuration.dm_unibo_common[:default_current_organization])
         end
+
+        if current_user
+          current_user.current_organization = @_current_organization
+        end
       end
 
       def current_organization
