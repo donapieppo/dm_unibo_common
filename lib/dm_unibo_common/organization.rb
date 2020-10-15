@@ -19,10 +19,10 @@ module DmUniboCommon::Organization
     "#{self.name.upcase} - #{self.description[0..70]}"
   end
 
-  def users_with_permission_level(l = 0)
-    return [] if l == 0
-    DmUniboCommon::Authorization.all_level_list.include?(l) or raise "Unknown DmUniboCommon::Authorization level #{l}"   
-    self.permissions.includes(:user).where(authlevel: l.to_i).map(&:user)
+  def users_with_permission_level(level_symbol = nil)
+    return [] if level_symbol == nil
+    level_number = ::Authorization.all_authlevels[level_symbol] or raise "Unknown DmUniboCommon::Authorization level #{level_symbol}"   
+    self.permissions.includes(:user).where(authlevel: level_number.to_i).map(&:user)
   end
 end
 
