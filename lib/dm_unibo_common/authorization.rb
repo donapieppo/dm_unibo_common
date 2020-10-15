@@ -71,8 +71,8 @@ module DmUniboCommon::Authorization
     # example: h = { read: 10, manage: 20 }
     # creates methods like can_read?, can_manage?  
     # use in config/initializers
-    def configure_authlevels(h)
-      @@authlevels = h
+    def configure_authlevels
+      @@authlevels = Rails.configuration.authlevels
 
       @@authlevels.each do |name, number|
         define_method :"can_#{name}?" do |oid|
