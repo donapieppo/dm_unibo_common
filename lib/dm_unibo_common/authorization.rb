@@ -76,6 +76,7 @@ module DmUniboCommon::Authorization
 
       @@authlevels.each do |name, number|
         define_method :"can_#{name}?" do |oid|
+          is_cesia? and return true
           a = organization_authlevel(oid)
           a && a >= number
         end
