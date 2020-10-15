@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-module DmUniboCommon
 RSpec.describe Authorization, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:org1) { FactoryBot.create(:organization) }
@@ -106,5 +105,4 @@ RSpec.describe Authorization, type: :model do
   #     end
   #   end
   # end
-end
 end
