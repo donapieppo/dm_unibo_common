@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe DmUniboCommon::CurrentUser, type: :model do
-  subject { FactoryBot.create(:current_user) }
+# current_user is a user extended with DmUniboCommon::CurrentUser 
+RSpec.describe User, type: :model do
+  subject { FactoryBot.create(:user).extend(DmUniboCommon::CurrentUser) }
   let(:org1) { FactoryBot.create(:organization) }
   let(:org2) { FactoryBot.create(:organization) }
 
