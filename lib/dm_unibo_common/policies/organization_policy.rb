@@ -15,16 +15,18 @@ class DmUniboCommon::OrganizationPolicy < DmUniboCommon::ApplicationPolicy
     @user && @user.is_cesia?
   end
 
-  # read? only_read?
-  # manage? onlu_manage?
-  def self.configure_authlevels(h)
-    h.each do |name, number|
-      define_method :"#{name}?" do 
-        @user && @user.authorization.send("can_#{name}?", @record)
-      end
+  class <<self
+    # read? only_read?
+    # manage? only_manage?
+    def configure_authlevels
+      Rails.configuration.authlevels.each do |name, number|
+        define_method :"#{name}?" do 
+          @user && @user.authorization.send("can_#{name}?", @record)
+        end
 
-      define_method :"only_#{name}?" do 
-        @user && @user.authorization.send("can_only_#{name}?", @record)
+        define_method :"only_#{name}?" do 
+          @user && @user.authorization.send("can_only_#{name}?", @record)
+        end
       end
     end
   end
