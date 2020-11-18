@@ -4,6 +4,10 @@ class PermissionPolicy < ApplicationPolicy
     @user.is_cesia?
   end
 
+  def show?
+    @user.is_cesia?
+  end
+
   # only superuser
   def create?
     @user.is_cesia?
