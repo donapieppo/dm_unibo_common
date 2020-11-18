@@ -2,6 +2,6 @@
 
 <div class="list-group">
   <% @organizations.each do |o| %>  
-    <%= link_to o, organization_permissions_path(o), class: "list-group list-group-item list-group-item-action" %>
+    <%= link_to o, organization_permissions_path(o), class: "list-group list-group-item list-group-item-action p-2" %>
   <% end %>
 </div>
