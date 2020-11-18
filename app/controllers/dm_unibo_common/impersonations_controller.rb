@@ -17,7 +17,8 @@ class ImpersonationsController < ::ApplicationController
       session[:new_impersonation] = true
       impersonate_user(user)
     end
-    redirect_to main_app.root_path and return
+
+    redirect_to main_app.root_path(__org__: nil) and return
   end
 
   # do not require admin for this method if access control
