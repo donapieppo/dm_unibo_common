@@ -25,7 +25,7 @@
 module DmUniboCommon
 class LoginsController < ::ApplicationController
   # raise: false see http://api.rubyonrails.org/classes/ActiveSupport/Callbacks/ClassMethods.html#method-i-skip_callback
-  skip_before_action :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel, raise: false
+  skip_before_action :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel, :after_current_user_and_organization, raise: false
   skip_after_action :verify_authorized
 
   # env['omniauth.auth'].info = {email, name, last_name}
