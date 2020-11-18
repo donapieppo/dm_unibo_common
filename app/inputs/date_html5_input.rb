@@ -10,8 +10,8 @@ class DateHtml5Input < SimpleForm::Inputs::Base
   def input(wrapper_options)
     template.content_tag(:div, class: 'input-group date', style: 'width: 75%') do
       template.concat @builder.date_field(attribute_name, 
-                                           input_html_options.merge(value:  attr_day, 
-                                                                    class:  'form-control', 
+                                           input_html_options.merge(value: attr_day, 
+                                                                    class: 'form-control', 
                                                                     html5: true))
     end
   end
