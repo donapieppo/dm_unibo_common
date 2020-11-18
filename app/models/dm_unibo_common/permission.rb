@@ -14,6 +14,7 @@ class Permission < ApplicationRecord
   belongs_to :organization, class_name: '::Organization'
   belongs_to :user, class_name: '::User'
 
+  validates :user_id, presence: true
   validates :organization, presence: true
   validates :authlevel, inclusion: { in: ::Authorization.all_authlevels.values, 
                                      message: "Errore interno al sistema su authlevel. Contattare Assistenza." }
