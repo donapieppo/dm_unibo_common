@@ -31,35 +31,16 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-shibboleth'
   s.add_dependency 'omniauth-google-oauth2'  
-  # auth - inpersonation 
   s.add_dependency 'pretender'
   s.add_dependency 'pundit'
 
   # standard rails
-  s.add_dependency 'uglifier'
-  s.add_dependency 'jquery-rails'
-  s.add_dependency 'jbuilder'
+  #s.add_dependency 'uglifier'
+  #s.add_dependency 'jquery-rails'
+  #s.add_dependency 'jbuilder'
 
-  # in Gemfile
-  #s.add_dependency 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
-
-  # style 
   s.add_dependency 'simple_form', '~> 5'
-  # s.add_dependency 'bootstrap', '~> 4'
-  # s.add_dependency 'bh', '~> 1.3'
-  # s.add_dependency 'font-awesome-sass'
-
   s.add_dependency 'listen', '~> 3'
-
-  # Use Active Model has_secure_password
-  # gem 'bcrypt', '~> 3.1.7'
-
-  # Use Active Storage variant
-  # gem 'image_processing', '~> 1.2'
-  
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'factory_bot_rails'
-  s.add_development_dependency 'sqlite3'
 end
 
 # Development dependencies aren't installed by default and aren't activated when a gem is required.
