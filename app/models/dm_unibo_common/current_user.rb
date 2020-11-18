@@ -24,6 +24,10 @@ module DmUniboCommon::CurrentUser
     @_authorization && @_authorization.any?
   end
 
+  def multi_organizations?
+    @_authorization && @_authorization.multi_organizations?
+  end
+
   def my_organizations
     @_authorization ? @_authorization.organizations : []
   end
