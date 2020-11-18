@@ -8,6 +8,11 @@ class PermissionsController < ::ApplicationController
     authorize DmUniboCommon::Permission
   end
 
+  def show
+    @permission = Permission.find(params[:id])
+    authorize @permission
+  end
+
   def new
     @organization = ::Organization.find(params[:organization_id])
     @users = ::User.order('users.surname, users.name')
@@ -24,6 +29,7 @@ class PermissionsController < ::ApplicationController
     if @permission.save
       redirect_to permissions_path, notice: 'OK'
     else
+      @users = ::User.order('users.surname, users.name')
       render :new
     end
   end
