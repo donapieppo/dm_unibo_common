@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootsnap'
 
   s.add_dependency 'mysql2'
-  s.add_dependency 'sqlite3'
   s.add_dependency 'mini_magick'
 
   # auth
