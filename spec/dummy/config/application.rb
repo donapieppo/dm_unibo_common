@@ -16,7 +16,7 @@ module Dummy
     config.authlevels = { 
       read:   1, 
       manage: 2,
-      pippo: 3
+      pippo:  3
     }
 
     # Settings in config/environments/* take precedence over those specified here.

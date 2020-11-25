@@ -5,34 +5,36 @@ RSpec.describe Authorization, type: :model do
   let(:org1) { FactoryBot.create(:organization) }
   let(:org2) { FactoryBot.create(:organization) }
 
-  it ".any? noy to be" do
-    expect(Authorization.new('133.133.133.2', user).any?).not_to be
-  end
+  context 'without permissions, Authorization.new(133.133.133.2, user)' do
+    it '.any? is false' do
+      expect(Authorization.new('133.133.133.2', user).any?).not_to be
+    end
 
-  it ".authlevels to be empty" do
-    expect(Authorization.new('133.133.133.2', user).authlevels).to be_empty
-  end
+    it '.authlevels is empty' do
+      expect(Authorization.new('133.133.133.2', user).authlevels).to be_empty
+    end
 
-  it ".multi_organizations? not to be" do 
-    expect(Authorization.new('123.123.123.123', user).multi_organizations?).not_to be
+    it '.multi_organizations? is false' do 
+      expect(Authorization.new('133.133.133.2', user).multi_organizations?).not_to be
+    end
   end
 
   context "when user has permission org1 with authlevel 1" do
     let!(:permission) { FactoryBot.create(:permission, user: user, organization: org1, authlevel: 1) }
 
-    it ".authlevel(org1) equals 1" do
+    it '.authlevel(org1) equals 1' do
       expect(Authorization.new('123.123.123.123', user).authlevel(org1)).to eq(1)
     end
 
-    it ".authlevel(org1.id) equals 1" do
+    it '.authlevel(org1.id) equals 1' do
       expect(Authorization.new('123.123.123.123', user).authlevel(org1.id)).to eq(1)
     end
 
-    it ".any? is true" do
+    it '.any? is true' do
       expect(Authorization.new('123.123.123.123', user).any?).to be
     end
 
-    it ".multi_organizations? is false" do
+    it '.multi_organizations? is false' do
       expect(Authorization.new('123.123.123.123', user).multi_organizations?).not_to be
     end
   end
@@ -58,51 +60,51 @@ RSpec.describe Authorization, type: :model do
     end
   end
 
-  # context 'when 133.133.0.0 is in network database with authlevel 20' do 
-  #   let!(:net) { org1.networks.create(name: '133.133.0.0', authlevel: 20) }
+  context 'when 133.133.0.0 is in permissions with authlevel 2 on org1' do 
+    let!(:permission) { FactoryBot.create(:permission, user: nil, organization: org1, network: '133.133.0.0', authlevel: 2) }
 
-  #   it ".any? is true for 133.133.133.2" do
-  #     expect(Authorization.new('133.133.133.2', user).any?).to be true
-  #   end
+    it ".any? is true for 133.133.133.2" do
+      expect(Authorization.new('133.133.133.2', user).any?).to be 
+    end
 
-  #   it ".multi_organizations is false on 133.133.133.2" do
-  #     expect(Authorization.new('133.133.133.2', user).multi_organizations).not_to be
-  #   end
+    it ".multi_organizations? is false on 133.133.133.2" do
+      expect(Authorization.new('133.133.133.2', user).multi_organizations?).not_to be
+    end
 
-  #   it "gives authlevels 20 on 133.133.133.2 in org1" do
-  #     expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq 20
-  #   end
+    it "gives authlevels 20 on 133.133.133.2 in org1" do
+      expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq 2
+    end
 
-  #   context "when user is admin in other organization (org2) with level 30" do
-  #     let!(:admin) { org2.admins.create(user: user, authlevel: 30) }
+    context "when user is admin in other organization (org2) with level 3" do
+      let!(:permission2) { FactoryBot.create(:permission, user: user, organization: org2, authlevel: 3) }
 
-  #     it ".any? is true for 133.133.133.2" do
-  #       expect(Authorization.new('133.133.133.2', user).any?).to be
-  #     end
+      it ".any? is true for 133.133.133.2" do
+        expect(Authorization.new('133.133.133.2', user).any?).to be
+      end
 
-  #     it ".multi_organizations is true for 133.133.133.2" do
-  #       expect(Authorization.new('133.133.133.2', user).multi_organizations).to be
-  #     end
+      it ".multi_organizations? is true for 133.133.133.2" do
+        expect(Authorization.new('133.133.133.2', user).multi_organizations?).to be
+      end
 
-  #     it "authlevels for first org1 is 20" do
-  #       expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq(20)
-  #     end
+      it "authlevels for first org1 is 20" do
+        expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq 2
+      end
 
-  #     it "authlevels for second org2 is 30" do
-  #       expect(Authorization.new('133.133.133.2', user).authlevels[org2.id]).to eq(30)
-  #     end
-  #   end
+      it "authlevels for second org2 is 30" do
+        expect(Authorization.new('133.133.133.2', user).authlevels[org2.id]).to eq 3
+      end
+    end
 
-  #   context "when user is admin in same org1" do
-  #     let!(:admin) { org1.admins.create(user: user, authlevel: 30) }
+    context "when user is admin in same org1" do
+      let!(:permission3) { FactoryBot.create(:permission, user: user, organization: org1, network: nil, authlevel: 3) }
 
-  #     it ".multi_organizations is false for 133.133.133.2" do
-  #       expect(Authorization.new('133.133.133.2', user).multi_organizations).not_to be
-  #     end
+      it ".multi_organizations? is false for 133.133.133.2" do
+        expect(Authorization.new('133.133.133.2', user).multi_organizations?).not_to be
+      end
 
-  #     it "authlevels for org1 is 30" do
-  #       expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq(30)
-  #     end
-  #   end
-  # end
+      it "authlevels for org1 is 3" do
+        expect(Authorization.new('133.133.133.2', user).authlevels[org1.id]).to eq 3
+      end
+    end
+  end
 end
