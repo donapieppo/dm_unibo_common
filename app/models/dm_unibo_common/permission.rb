@@ -12,12 +12,13 @@ class Permission < ApplicationRecord
   belongs_to_dsa_user :user 
 
   belongs_to :organization, class_name: '::Organization'
-  belongs_to :user, class_name: '::User'
+  belongs_to :user, class_name: '::User', optional: true
 
-  validates :user_id, presence: true
   validates :organization, presence: true
   validates :authlevel, inclusion: { in: ::Authorization.all_authlevels.values, 
-                                     message: "Errore interno al sistema su authlevel. Contattare Assistenza." }
+                                     message: 'Errore interno al sistema su authlevel. Contattare Assistenza.' }
+
+  validate :user_or_network
 
   # FIXME not nice
   after_save :reload_authlevels!
@@ -33,10 +34,11 @@ class Permission < ApplicationRecord
   def reload_authlevels!
     ::Authorization.authlevels_reload!
   end
+
+  def user_or_network
+    errors.add(:base, 'Necessario fornire utente o network') if self.network.blank? && self.user_id == nil
+  end
 end
 end
 
 DmUniboCommon::Permission.table_name = "permissions"
-
-
-

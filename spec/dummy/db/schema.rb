@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_095950) do
   create_table "permissions", force: :cascade do |t|
     t.integer "organization_id", unsigned: true
     t.integer "user_id", unsigned: true
+    t.string  "network"
     t.integer "authlevel"
   end
 

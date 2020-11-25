@@ -19,6 +19,7 @@ require 'dm_unibo_common/authorization'
 # require 'dm_unibo_common/permission'
 require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
+
 require 'dm_unibo_common/policies/application_policy'
 require 'dm_unibo_common/policies/organization_policy'
 require 'dm_unibo_common/policies/permission_policy'

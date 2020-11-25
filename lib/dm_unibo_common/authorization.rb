@@ -13,7 +13,7 @@ module DmUniboCommon::Authorization
 
   # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN 
   # means that key k can admin organization with id=46
-  @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
+  @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
 
   def self.included(base)
     base.extend(ClassMethods)
@@ -64,7 +64,7 @@ module DmUniboCommon::Authorization
 
   # FIXME !!!!
   def can_manage_an_organization?
-    @authlevels.values.select{|n| n >= 40}.any?
+    @authlevels.values.select { |n| n >= 40 }.any?
   end
 
   module ClassMethods
@@ -107,27 +107,22 @@ module DmUniboCommon::Authorization
       p = @@authlevels.select{|s,n| n==level}
       I18n.t("can_#{p.keys.first}")
     end
-
   end
 
   private 
 
-  # vince sempre il net piu' specifico (tra 137.204.134.0 e 137.204.0.0 vince il primo)
-  # per quanto riguarda la stessa struttura
-  #
-  # aggiorna @authlevels in base all'ip
-  def update_authlevels_by_ip(client_ip)
-  end
-
-  # se c'e' la rete nel database allora aggiorno con quello che trovo
-  def update_authlevels_by_network(net)
-  end
-
   # uno user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
+  # user permission overrides network permissions
   def update_authlevels_cache(k)
     return @@authlevels_cache[k] if @@authlevels_cache.key?(k)
 
+    each_network do |network|
+      DmUniboCommon::Permission.where(network: network).each do |net|
+        @@authlevels_cache[k][net.organization_id] = @is_cesia ? TO_CESIA : net.authlevel.to_i
+      end
+    end
+    
     @user.permissions.each do |permission|
       if @is_cesia
         @@authlevels_cache[k][permission.organization_id] = TO_CESIA
@@ -135,9 +130,20 @@ module DmUniboCommon::Authorization
         @@authlevels_cache[k][permission.organization_id] = permission.authlevel.to_i
       end
     end
-    # FIXME
+
+    # FIXME:
     if @is_cesia and o = ::Organization.first
       @@authlevels_cache[k][o.id] = TO_CESIA
     end
   end
+
+  def each_network
+    net = @client_ip.split(/\./) # net[0]=137 net[1]=204 net[2]=134 net[3]=32
+    raise Gemma::SystemError, "problemi con client_ip=#{client_ip}" unless net.length == 4
+
+    ["#{net[0]}.0.0.0", "#{net[0]}.#{net[1]}.0.0", "#{net[0]}.#{net[1]}.#{net[2]}.0", @client_ip].each do |network|
+      yield(network)
+    end
+  end
+
 end

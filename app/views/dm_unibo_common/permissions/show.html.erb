@@ -1,0 +1,11 @@
+<h1>Permissions <%= @permission.user %></h1>
+
+<ul>
+  <% @permission.user.permissions.each do |permission| %>  
+    <li>
+      <%= permission.authlevel_string %>
+      <%= link_to permission.organization, main_app.current_organization_edit_path(__org__: permission.organization.code) %>
+      <%= link_to dmicon('trash'), permission_path(permission), method: :delete, data: { confirm: 'Sicuri?'} %>
+    </li>
+  <% end %>
+</ul>

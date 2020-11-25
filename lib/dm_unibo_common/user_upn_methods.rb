@@ -24,7 +24,7 @@ module DmUniboCommon
         end
 
         args.each do |user_class|
-          belongs_to user_class.to_sym, class_name: '::User', foreign_key: "#{user_class.to_s}_id".to_sym
+          belongs_to user_class.to_sym, class_name: '::User', foreign_key: "#{user_class.to_s}_id".to_sym, optional: true
 
           # supervisor_upn
           define_method(user_class.to_s + "_upn") do
