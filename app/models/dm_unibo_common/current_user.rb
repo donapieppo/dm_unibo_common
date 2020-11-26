@@ -21,11 +21,11 @@ module DmUniboCommon::CurrentUser
   end
 
   def has_some_authorization?
-    @_authorization && @_authorization.any?
+    @_authorization&.any?
   end
 
   def multi_organizations?
-    @_authorization && @_authorization.multi_organizations?
+    @_authorization&.multi_organizations?
   end
 
   def my_organizations
@@ -33,10 +33,14 @@ module DmUniboCommon::CurrentUser
   end
 
   def can_read?(oid)
-    @_authorization && @_authorization.can_read?(oid)
+    @_authorization&.can_read?(oid)
   end
 
   def can_manage?(oid)
-    @_authorization && @_authorization.can_manage?(oid)
+    @_authorization&.can_manage?(oid)
+  end
+
+  def debug_authorizations
+    @_authorization
   end
 end
