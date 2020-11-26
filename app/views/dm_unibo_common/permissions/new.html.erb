@@ -2,10 +2,17 @@
 
 <%= dm_form_for [@organization, @permission], title: "New permission" do |p| %>  
   <%= p.association :user, collection: @users, label_method: :cn_militar %>  
+  <%= p.input :network %>  
   <%# <% collection = ::Authorization.all_level_list.map {|x| [::Authorization.level_description(x), x] } %1> %>
   <%= p.input :authlevel, as: :radio_buttons, collection: ::Authorization.all_authlevels.to_a %>  
 
   <%= p.submit %>  
 <% end %>
 
-
+<p class="info">
+Le reti possono essere sigoli pc o intere sottoclassi (la netmask però deve essere sempre 8 o 16 o 24).<br/>
+Esempi di reti ammesse:<br/>
+- 137.204.0.0 (sconsigliata, mica vogliamo fare accedere tutta l'università)<br/>
+- 137.204.1.0 (ovvero tutti i pc nella rete 137.204.1.0/255.255.255.0)<br/>
+- 137.204.1.1 (ovvero il singolo pc con ip 137.204.1.1)
+</p>
