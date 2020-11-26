@@ -10,7 +10,7 @@
         <ul class="list-group my-3">
           <% organization.permissions.each do |p|%>  
             <li class="list-group-item py-1">
-              <strong><%= link_to p.user.cn_militar, permission_path(p) %></strong>
+              <strong><%= link_to (p.user ? p.user.cn_militar : p.network), permission_path(p) %></strong>
               (<%= p.authlevel_string %>)
               <span class="float-right"><%= link_to_delete permission_path(p) %></span>
             </li>
