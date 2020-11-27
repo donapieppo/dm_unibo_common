@@ -5,7 +5,7 @@
     <div class="bg-warning p-2 my-1" onclick="hide_and_show(this)" style="cursor: pointer">
       <%= organization %>
     </div>
-    <div class="hide_and_show" style="display: none">
+    <div class="hide_and_show" style="display: <%= @organizations.size > 2 ? 'none' : 'block' %>">
       <div>
         <ul class="list-group my-3">
           <% organization.permissions.each do |p|%>  

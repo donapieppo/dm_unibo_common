@@ -4,7 +4,11 @@ class PermissionsController < ::ApplicationController
   before_action :check_user_is_cesia
 
   def index
-    @organizations = ::Organization.includes(permissions: :user).order(:name)
+    if params[:organization_id]
+      @organizations = [ ::Organization.find(params[:organization_id]) ]
+    else
+      @organizations = ::Organization.includes(permissions: :user).order(:name)
+    end
     authorize DmUniboCommon::Permission
   end
 
