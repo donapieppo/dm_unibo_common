@@ -100,7 +100,9 @@ module DmUniboCommon
 
       # no security hidden. 
       # ?__org__=mat
-      # or /mat/seminars
+      # /mat/seminars
+      # if not params[:__org__] consider the first possible organization of current_user
+      # Remember: without current user we may be in shibboleth redirect
       def set_current_organization
         if params[:__org__]
           @_current_organization = ::Organization.find_by_code(params[:__org__])
@@ -121,10 +123,7 @@ module DmUniboCommon
         @_current_organization
       end
 
-      #
-      # PERMISSIONS (FIXME TODO Move all to dm_unibo_common/app/models/dm_unibo_common/current_user)
-      #
-
+      # PERMISSIONS (FIXME: TODO: Move all to dm_unibo_common/app/models/dm_unibo_common/current_user)
       def current_user_has_some_authorization?
         current_user && current_user.has_some_authorization?
       end
