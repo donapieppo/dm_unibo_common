@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootsnap'
 
   s.add_dependency 'mysql2'
-  s.add_dependency 'mini_magick'
+  s.add_dependency "image_processing"
+  # s.add_dependency 'mini_magick'
 
   # auth
   s.add_dependency 'omniauth'
