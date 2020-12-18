@@ -24,6 +24,7 @@ class ImpersonationsController < ::ApplicationController
   # do not require admin for this method if access control
   # is performed on the current_user instead of true_user
   def stop_impersonating
+    authorize :impersonation, policy_class: DmUniboCommon::ImpersonationPolicy
     stop_impersonating_user
     redirect_to main_app.root_path and return
   end
