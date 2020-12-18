@@ -8,6 +8,7 @@ class PermissionsController < ::ApplicationController
       @organizations = [ ::Organization.find(params[:organization_id]) ]
     else
       @organizations = ::Organization.includes(permissions: :user).order(:name)
+      @networks = Permission.where.not(network: nil).includes(:organization)
     end
     authorize DmUniboCommon::Permission
   end

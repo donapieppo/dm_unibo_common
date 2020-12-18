@@ -1,24 +1,31 @@
-<%= main_title("Amministratori") %>  
+<% display = @organizations.size > 2 ? 'none' : 'block' %>
 
+<h1>Networks</h1>
+<ul>
+<% @networks.each do |network| %>  
+  <li><%= network.network %> - <%= network.organization %></li> 
+<% end %>
+
+<h1>Strutture</h1>
 <% @organizations.each do |organization| %>  
   <div>
     <div class="bg-warning p-2 my-1" onclick="hide_and_show(this)" style="cursor: pointer">
       <%= organization %>
     </div>
-    <div class="hide_and_show" style="display: <%= @organizations.size > 2 ? 'none' : 'block' %>">
+    <div class="hide_and_show" style="display: <%= display %>">
       <div>
         <ul class="list-group my-3">
           <% organization.permissions.each do |p|%>  
             <li class="list-group-item py-1">
-              <strong><%= link_to (p.user ? p.user.cn_militar : p.network), permission_path(p) %></strong>
+              <strong><%= link_to (p.user ? p.user.cn_militar : p.network), dm_unibo_common.permission_path(p) %></strong>
               (<%= p.authlevel_string %>)
-              <span class="float-right"><%= link_to_delete permission_path(p) %></span>
+              <span class="float-right"><%= link_to_delete dm_unibo_common.permission_path(p) %></span>
             </li>
           <% end %>
         </ul>
       </div>
       <div class="text-center">
-        <%= link_to 'Nuovo utente amministratore', new_organization_permission_path(organization.id), class: 'btn btn-primary my-2' %>
+        <%= link_to 'Nuovo utente amministratore', dm_unibo_common.new_organization_permission_path(organization.id), class: 'btn btn-primary my-2' %>
       </div>
     </div>
   </div>
