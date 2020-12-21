@@ -9,7 +9,9 @@ class OrganizationsController < ::ApplicationController
     authorize :organization, policy_class: DmUniboCommon::OrganizationPolicy
   end
 
-  # *** okkio all'@organization in sessione che compare in hedaer della pagina ***
+  def show
+  end
+
   def new
     @organization = ::Organization.new
     authorize @organization, policy_class: DmUniboCommon::OrganizationPolicy
@@ -25,19 +27,15 @@ class OrganizationsController < ::ApplicationController
     end
   end
 
-  # def edit
-  # end
+  def edit
+  end
 
-  # def update
-  #   if @organization.update_attributes(organization_params)
-  #     u = current_user.is_cesia? ? organizations_path : edit_organization_path(@organization)
-  #     redirect_to u, notice: 'La Struttura è stata modificata.'
-  #   else
-  #     render action: :edit
-  #   end
-  # end
-
-  def show
+  def update
+    if @organization.update_attributes(organization_params)
+      redirect_to edit_organization_path(@organization), notice: 'La Struttura è stata modificata.'
+    else
+      render action: :edit
+    end
   end
 
   def destroy
