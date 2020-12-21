@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 6.0'
+  s.add_dependency 'rails', '~> 6.0.3'
   s.add_dependency 'webpacker', '~> 4.0'
   s.add_dependency 'bootsnap'
 
