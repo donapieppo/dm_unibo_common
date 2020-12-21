@@ -1,9 +1,12 @@
 <% display = @organizations.size > 2 ? 'none' : 'block' %>
 
-<h1>Networks</h1>
-<ul>
-<% @networks.each do |network| %>  
-  <li><%= network.network %> - <%= network.organization %></li> 
+<% if @networks %>  
+  <h1>Networks</h1>
+  <ul>
+    <% @networks.each do |network| %>  
+      <li><%= network.network %> - <%= network.organization %></li> 
+    <% end %>
+  </ul>
 <% end %>
 
 <h1>Strutture</h1>
@@ -25,7 +28,8 @@
         </ul>
       </div>
       <div class="text-center">
-        <%= link_to 'Nuovo utente amministratore', dm_unibo_common.new_organization_permission_path(organization.id), class: 'btn btn-primary my-2' %>
+        <%= link_to 'Edit Organization', dm_unibo_common.edit_organization_path(organization.id), class: 'btn btn-primary my-2' %>
+        <%= link_to 'Add new admin', dm_unibo_common.new_organization_permission_path(organization.id), class: 'btn btn-primary my-2' %>
       </div>
     </div>
   </div>
