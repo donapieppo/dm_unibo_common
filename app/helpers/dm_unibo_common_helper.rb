@@ -16,8 +16,8 @@ module DmUniboCommonHelper
     end
   end
 
-  def dmicon(name, text: "", size: 18, prefix: 'fas')
-    content_tag(:i, '', style: "font-size: #{size}px", class: "#{prefix} fa-#{name}") + " " + text
+  def dmicon(name, text: "", size: 18, prefix: 'fas', style: '')
+    content_tag(:i, '', style: "font-size: #{size}px; #{style}", class: "#{prefix} fa-#{name}") + " " + text
   end
 
   def fwdmicon(name, text: "", size: 18, prefix: 'fas')
