@@ -23,7 +23,7 @@ class UsersController < ::ApplicationController
       begin
         ::User.syncronize(upn)
       rescue DmUniboCommon::NoUser
-        flash[:alert] = "Non esiste l'utente selezionato nel database di Ateneo."
+        flash[:alert] = "Non esiste l'utente #{upn} nel database di Ateneo."
       end
     #end
     redirect_to users_path
