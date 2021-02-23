@@ -31,7 +31,7 @@ class OrganizationsController < ::ApplicationController
   end
 
   def update
-    if @organization.update_attributes(organization_params)
+    if @organization.update(organization_params)
       redirect_to edit_organization_path(@organization), notice: 'La Struttura è stata modificata.'
     else
       render action: :edit

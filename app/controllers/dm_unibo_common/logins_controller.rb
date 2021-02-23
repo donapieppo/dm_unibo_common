@@ -132,7 +132,7 @@ class LoginsController < ::ApplicationController
     user = @idAnagraficaUnica ? ::User.where(id: @idAnagraficaUnica).first : ::User.where(email: @email).first
     if user
       logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
-      user.update_attributes(name: @name, surname: @surname)
+      user.update(name: @name, surname: @surname)
       sign_in_and_redirect user
     else
       logger.info "User #{@email} not allowed"
