@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'rails', '~> 6.1.3'
-  s.add_dependency 'webpacker', '~> 5.0'
+  s.add_dependency 'webpacker', '> 5.0'
   s.add_dependency 'bootsnap'
 
   s.add_dependency 'mysql2'
