@@ -52,7 +52,7 @@ class LoginsController < ::ApplicationController
   def developer
     Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise
     request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or request.remote_ip =~ /^172\.\d+\.\d+\.\d+/  or raise "ONLY LOCAL OF DOCKER. YOU ARE #{request.remote_ip}"
-    sign_in_and_redirect User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
+    sign_in_and_redirect ::User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
   end
 
   # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
