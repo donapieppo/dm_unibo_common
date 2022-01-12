@@ -70,6 +70,7 @@ module DmUniboCommon::Authorization
   module ClassMethods
     # example: h = { read: 10, manage: 20 }
     # creates methods like can_read?, can_manage?  
+    #                      can_only_read?, can_only_manage?  
     # use in config/initializers
     def configure_authlevels
       @@authlevels = Rails.configuration.authlevels
