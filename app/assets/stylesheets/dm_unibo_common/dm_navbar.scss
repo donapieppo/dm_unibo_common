@@ -1,5 +1,6 @@
 /* NAVBAR */
 .dm-navbar {
+  font-size: 16px;
   @extend .navbar;
   @extend .navbar-expand-lg;
   @extend .navbar-light; // necessary for .navbar-dark .navbar-toggler-icon
@@ -7,10 +8,6 @@
 
   border-bottom: 2px solid rgb(187,46,41);
 
-  // background-color: rgb(187,46,41);
-  // background-color: $dm-green;
-  // background-color: #009688;
-  // background-color: rgb(146, 186, 1);
   background-color: $dm-green;
 
   .navbar-nav {
@@ -22,10 +19,10 @@
         color: rgba(255, 255, 255, 0.9) !important;
       }
     }
-    div.dropdown-menu {
+    ul.dropdown-menu {
       a {
         @extend .dropdown-item;
-        color: rgba(0, 0, 0, 0.7) !important;
+        color: rgba(0, 0, 0, 0.9) !important;
       }
     }
   }
@@ -40,7 +37,7 @@
   }
 }
 .dropdown-menu i {
-  @extend .fa-fw;
+  //@extend .fa-fw;
 }
 
 .navbar-icon i {
