@@ -5,8 +5,11 @@
 .dm-card-title, .dm-card-header {
   @extend .mb-0;
   @extend .card-header;
+  font-size: 120%;
   font-weight: bold;
   border-bottom: 2px solid rgb(187,46,41);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .dm-card-body {
   @extend .card-body;
@@ -14,5 +17,3 @@
 .dm-card-footer {
   @extend .card-footer;
 }
-
-
