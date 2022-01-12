@@ -13,11 +13,11 @@ module DmUniboMenuHelper
     when :developer
       dm_unibo_common.auth_developer_callback_path
     end
-    link_to image_pack_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
+    link_to image_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
   end
 
   def logout_link
-    link_to image_pack_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
+    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
             Rails.configuration.dm_unibo_common[:logout_link]
   end
 
@@ -33,11 +33,15 @@ module DmUniboMenuHelper
   end
 
   def toggle_button
-    raw %Q|<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-controls="bs-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span></button>|
+    raw %Q|
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    |
   end
 
   def dm_menu(&block)
-    raw %Q|<nav class="dm-navbar"> #{toggle_button} | + capture(&block) + %Q|</nav>| + privacy_alert
+    raw %Q|<nav class="dm-navbar navbar navbar-expand-lg navbar-light"><div class="container-fluid"> #{toggle_button} | + capture(&block) + %Q|</div></nav>| + privacy_alert
   end
 
   def dm_header(dm_header_title: Rails.configuration.header_title, dm_header_subtitle: Rails.configuration.header_subtitle)
@@ -45,14 +49,14 @@ module DmUniboMenuHelper
 
     string = (dm_header_title) + content_tag(:small, dm_header_subtitle)
 
-    link_to(image_pack_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand') +
+    link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand') +
     link_to(big_dmicon(Rails.configuration.header_icon), main_root_path, class: 'navbar-brand navbar-icon') +
     link_to(string.html_safe, main_root_path, class: 'navbar-brand') 
   end
 
   def dm_nav(&block)
-    %Q|<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-         <ul class="navbar-nav mr-auto">|.html_safe + capture(&block) +
+    %Q|<div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav me-auto">|.html_safe + capture(&block) +
     %Q|  </ul> |.html_safe + logged_user +
     %Q|</div>|.html_safe
   end
@@ -60,10 +64,12 @@ module DmUniboMenuHelper
   def dropdown_menu(id, title, &block)
     raw %Q|
 <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="#{id}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#{title}</a>
-  <div class="dropdown-menu" aria-labelledby="#{id}">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown#{id}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    #{title}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown#{id}">
     #{capture(&block)}
-  </div>
+  </ul>
 </li>|
   end
 
