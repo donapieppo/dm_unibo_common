@@ -19,11 +19,13 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 6.1.3'
-  s.add_dependency 'webpacker', '> 5.0'
-  s.add_dependency 'bootsnap'
+  s.add_dependency "rails", "~> 7.0"
+  s.add_dependency "sprockets-rails"
+  s.add_dependency "mysql2", "~> 0.5"
+  s.add_dependency "puma", "~> 5.0"
+  s.add_dependency "importmap-rails"
+  s.add_dependency "jbuilder"
 
-  s.add_dependency 'mysql2'
   s.add_dependency "image_processing"
 
   # auth
@@ -32,10 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-google-oauth2'  
   s.add_dependency 'pretender'
   s.add_dependency 'pundit'
-
-  s.add_dependency 'simple_form', '~> 5.1'
-  s.add_dependency 'listen', '~> 3'
+  s.add_dependency 'simple_form'
 end
 
 # Development dependencies aren't installed by default and aren't activated when a gem is required.
-#
