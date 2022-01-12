@@ -148,7 +148,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'col-sm-3 col-form-label'
+    b.use :label, class: 'col-sm-3 col-form-label my-2'
     b.wrapper :grid_wrapper, tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
@@ -168,7 +168,8 @@ SimpleForm.setup do |config|
         bb.use :input, class: 'form-check-input', error_class: 'is-invalid', valid_class: 'is-valid'
         bb.use :label, class: 'form-check-label'
         bb.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-        bb.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+        # donatini d-block
+        bb.use :hint, wrap_with: { tag: 'small', class: 'd-block form-text text-muted' }
       end
     end
   end
@@ -260,7 +261,7 @@ SimpleForm.setup do |config|
   end
 
   # inline input for boolean
-  config.wrappers :inline_boolean, tag: 'span', class: 'form-check mb-2 mr-sm-2', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+  config.wrappers :inline_boolean, tag: 'span', class: 'form-check mb-2 me-sm-2', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
     b.optional :readonly
     b.use :input, class: 'form-check-input', error_class: 'is-invalid', valid_class: 'is-valid'
@@ -411,17 +412,18 @@ SimpleForm.setup do |config|
 
 
   # The default wrapper to be used by the FormBuilder.
-  # donapieppo
+  # donatini
   config.default_wrapper = :horizontal_form
 
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
-    boolean:       :vertical_boolean,
-    check_boxes:   :vertical_collection,
+    boolean:       :horizontal_boolean,
+    check_boxes:   :horizontal_collection,
     #date:          :vertical_multi_select,
     #datetime:      :vertical_multi_select,
     file:          :vertical_file,
+    #radio_buttons: :vertical_collection,
     radio_buttons: :horizontal_collection,
     range:         :vertical_range,
     time:          :vertical_multi_select
