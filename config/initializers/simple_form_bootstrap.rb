@@ -148,7 +148,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'col-sm-3 col-form-label my-2'
+    b.use :label, class: 'col-sm-3 col-form-label'
     b.wrapper :grid_wrapper, tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
@@ -423,8 +423,7 @@ SimpleForm.setup do |config|
     #date:          :vertical_multi_select,
     #datetime:      :vertical_multi_select,
     file:          :vertical_file,
-    #radio_buttons: :vertical_collection,
-    radio_buttons: :horizontal_collection,
+    radio_buttons: :vertical_collection,
     range:         :vertical_range,
     time:          :vertical_multi_select
   }
