@@ -16,6 +16,7 @@ input[type="submit"] {
   @extend .btn;
   @extend .btn-primary;
 } 
+
 .simple_form input[type="submit"] {
   @extend .offset-sm-3;
 }
@@ -40,42 +41,5 @@ small.form-text {
 }
 
 label.collection_check_boxes {
-  @extend .ml-1;
+  @extend .ms-1;
 }
-// .has-error {
-//   input.form-control {
-//      @extend .is-invalid;
-//    }
-// }
-// .form-error-block {
-//   @extend .text-danger;
-// }
-// .help-block {
-//   font-style: italic;
-// }
-// .radio {
-//   display: block;
-//   label {
-//     display: inline;
-//     input {
-//       display: inline;
-//     }
-//   }
-// }
-// .radio input[type="radio"], .checkbox input[type="checkbox"] {
-//   width: 30px;
-//   margin-left: 0px;
-//   height: auto;
-// }
-// .form-control-inline {
-//   @extend .form-control;
-//   display: inline;
-// }
-// input[type="file"] {
-//   border: 0;
-//   box-shadow: 0px 0px 0px 0px;
-//   height: auto;
-// }
-// .missing-field {
-//   // color: $brand-danger;
-// }
