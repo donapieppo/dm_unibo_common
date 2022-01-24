@@ -47,7 +47,7 @@ module DmUniboMenuHelper
   def dm_header(dm_header_title: Rails.configuration.header_title, dm_header_subtitle: Rails.configuration.header_subtitle)
     main_root_path = current_organization ? main_app.current_organization_root_path : main_app.root_path
 
-    string = (dm_header_title) + content_tag(:small, dm_header_subtitle)
+    string = (dm_header_title) + content_tag(:div, dm_header_subtitle, style: 'font-size: 75%')
 
     link_to(image_tag(Rails.configuration.dm_unibo_common[:logo_image]), Rails.configuration.dm_unibo_common[:logo_page], class: 'navbar-brand') +
     link_to(big_dmicon(Rails.configuration.header_icon), main_root_path, class: 'navbar-brand navbar-icon') +
