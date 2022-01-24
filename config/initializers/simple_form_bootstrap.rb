@@ -209,7 +209,8 @@ SimpleForm.setup do |config|
     b.wrapper :grid_wrapper, tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input, error_class: 'is-invalid', valid_class: 'is-valid'
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-      ba.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+      # donatini
+      ba.use :hint, wrap_with: { tag: 'div', class: 'form-text text-muted' }
     end
   end
 
@@ -422,8 +423,8 @@ SimpleForm.setup do |config|
     check_boxes:   :horizontal_collection,
     #date:          :vertical_multi_select,
     #datetime:      :vertical_multi_select,
-    file:          :vertical_file,
-    radio_buttons: :vertical_collection,
+    file:          :horizontal_file,
+    radio_buttons: :horizontal_collection,
     range:         :vertical_range,
     time:          :vertical_multi_select
   }
