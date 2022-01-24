@@ -1,6 +1,5 @@
 /* NAVBAR */
 .dm-navbar {
-  font-size: 16px;
   @extend .navbar;
   @extend .navbar-expand-lg;
   @extend .navbar-light; // necessary for .navbar-dark .navbar-toggler-icon
@@ -21,7 +20,7 @@
     }
     ul.dropdown-menu {
       a {
-        @extend .dropdown-item;
+        @extend .nav-link;
         color: rgba(0, 0, 0, 0.9) !important;
       }
     }
@@ -33,22 +32,16 @@
   color: rgba(255, 255, 255, 0.9) !important;
   small {
     display: block;
-    font-size: 12px;
   }
 }
 .dropdown-menu i {
   //@extend .fa-fw;
 }
 
-.navbar-icon i {
-  font-size: 32px;
-}
 @media (max-width: 450px) {
   .navbar-brand {
-    font-size: 14px;
   }
   .navbar-icon i {
-    font-size: 18px;
   }
   .navbar-image {
     display: none;

@@ -35,11 +35,16 @@ input.integer {
 select.hour {
   width: 5em;
 }
-// simple-form 2.0 bad choice
-small.form-text {
-  font-size: 100%
-}
-
 label.collection_check_boxes {
   @extend .ms-1;
+}
+
+// fix bootstrap 5 
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+.form-control {
+  //padding-top: 0.75rem;
+  //padding-bottom: 0.75rem;
 }
