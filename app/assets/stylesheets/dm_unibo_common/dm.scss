@@ -4,13 +4,13 @@
 
 body {
   font-family: 'Ubuntu', sans-serif;
-  font-size: 14px;
+  //font-size: 14px;
 } 
-@media (max-width: 450px) {
-  body {
-    font-size: 12px;
-  } 
-}
+// @media (max-width: 450px) {
+//   body {
+//     font-size: 12px;
+//   } 
+// }
 a {
   color: #222;
   text-decoration: underline;
@@ -21,24 +21,24 @@ a {
   text-align:   center;
 }
 h1 {
-  font-size: 180%;
+  font-size: 150%;
   @extend .my-3;
   @extend .centered;
   color: #30373b;
-  font-weight: 500;
+  font-weight: 700;
   &:first-letter { 
     text-transform: capitalize; 
   }
 }
 h2 {
-  font-size: 140%;
+  font-size: 130%;
   color: #30373b;
-  font-weight: 500;
+  font-weight: 700;
 }
 h3 {
   font-size: 120%;
   color: #30373b;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 #footer {
