@@ -21,11 +21,11 @@ a {
   text-align:   center;
 }
 h1 {
-  font-size: 150%;
-  @extend .my-3;
+  @extend .display-6;
+  @extend .my-md-4;
   @extend .centered;
-  color: #30373b;
-  font-weight: 700;
+  //color: #30373b;
+  //font-weight: 600;
   &:first-letter { 
     text-transform: capitalize; 
   }
