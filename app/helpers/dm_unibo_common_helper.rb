@@ -55,9 +55,8 @@ module DmUniboCommonHelper
       i = (type == :danger) ? 'exclamation-triangle' : 'info-circle'
 
       Array(message).each do |msg|
-        text = content_tag(:div,
-                           dmicon(i) + ' ' + msg.html_safe + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.html_safe,
-                           class: "alert alert-#{type} alert-dismissible fade show", role: 'alert')
+        text = content_tag(:div, dmicon(i) + ' ' + msg.html_safe,  
+                           class: "alert alert-#{type}", role: 'alert')
         flash_messages << text.html_safe if msg
       end
     end
