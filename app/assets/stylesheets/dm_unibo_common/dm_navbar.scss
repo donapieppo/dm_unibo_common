@@ -9,21 +9,15 @@
 
   background-color: $dm-green;
 
-  .navbar-nav {
-    li {
-      @extend .nav-item;
-      a {
-        @extend .nav-link;
-        // color: rgba(0, 0, 0, 0.7) !important;
-        color: rgba(255, 255, 255, 0.9) !important;
-      }
-    }
-    ul.dropdown-menu {
-      a {
-        @extend .nav-link;
-        color: rgba(0, 0, 0, 0.9) !important;
-      }
-    }
+  ul.navbar-nav > li {
+    @extend .nav-item;
+  }
+  ul.navbar-nav > li > a {
+    @extend .nav-link;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  ul.dropdown-menu > li > a {
+    @extend .dropdown-item;
   }
 }
 .navbar-brand {
