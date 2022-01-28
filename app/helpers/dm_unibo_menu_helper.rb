@@ -41,7 +41,12 @@ module DmUniboMenuHelper
   end
 
   def dm_menu(&block)
-    raw %Q|<nav class="dm-navbar navbar navbar-expand-lg navbar-light"><div class="container-fluid"> #{toggle_button} | + capture(&block) + %Q|</div></nav>| + privacy_alert
+    raw %Q|
+<nav class="dm-navbar navbar navbar-expand-lg">
+  <div class="container-fluid">
+    #{toggle_button} | + capture(&block) + %Q|
+  </div>
+</nav>| + privacy_alert
   end
 
   def dm_header(dm_header_title: Rails.configuration.header_title, dm_header_subtitle: Rails.configuration.header_subtitle)
