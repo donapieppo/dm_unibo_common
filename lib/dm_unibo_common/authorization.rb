@@ -77,7 +77,7 @@ module DmUniboCommon::Authorization
 
       @@authlevels.each do |name, number|
         define_method :"can_#{name}?" do |oid|
-          is_cesia? and return true
+          return true if is_cesia?
           a = organization_authlevel(oid)
           a && a >= number
         end
@@ -115,6 +115,7 @@ module DmUniboCommon::Authorization
   # uno user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
   # user permission overrides network permissions
+  # in organization prendiamo quella più alta ordinando
   def update_authlevels_cache(k)
     return @@authlevels_cache[k] if @@authlevels_cache.key?(k)
 
@@ -124,7 +125,7 @@ module DmUniboCommon::Authorization
       end
     end
     
-    @user.permissions.each do |permission|
+    @user.permissions.order(authlevel: :asc).each do |permission|
       if @is_cesia
         @@authlevels_cache[k][permission.organization_id] = TO_CESIA
       else
