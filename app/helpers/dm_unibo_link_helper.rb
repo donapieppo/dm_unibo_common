@@ -20,7 +20,7 @@ module DmUniboLinkHelper
   end
 
   def link_to_edit(name = "", url, button: false, modal: false)
-    link_to fwdmicon('edit') + " " + name, url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
+    link_to fwdmicon('edit') + (name.blank? ? '' : " #{name}"), url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
   end
 
   def link_to_edit2(name = "", url)
