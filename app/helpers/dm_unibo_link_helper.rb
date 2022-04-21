@@ -7,7 +7,9 @@ module DmUniboLinkHelper
   alias back_link_to :link_to_back
 
   def link_to_delete(name = "", url, button: false)
-    button_to fwdmicon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare?'}, class: 'd-inline px-0 mx-0'}, style: 'background: none; border: none;'  
+    button_to fwdmicon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare?'}, class: 'd-inline px-0 mx-0'}, style: 'background: none; border: none;' do
+      fwdmicon('trash-alt') + " ".html_safe + name
+    end
     # link_to fwdmicon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
