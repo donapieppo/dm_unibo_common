@@ -38,7 +38,7 @@ module DmUniboModalHelper
   def bootstrap_modal_div
     raw %Q|
 <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="mainModalLabel"></h5>
