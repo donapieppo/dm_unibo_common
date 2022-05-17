@@ -9,6 +9,9 @@ require 'omniauth-shibboleth'
 require 'omniauth-google-oauth2'  
 require 'pretender'
 require 'pundit'
+require 'view_component'
+require "turbo-rails"
+require "stimulus-rails"
 
 # self
 require 'dm_unibo_common/errors'
