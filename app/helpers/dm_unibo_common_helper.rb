@@ -6,11 +6,10 @@ include DmUniboModalHelper
 include DmUniboOrganizationsHelper
 
 module DmUniboCommonHelper 
-
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
-    if modal_page
-      javascript_tag("$('#main-modal .modal-title').html('#{j srt}')")
+    if false and modal_page
+      javascript_tag("document.querySelector('#main-modal .modal-title').innerHTML = '#{j srt}'")
     else
       content_tag(:h1, srt)
     end
