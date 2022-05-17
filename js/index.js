@@ -1,6 +1,6 @@
 import * as bootstrap from "bootstrap"
 import "@hotwired/turbo-rails"
-export { default as DmTest } from "./dm_test.js"
+export { default as DmTest } from "./dm_test"
 export { default as TurboModalController } from "./turbo_modal_controller"
 
 window.display_unless = function (txt, what, condition_input) {
