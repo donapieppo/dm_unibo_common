@@ -1,0 +1,50 @@
+// DM-FORM
+.dm-form {
+  @extend .dm-card;
+  input.input-small {
+    width: 10em;
+  }
+}
+.dm-form-title {
+  @extend .dm-card-title;
+}
+.dm-form-body {
+  @extend .card-body;
+}
+// SUMBIT
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+} 
+
+.simple_form input[type="submit"] {
+  @extend .offset-sm-3;
+}
+.form-group label {
+  font-weight: bold;
+  text-align: right;
+}
+@media (max-width: 576px) {
+  .form-group label {
+    text-align: left;
+  }
+}
+input.integer {
+  width: 8em;
+}
+select.hour {
+  width: 5em;
+}
+label.collection_check_boxes {
+  @extend .ms-1;
+}
+
+// fix bootstrap 5 
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+.form-control {
+  //padding-top: 0.75rem;
+  //padding-bottom: 0.75rem;
+}
