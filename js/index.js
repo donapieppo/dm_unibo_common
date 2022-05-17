@@ -1,5 +1,6 @@
 import * as bootstrap from "bootstrap"
 import "@hotwired/turbo-rails"
+export { TurboModalController } from "./turbo_modal_controller"
 
 window.display_unless = function (txt, what, condition_input) {
   what.style.display = (condition_input.value == txt) ? 'none' : 'block';
@@ -26,4 +27,5 @@ window.display_if_checked = function (what, condition_input) {
     });
   }
 }
+
 
