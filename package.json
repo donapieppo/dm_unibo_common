@@ -9,14 +9,14 @@
     "esbuild": "^0.14.10",
     "sass": "^1.46.0",
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "dm_unibo_common_js": "git+https://github.com/donapieppo/dm_unibo_common_js.git"
   },
   "version": "0.1.0",
   "description": "Dm Unibo Common is a js (actually part of a Rails Engine) with code and configurations common to my ruby projects.",
   "main": "index.js",
   "directories": {
-    "lib": "lib"
-  },
+    "scss": "scss",
+    "js": "js"
+  }
   "files": [
     "scss/*.scss",
     "js/*.{js,map}"
