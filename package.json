@@ -16,7 +16,7 @@
   "directories": {
     "scss": "scss",
     "js": "js"
-  }
+  },
   "files": [
     "scss/*.scss",
     "js/*.{js,map}"
