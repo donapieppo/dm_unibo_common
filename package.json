@@ -12,7 +12,7 @@
   },
   "version": "0.1.0",
   "description": "Dm Unibo Common is a js (actually part of a Rails Engine) with code and configurations common to my ruby projects.",
-  "main": "index.js",
+  "main": "js/index.js",
   "directories": {
     "scss": "scss",
     "js": "js"
