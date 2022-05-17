@@ -18,8 +18,8 @@
     "lib": "lib"
   },
   "files": [
-    "lib/stylesheets/*.scss",
-    "lib/javascript/*.{js,map}"
+    "scss/*.scss",
+    "js/*.{js,map}"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
