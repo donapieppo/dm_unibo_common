@@ -25,6 +25,11 @@ Gem::Specification.new do |s|
   s.add_dependency "puma", "~> 5.0"
   s.add_dependency "importmap-rails"
   s.add_dependency "jbuilder"
+  s.add_dependency "turbo-rails"
+  s.add_dependency "stimulus-rails"
+  s.add_dependency "view_component"
+  s.add_dependency "jsbundling-rails"
+  s.add_dependency "cssbundling-rails"
 
   s.add_dependency "image_processing"
 
