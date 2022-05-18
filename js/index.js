@@ -29,20 +29,29 @@ window.display_if_checked = function (what, condition_input) {
   }
 };
 
-window.toggle_div = function (boolean_div, first_div, second_div, with_listener = true) {
-  console.log(`toggle_div on ${boolean_div} with_listener=${with_listener}`);
-  check_input = document.querySelector(boolean_div);
-
-  if (first_div && document.querySelector(first_div)) {
-    document.querySelector(first_div).style.display  = check_input.checked ? 'block' : 'none';
-  }
-  if (second_div && document.querySelector(second_div)) {
-    document.querySelector(second_div).style.display = check_input.checked ? 'none' : 'block';
+window.toggle_div = function (boolean, first, second, with_listener = true) {
+  var boolean_element = boolean.tagName ? boolean : document.querySelector(boolean);
+  var first_element = first.tagName ? first : document.querySelector(first);
+  var second_element = null;
+  if (second) {
+    second_element = second.tagName ? second : document.querySelector(second);
   }
 
-  if (check_input && with_listener) {
-    check_input.addEventListener('change', function() { 
-      toggle_div(boolean_div, first_div, second_div, false);
+  // console.log("IN window.toggle_div");
+  // console.log(boolean_element);
+  // console.log(boolean_element.checked);
+  // console.log(first_element);
+
+  if (first_element) {
+    first_element.style.display = boolean_element.checked ? 'block' : 'none';
+  }
+  if (second_element) {
+    second_element.style.display = boolean_element.checked ? 'none' : 'block';
+  }
+
+  if (boolean_element && with_listener) {
+    boolean_element.addEventListener('change', function() { 
+      toggle_div(boolean_element, first_element, second_element, false);
     });
   }
 };
