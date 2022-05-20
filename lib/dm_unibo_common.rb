@@ -13,6 +13,10 @@ require 'view_component'
 require "turbo-rails"
 require "stimulus-rails"
 
+#ActiveSupport.on_load(:'turbo-rails') do
+#  include Turbo::FramesHelper
+#end
+
 # self
 require 'dm_unibo_common/errors'
 require 'dm_unibo_common/development_mail_interceptor'
@@ -22,6 +26,7 @@ require 'dm_unibo_common/authorization'
 # require 'dm_unibo_common/permission'
 require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
+require 'dm_unibo_common/components/modal_component.rb'
 
 require 'dm_unibo_common/policies/application_policy'
 require 'dm_unibo_common/policies/organization_policy'
