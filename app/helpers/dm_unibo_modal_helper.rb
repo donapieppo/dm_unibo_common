@@ -21,19 +21,24 @@ module DmUniboModalHelper
   #   end
   # end
 
-  def dm_modal_js_helper
-    javascript_tag do
-      raw %Q|
-  $('.modal-link').click(function(event){
-    event.preventDefault();
-    var url = $(this).attr('href');
-    var separator = url.indexOf('?') > -1 ? '&' : '?';
-    $('#main-modal .modal-body').load(url + separator + "modal=yyy");
-    $('#main-modal').modal('show');
-  });
-      |
-    end
-  end
+  # def dm_modal_js_helper
+  #   javascript_tag do
+  #     raw %Q|
+  # modal = document.querySelector('#main-modal .modal-body');
+  # document.querySelectorAll('.modal-link').forEach( (element) => {
+  #   element.addEventListener('click', (event) => {
+  #     event.preventDefault();
+  #     var url = element.getAttribute('href');
+  #     var separator = url.indexOf('?') > -1 ? '&' : '?';
+  #     fetch(url + separator + "modal=yyy").then( res => {
+  #       modal.innerHTML = res;
+  #       modal.style.display = 'block';
+  #     });
+  #   });
+  # });
+  #     |
+  #   end
+  # end
 
   def bootstrap_modal_div
     raw %Q|
