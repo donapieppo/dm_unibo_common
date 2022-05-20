@@ -1,7 +1,7 @@
 module DmUniboLinkHelper
 
   def link_to_back url
-    link_to 'indietro', url
+    link_to 'indietro', url, data: { turbo: false }
   end
 
   alias back_link_to :link_to_back
