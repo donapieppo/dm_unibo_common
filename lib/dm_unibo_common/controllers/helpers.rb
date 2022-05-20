@@ -34,14 +34,13 @@ module DmUniboCommon
       end
 
       def modal_page
-        params[:modal] && params[:modal] == 'yyy'
+        params[:modal] && params[:modal] == '1'
       end
 
       def set_current_user
-        #if Rails.env.development?
-        #  @_current_user = ::User.where(upn: 'pietro.donatini@unibo.it').first
-        #elsif request.session[:user_id]
-        if request.session[:user_id]
+        if Rails.configuration.dm_unibo_common[:truffaut] && Rails.env.development? && request.remote_ip == '127.0.0.1'
+          @_current_user = ::User.where(upn: 'pietro.donatini@unibo.it').first
+        elsif request.session[:user_id]
           @_current_user = ::User.find(session[:user_id])
         end
       end
