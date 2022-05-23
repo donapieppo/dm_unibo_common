@@ -1,16 +1,12 @@
-@import "./variables";
-
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
 
 body {
   font-family: 'Ubuntu', sans-serif;
-  //font-size: 14px;
 } 
-// @media (max-width: 450px) {
-//   body {
-//     font-size: 12px;
-//   } 
-// }
+button {
+  background-color: transparent;
+  border: 0;
+}
 a {
   color: #222;
   text-decoration: underline;
@@ -24,8 +20,6 @@ h1 {
   @extend .display-6;
   @extend .my-md-4;
   @extend .centered;
-  //color: #30373b;
-  //font-weight: 600;
   &:first-letter { 
     text-transform: capitalize; 
   }
