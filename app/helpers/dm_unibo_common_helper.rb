@@ -5,6 +5,13 @@ include DmUniboLinkHelper
 include DmUniboModalHelper
 
 module DmUniboCommonHelper 
+  def dm_unibo_common_headers
+    csrf_meta_tags +
+    csp_meta_tag +
+    stylesheet_link_tag("application", "data-turbo-track": "reload") +
+    javascript_include_tag("application", "data-turbo-track": "reload", defer: true) 
+  end
+
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
     content_tag(:h1, srt)
@@ -107,15 +114,3 @@ module DmUniboCommonHelper
     current_user.is_cesia? or raise DmUniboCommon::NotAuthorized, "Non sufficienti privilegi per seguire l'operazione"
   end
 end
-
-#module SimpleForm
-#  module Inputs
-#
-#    class DatePickerInput < Base
-#      def input
-#        @builder.text_field(attribute_name,input_html_options)
-#      end    
-#    end
-#  end
-#end
-#
