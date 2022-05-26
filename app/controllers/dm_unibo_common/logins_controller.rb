@@ -64,7 +64,8 @@ class LoginsController < ::ApplicationController
     cookies.clear
     reset_session
     logger.info("after logout we redirect to params[:return] = #{params[:return]}")
-    redirect_to (params[:return] || 'http://www.unibo.it')
+    redirect_to Rails.configuration.dm_unibo_common[:logout_link], allow_other_host: true
+    # redirect_to (params[:return] || 'http://www.unibo.it')
   end
 
   # Not authorized but valid credentials
