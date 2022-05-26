@@ -11,7 +11,6 @@ module DmUniboLinkHelper
                                                               class: "d-inline px-0 mx-0 #{_class}" } do
       fwdmicon('trash-alt') + " ".html_safe + name
     end
-    # link_to fwdmicon('trash-alt') + " " + name, url, method: :delete, title: 'elimina', data: {confirm: 'Siete sicuri di voler cancellare?'}, class: (button ? 'button' : '')
   end
 
   def link_to_download(url, txt = "")
@@ -25,10 +24,6 @@ module DmUniboLinkHelper
 
   def link_to_edit(name = "", url, button: false, modal: false)
     link_to fwdmicon('edit') + (name.blank? ? '' : " #{name}"), url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
-  end
-
-  def link_to_edit2(name = "", url)
-    link_to fwdmicon('edit') + "  " + name, url, class: :button
   end
 
   def link_to_new(name = "", url, button: true, modal: false)
@@ -58,5 +53,4 @@ module DmUniboLinkHelper
   def assistenza_cesia
     '<a href="mailto:assistenza.cesia@unibo.it">assistenza.cesia@unibo.it</a>'.html_safe
   end
-
 end

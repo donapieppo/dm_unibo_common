@@ -17,14 +17,14 @@ module DmUniboMenuHelper
   end
 
   def logout_link
-    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
-            Rails.configuration.dm_unibo_common[:logout_link]
+    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), dm_unibo_common.logout_path
+                      # Rails.configuration.dm_unibo_common[:logout_link]
   end
 
   def logged_user
     content_tag :ul, class: "navbar-nav" do 
       if sso_user_upn
-        %Q|<span class="navbar-text">#{sso_user_upn}</span>
+        %Q|<span class="navbar-text ps-1">#{sso_user_upn}</span>
            <li>#{logout_link}</li>|.html_safe
       else
         %Q|<li>#{login_link}</li>|.html_safe
@@ -93,4 +93,3 @@ module DmUniboMenuHelper
   end
 
 end
-

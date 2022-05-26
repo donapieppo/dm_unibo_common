@@ -39,5 +39,3 @@ module DmUniboFormHelper
     simple_form_for(record, options, &block)
   end
 end
-
-

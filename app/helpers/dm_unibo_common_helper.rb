@@ -3,16 +3,11 @@ include DmUniboPrivacyHelper
 include DmUniboFormHelper
 include DmUniboLinkHelper
 include DmUniboModalHelper
-include DmUniboOrganizationsHelper
 
 module DmUniboCommonHelper 
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
-    if false and modal_page
-      javascript_tag("document.querySelector('#main-modal .modal-title').innerHTML = '#{j srt}'")
-    else
-      content_tag(:h1, srt)
-    end
+    content_tag(:h1, srt)
   end
 
   def dmicon(name, text: "", size: 18, prefix: 'fas', style: '')
@@ -69,7 +64,10 @@ module DmUniboCommonHelper
   end
 
   def popover_help(title, content)
-    raw %Q|<span class="float-right"><i class="fa fa-question-circle pull-right popover-help" data-placement="left" data-toggle="popover" title="#{title}" data-content="#{content}"></i></span>|
+    raw %Q|
+    <span type="button" class="float-right" data-bs-toggle="popover" title="#{title}" data-bs-content="#{content}">
+      <i class="fa fa-question-circle pull-right popover-help"></i>
+    </span>|
   end
 
   # dl_field(User.first, :name)
@@ -105,6 +103,9 @@ module DmUniboCommonHelper
     mail_to Rails.configuration.contact_mail, Rails.configuration.contact_mail
   end
 
+  def check_user_is_cesia
+    current_user.is_cesia? or raise DmUniboCommon::NotAuthorized, "Non sufficienti privilegi per seguire l'operazione"
+  end
 end
 
 #module SimpleForm
