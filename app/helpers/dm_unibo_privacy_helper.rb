@@ -5,7 +5,7 @@ module DmUniboPrivacyHelper
 
   def privacy_alert
     name = privacy_cookie_name
-    if false && cookies[name] 
+    if cookies[name] 
       return ""
     else
       cookies[name] = { value: "accepted", expires: 1.year.from_now }
