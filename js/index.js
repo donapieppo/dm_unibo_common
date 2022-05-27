@@ -56,3 +56,10 @@ window.toggle_div = function (boolean, first, second, with_listener = true) {
   }
 };
 
+window.toggleVisible = function (item) {
+    if (item.style.display === 'none'){
+        item.style.display = 'block';
+    } else {
+        item.style.display = 'none';
+    }
+};
