@@ -3,6 +3,7 @@ include DmUniboPrivacyHelper
 include DmUniboFormHelper
 include DmUniboLinkHelper
 include DmUniboModalHelper
+include DmUniboIconHelper
 
 module DmUniboCommonHelper 
   def dm_unibo_common_headers
@@ -15,19 +16,6 @@ module DmUniboCommonHelper
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
     content_tag(:h1, srt)
-  end
-
-  def dmicon(name, text: "", size: 18, prefix: 'fas', style: '')
-    text = text.blank? ? '' : " #{text}"
-    content_tag(:i, '', style: "font-size: #{size}px; #{style}", class: "#{prefix} fa-#{name}") + text
-  end
-
-  def fwdmicon(name, text: "", size: 18, prefix: 'fas')
-    raw "<i style=\"font-size: #{size}px\" class=\"#{prefix} fa-#{name} fa-fw\"></i>#{text}"
-  end
-
-  def big_dmicon(name, text: "", size: 24, prefix: 'fas')
-    dmicon(name, text: text, size: size, prefix: prefix)
   end
 
   # If user is sso logged even if he has no access should see his eppn (and logout link)
