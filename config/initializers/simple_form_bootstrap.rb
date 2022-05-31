@@ -168,8 +168,7 @@ SimpleForm.setup do |config|
         bb.use :input, class: 'form-check-input', error_class: 'is-invalid', valid_class: 'is-valid'
         bb.use :label, class: 'form-check-label'
         bb.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-        # donatini d-block
-        bb.use :hint, wrap_with: { tag: 'small', class: 'd-block form-text text-muted' }
+        bb.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
       end
     end
   end
@@ -209,8 +208,7 @@ SimpleForm.setup do |config|
     b.wrapper :grid_wrapper, tag: 'div', class: 'col-sm-9' do |ba|
       ba.use :input, error_class: 'is-invalid', valid_class: 'is-valid'
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-      # donatini
-      ba.use :hint, wrap_with: { tag: 'div', class: 'form-text text-muted' }
+      ba.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
     end
   end
 
@@ -262,7 +260,7 @@ SimpleForm.setup do |config|
   end
 
   # inline input for boolean
-  config.wrappers :inline_boolean, tag: 'span', class: 'form-check mb-2 me-sm-2', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+  config.wrappers :inline_boolean, tag: 'span', class: 'form-check mb-2 mr-sm-2', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
     b.optional :readonly
     b.use :input, class: 'form-check-input', error_class: 'is-invalid', valid_class: 'is-valid'
@@ -413,7 +411,6 @@ SimpleForm.setup do |config|
 
 
   # The default wrapper to be used by the FormBuilder.
-  # donatini
   config.default_wrapper = :horizontal_form
 
   # Custom wrappers for input types. This should be a hash containing an input
