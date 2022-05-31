@@ -1,5 +1,9 @@
 import * as bootstrap from "bootstrap"
+import "@fortawesome/fontawesome-free/js/regular.min"
+import "@fortawesome/fontawesome-free/js/solid.min"
+import "@fortawesome/fontawesome-free/js/fontawesome.min"
 import "@hotwired/turbo-rails"
+
 export { default as DmTest } from "./dm_test"
 export { default as TurboModalController } from "./turbo_modal_controller"
 
