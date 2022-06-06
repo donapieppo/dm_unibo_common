@@ -5,7 +5,8 @@ module DmUniboIconHelper
   end
 
   def fwdmicon(name, text: "", size: 18, prefix: 'fas')
-    raw "<i style=\"font-size: #{size}px\" class=\"#{prefix} fa-#{name} fa-fw\"></i> #{text}"
+    text = text.blank? ? '' : " #{text}"
+    raw "<i style=\"font-size: #{size}px\" class=\"#{prefix} fa-#{name} fa-fw\"></i>#{text}"
   end
 
   def big_dmicon(name, text: "", size: 24, prefix: 'fas')
