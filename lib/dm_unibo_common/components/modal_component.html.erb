@@ -1,10 +1,5 @@
-<%# <%= turbo_frame_tag "modal" do %1> %>
 <turbo-frame id="modal">
-  <%= tag.div data: { controller: "turbo-modal", 
-                          action: "turbo:click->turbo-modal#followLink 
-                                   keyup@window->turbo-modal#closeWithKeyboard
-                                   click@window->turbo-modal#closeBackground
-                                   turbo:submit-end->turbo-modal#submitEnd" } do %>
+  <%= tag.div data: { controller: "turbo-modal", action: @actions } do %>
     <div id="modal_div" class="modal fade" tabindex="-1" aria-modal="true">
       <div id="modal_dialog" class="modal-dialog modal-lg modal-dialog-centered">
         <div id="modal_content" class="modal-content position-relative" data-turbo-modal-target="modalContent">
@@ -24,4 +19,3 @@
     </div>
   <% end %>
 </turbo-frame>
-<%# <% end %1> %>
