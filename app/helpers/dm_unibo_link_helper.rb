@@ -4,30 +4,27 @@ module DmUniboLinkHelper
     link_to 'indietro', url, data: { turbo: false }
   end
 
-  alias back_link_to :link_to_back
-
   def link_to_delete(name = "", url, button: false, _class: '')
     button_to url, method: :delete, title: 'elimina', form: { data: { 'turbo-confirm': 'Siete sicuri di voler cancellare?'}, 
                                                               class: "d-inline px-0 mx-0 #{_class}" } do
-      fwdmicon('trash-alt') + " ".html_safe + name
+      fwdmicon('trash-alt', text: name)
     end
   end
 
   def link_to_download(url, txt = "")
     link_to fwdmicon('download') + txt, url
   end
-  alias_method :download_link, :link_to_download
 
   def link_to_show(name = "", url)
-    link_to dmicon('search') + " " + name, url, title: "Mostra dettagli"
+    link_to dmicon('search', text: name), url, title: "Mostra dettagli"
   end
 
-  def link_to_edit(name = "", url, button: false, modal: false)
-    link_to fwdmicon('edit') + (name.blank? ? '' : " #{name}"), url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
+  def link_to_edit(name = "", url, button: false)
+    link_to fwdmicon('edit', text: name), url, title: "Inserisci/modifica dati", class: (button ? 'button ' : '') 
   end
 
-  def link_to_new(name = "", url, button: true, modal: false)
-    link_to fwdmicon('plus-circle') + "  " + name, url, class: (button ? 'button ' : '') + (modal ? 'modal-link ' : '')
+  def link_to_new(name = "", url, button: true)
+    link_to fwdmicon('plus-circle', text: name), url, class: (button ? 'button ' : '') 
   end
 
   # IMPERSONATION
