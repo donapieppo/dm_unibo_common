@@ -38,9 +38,9 @@ module DmUniboCommon
       end
 
       def set_current_user
-        if Rails.configuration.dm_unibo_common[:truffaut] && Rails.env.development? && request.remote_ip == '127.0.0.1'
-          @_current_user = ::User.where(upn: 'pietro.donatini@unibo.it').first
-        elsif request.session[:user_id]
+        # if Rails.configuration.dm_unibo_common[:truffaut] && Rails.env.development? && request.remote_ip == '127.0.0.1'
+        #   @_current_user = ::User.where(upn: 'pietro.donatini@unibo.it').first
+        if request.session[:user_id]
           @_current_user = ::User.find(session[:user_id])
         end
       end
