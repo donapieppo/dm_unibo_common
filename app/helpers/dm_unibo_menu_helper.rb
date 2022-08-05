@@ -17,8 +17,8 @@ module DmUniboMenuHelper
   end
 
   def logout_link
-    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), dm_unibo_common.logout_path
-                      # Rails.configuration.dm_unibo_common[:logout_link]
+    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), dm_unibo_common.logout_path, data: { turbo: { false }}
+    # Rails.configuration.dm_unibo_common[:logout_link]
   end
 
   def logged_user
