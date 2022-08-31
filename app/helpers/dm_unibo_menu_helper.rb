@@ -1,5 +1,4 @@
 module DmUniboMenuHelper
-
   # DmUniboCommon::Engine.routes.url_helpers.send("auth_shibboleth_callback_path") => "/dm_unibo_common/auth/shibboleth/callback" 
   # Rails.application.routes.url_helpers.send('dm_unibo_common.auth_shibboleth_callback_path') -> undefined method `dm_unibo_common.auth_shibboleth_callback_path' 
   # dm_unibo_common.auth_shibboleth_callback_path.inspect -> "/seminari/dm_unibo_common/auth/shibboleth/callback" 
@@ -17,7 +16,9 @@ module DmUniboMenuHelper
   end
 
   def logout_link
-    link_to image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), dm_unibo_common.logout_path, data: { turbo: { false }}
+    link_to(image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, ' Logout'), 
+            dm_unibo_common.logout_path, 
+            data: { turbo: false })
     # Rails.configuration.dm_unibo_common[:logout_link]
   end
 
@@ -91,5 +92,4 @@ module DmUniboMenuHelper
       </div>
     </div>|
   end
-
 end
