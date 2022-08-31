@@ -18,7 +18,7 @@
     <div class="hide_and_show" style="display: <%= display %>">
       <div>
         <ul class="list-group my-3">
-          <% organization.permissions.each do |p|%>  
+          <% organization.permissions.includes(:user).each do |p|%>  
             <li class="list-group-item py-1">
               <strong><%= link_to (p.user ? p.user.cn_militar : p.network), dm_unibo_common.permission_path(p) %></strong>
               (<%= p.authlevel_string %>)
