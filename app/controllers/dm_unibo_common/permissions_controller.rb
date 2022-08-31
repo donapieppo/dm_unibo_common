@@ -38,13 +38,14 @@ class PermissionsController < ::ApplicationController
 
   def destroy
     @permission = Permission.find(params[:id])
+    @organization = @permission.organization
     authorize @permission
     if @permission.destroy
       flash[:notice] = "OK."
     else
       flash[:error] = "Non è stato possibile eliminare l'autorizzazione."
     end
-    redirect_to permissions_path
+    redirect_to organization_permissions_path(@organization)
   end
 end
 end
