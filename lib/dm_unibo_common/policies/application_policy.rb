@@ -11,8 +11,20 @@ module DmUniboCommon
       @user && @record.user_id == @user.id
     end
 
+    def organization_reader?(o)
+      @user && ::OrganizationPolicy.new(@user, o).read?
+    end
+
+    def organization_manager?(o)
+      @user && ::OrganizationPolicy.new(@user, o).manage?
+    end
+
+    def current_organization_reader?
+      organization_reader?(@user.current_organization)
+    end
+
     def current_organization_manager?
-      @user && ::OrganizationPolicy.new(@user, @user.current_organization).manage?
+      organization_manager?(@user.current_organization)
     end
 
     def record_organization_manager?
