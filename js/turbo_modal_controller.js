@@ -5,7 +5,7 @@ class TurboModalController extends Controller {
   static targets = ["modalContent"]
 
   connect() {
-    console.log("turbo modal connected");
+    console.log("dm turbo modal connected");
     this.modalDiv = document.getElementById("modal_div");
     this.modalContent = document.getElementById("modal_content"); // to locate click
     this.modal = bootstrap.Modal.getOrCreateInstance(this.modalDiv);
