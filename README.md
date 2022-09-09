@@ -188,13 +188,16 @@ and in `app/views/layouts/application.html.erb`
 <%= turbo_frame_tag "modal" %>
 ```
 
+When you want to link to a modal content
 
+```erb
+<%= link_to article_path(article, modal: 1), data: { turbo_frame: :modal } %>  
+```
 
+and in `app/views/articles/show.html.erb`
 
-
-
-
-
-
-
-
+```erb
+<%= render DmUniboCommon::ModalComponent.new(title: @article.name) do %>
+...
+<% end %>
+```
