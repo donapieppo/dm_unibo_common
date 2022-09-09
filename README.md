@@ -173,6 +173,23 @@ DmUniboCommon::Authorization provides the next methods:
     - organizations -> array of organizations where user has some level of access 
     - authlevel(org) -> int (level of authorization in organization)
 
+# DmUniboCommon::Modal
+
+in `app/javascript/controllers/index.js` add 
+
+```javascript
+import { TurboModalController } from "dm_unibo_common"
+application.register("turbo-modal", TurboModalController)
+```
+
+and in `app/views/layouts/application.html.erb` 
+
+```erb
+<%= turbo_frame_tag "modal" %>
+```
+
+
+
 
 
 
