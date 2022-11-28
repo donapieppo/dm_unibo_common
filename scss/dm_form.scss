@@ -20,7 +20,7 @@ input[type="submit"] {
 .simple_form input[type="submit"] {
   @extend .offset-sm-3;
 }
-.form-group label {
+.simple_form label {
   font-weight: bold;
   text-align: right;
 }
@@ -37,14 +37,4 @@ select.hour {
 }
 label.collection_check_boxes {
   @extend .ms-1;
-}
-
-// fix bootstrap 5 
-
-.form-group {
-  margin-bottom: 0.75rem;
-}
-.form-control {
-  //padding-top: 0.75rem;
-  //padding-bottom: 0.75rem;
 }
