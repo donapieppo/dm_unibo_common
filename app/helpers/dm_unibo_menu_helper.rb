@@ -43,7 +43,7 @@ module DmUniboMenuHelper
 
   def dm_menu(&block)
     raw %Q|
-<nav class="dm-navbar navbar navbar-expand-lg">
+<nav class="dm-navbar">
   <div class="container-fluid">
     #{toggle_button} | + capture(&block) + %Q|
   </div>
