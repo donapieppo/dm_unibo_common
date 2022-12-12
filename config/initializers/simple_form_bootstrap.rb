@@ -361,8 +361,8 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = {
     boolean:       :horizontal_boolean,
     check_boxes:   :horizontal_collection,
-    date:          :vertical_multi_select,
-    datetime:      :vertical_multi_select,
+    date:          :horizontal_multi_select,
+    datetime:      :horizontal_multi_select,
     file:          :horizontal_file,
     radio_buttons: :horizontal_collection,
     range:         :vertical_range,
