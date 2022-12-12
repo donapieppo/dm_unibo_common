@@ -35,6 +35,9 @@ input.integer {
 select.hour {
   width: 5em;
 }
+input.date {
+  width: auto;
+}
 label.collection_check_boxes {
   @extend .ms-1;
 }
