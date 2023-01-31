@@ -21,25 +21,19 @@ module DmUniboCommon
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
-          base.helper_method :modal_page, 
-                             :set_current_user, :current_user, 
+          base.helper_method :set_current_user, :current_user, 
                              :set_current_organization, :current_organization,  
                              :update_authorization,
                              :user_signed_in?, 
                              :current_user_owns?,  :current_user_owns!, 
                              :current_user_admin?, :current_user_admin!, 
                              :current_user_cesia?, :current_user_user_cesia!,
-                             :current_user_has_some_authorization?, :current_user_possible_organizations 
+                             :current_user_has_some_authorization?, 
+                             :current_user_possible_organizations 
         end
       end
 
-      def modal_page
-        params[:modal] && params[:modal] == '1'
-      end
-
       def set_current_user
-        # if Rails.configuration.dm_unibo_common[:truffaut] && Rails.env.development? && request.remote_ip == '127.0.0.1'
-        #   @_current_user = ::User.where(upn: 'pietro.donatini@unibo.it').first
         if request.session[:user_id]
           @_current_user = ::User.find(request.session[:user_id])
         end
