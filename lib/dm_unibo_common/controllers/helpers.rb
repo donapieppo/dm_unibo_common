@@ -21,7 +21,8 @@ module DmUniboCommon
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
-          base.helper_method :set_current_user, :current_user, 
+          base.helper_method :modal_page,
+                             :set_current_user, :current_user, 
                              :set_current_organization, :current_organization,  
                              :update_authorization,
                              :user_signed_in?, 
@@ -31,6 +32,10 @@ module DmUniboCommon
                              :current_user_has_some_authorization?, 
                              :current_user_possible_organizations 
         end
+      end
+
+      def modal_page
+        params[:modal] && params[:modal] == '1'
       end
 
       def set_current_user
