@@ -61,8 +61,8 @@ module DmUniboCommonHelper
 
   def popover_help(title, content)
     raw %Q|
-    <span type="button" class="float-right" data-bs-toggle="popover" title="#{title}" data-bs-content="#{content}">
-      <i class="fa fa-question-circle pull-right popover-help"></i>
+    <span type="button" class="float-right" title="#{content}">
+      <i class="fa fa-question-circle float-end"></i>
     </span>|
   end
 
