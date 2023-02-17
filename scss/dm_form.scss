@@ -29,6 +29,9 @@ input[type="submit"] {
     text-align: left;
   }
 }
+input.decimal {
+  width: 8em;
+}
 input.integer {
   width: 8em;
 }
