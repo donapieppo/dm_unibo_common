@@ -35,7 +35,7 @@ module DmUniboCommon
       end
 
       def modal_page
-        params[:modal] && params[:modal] == '1'
+        request.headers.fetch('HTTP_TURBO_FRAME', '') == 'modal'
       end
 
       def set_current_user
