@@ -22,8 +22,8 @@ input[type="submit"] {
 }
 .simple_form label {
   font-weight: bold;
-  @extend .text-left;
-  @extend .text-sm-right;
+  @extend .text-start;
+  @extend .text-sm-end;
 }
 input.decimal {
   width: 8em;
