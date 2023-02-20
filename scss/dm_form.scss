@@ -22,12 +22,8 @@ input[type="submit"] {
 }
 .simple_form label {
   font-weight: bold;
-  text-align: right;
-}
-@media (max-width: 576px) {
-  .form-group label {
-    text-align: left;
-  }
+  @extend .text-right;
+  @extend .text-sm-left;
 }
 input.decimal {
   width: 8em;
