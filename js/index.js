@@ -6,6 +6,7 @@ import "@hotwired/turbo-rails"
 
 export { default as DmTest } from "./dm_test"
 export { default as TurboModalController } from "./turbo_modal_controller"
+export { default as LimitVisibleController } from "./limit_visible_controller"
 
 window.display_unless = function (txt, what, condition_input) {
   what.style.display = (condition_input.value == txt) ? 'none' : 'block';
