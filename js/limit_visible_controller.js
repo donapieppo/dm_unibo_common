@@ -5,7 +5,7 @@ class LimitVisibleController extends Controller {
         static values = { display: String, default: 'block' }
 
         connect() {
-                console.log(`dm_unibo_common limit visible connected on ${display}`")
+                console.log(`dm_unibo_common limit visible connected on ${display}`)
         }
 
         update(e) {
