@@ -2,7 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 
 class LimitVisibleController extends Controller {
         static targets = ["item"]
-        static values = { display: String, default: 'block' }
+        static values = { 
+                display: { type: String, default: 'block' }
+        }
 
         connect() {
                 console.log(`dm_unibo_common limit visible connected on ${this.displayValue}`)
