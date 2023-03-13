@@ -5,14 +5,14 @@ class LimitVisibleController extends Controller {
         static values = { display: String, default: 'block' }
 
         connect() {
-                console.log(`dm_unibo_common limit visible connected on ${display}`)
+                console.log(`dm_unibo_common limit visible connected on ${this.displayValue}`)
         }
 
         update(e) {
-                const input = e.target.value.trim();
+                const input = e.target.value.trim().toLowerCase();
                 console.log(`update with ${input}`)
                 this.itemTargets.forEach( (o) => {
-                        o.style.display = (o.dataset.text.includes(input)) ? this.displayValue : 'none';
+                        o.style.display = (o.dataset.text.toLowerCase().includes(input)) ? this.displayValue : 'none';
                 });
         }
 }
