@@ -34,12 +34,12 @@ Gem::Specification.new do |s|
   s.add_dependency "image_processing"
 
   # auth
-  s.add_dependency 'omniauth'
-  s.add_dependency 'omniauth-shibboleth'
-  s.add_dependency 'omniauth-google-oauth2'  
-  s.add_dependency 'pretender'
-  s.add_dependency 'pundit'
-  s.add_dependency 'simple_form'
+  s.add_dependency "omniauth"
+  s.add_dependency "omniauth-shibboleth"
+  s.add_dependency "omniauth-google-oauth2"
+  s.add_dependency "pretender"
+  s.add_dependency "pundit"
+  s.add_dependency "simple_form", "5.2.1"
 end
 
 # Development dependencies aren't installed by default and aren't activated when a gem is required.
