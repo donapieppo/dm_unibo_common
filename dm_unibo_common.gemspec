@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency "omniauth-google-oauth2"
   s.add_dependency "pretender"
   s.add_dependency "pundit"
-  s.add_dependency "simple_form", "5.2.1"
+  s.add_dependency "simple_form", "5.1.0"
 end
 
 # Development dependencies aren't installed by default and aren't activated when a gem is required.
