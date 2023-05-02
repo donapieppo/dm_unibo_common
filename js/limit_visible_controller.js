@@ -13,8 +13,10 @@ class LimitVisibleController extends Controller {
         update(e) {
                 const input = e.target.value.trim().toLowerCase();
                 console.log(`update with ${input}`)
-                this.itemTargets.forEach( (o) => {
-                        o.style.display = (o.dataset.text.toLowerCase().includes(input)) ? this.displayValue : 'none';
+                this.itemTargets.forEach((o) => {
+                        if ('text' in o.dataset) {
+                                o.style.display = (o.dataset.text === input) ? this.displayValue : 'none';
+                        }
                 });
         }
 }
