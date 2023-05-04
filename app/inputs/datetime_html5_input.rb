@@ -19,7 +19,7 @@ class DatetimeHtml5Input < SimpleForm::Inputs::Base
                                                                 start_hour: 8, 
                                                                   end_hour: 20, 
                                                                ignore_date: true), 
-                                           input_html_options.merge(class: 'form-select mx-1'))
+                                           input_html_options.merge(class: 'form-select mx-2'))
     end
   end
 end
