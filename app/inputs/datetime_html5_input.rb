@@ -12,14 +12,14 @@ class DatetimeHtml5Input < SimpleForm::Inputs::Base
     template.content_tag(:div, class: 'input-group date', style: 'width: 75%') do
       template.concat @builder.date_field(attribute_name, 
                                           input_html_options.merge( # value: attr_day, 
-                                                                   class: 'form-control', 
+                                                                   class: 'form-control me-2', 
                                                                    html5: true))
       template.concat @builder.time_select(attribute_name, 
                                            input_options.merge(minute_step: 5, 
                                                                 start_hour: 8, 
                                                                   end_hour: 20, 
                                                                ignore_date: true), 
-                                           input_html_options.merge(class: 'form-control mx-1'))
+                                           input_html_options.merge(class: 'form-select mx-1'))
     end
   end
 end
