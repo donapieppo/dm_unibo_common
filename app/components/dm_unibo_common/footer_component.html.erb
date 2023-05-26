@@ -1,0 +1,30 @@
+<div id="footer" role="navigation">
+  <div class="container" style="text-align: center">
+    <div>
+      &mdash; <strong><a href="http://www.matematica.unibo.it">Dipartimento di Matematica</a></strong> &mdash;<br/>
+      <a href="http://www.unibo.it">Università di Bologna</a><br/>
+      Piazza di Porta San Donato, 5 - 40126 Bologna<br/>
+    </div>
+
+    <div>
+      <% if @contacts_path %>  
+        <%= link_to big_dmicon('envelope') + ' Contatti', @contacts_path, class: "mx-2" %> 
+      <% elsif @contact_mail %>
+        <%= mail_to @contact_mail, big_dmicon('envelope') + ' Contatti', class: "mx-2" %> 
+      <% end %>
+
+      <% if @documentation_path %>
+        <%= link_to big_dmicon('book') + ' Istruzioni', "https://www.dm.unibo.it/almarusco/help/docs/intro/", class: "mx-2" %>
+      <% end %>
+
+      <%= link_to big_dmicon('eye') + " Privacy", "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali", class: "mx-2" %>
+    </div>
+
+    <% if @current_user %>
+      <div class="mt-2">
+        <%= helpers.stop_impersonation_link %>
+        <%= helpers.start_impersonation_link %>
+      </div>
+    <% end %>
+  </div>
+</div>

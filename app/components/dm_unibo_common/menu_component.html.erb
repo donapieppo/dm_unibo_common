@@ -1,0 +1,39 @@
+<nav class="dm-navbar">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <% main_root_path = @current_organization ? helpers.current_organization_root_path : root_path %>
+
+    <%= link_to image_tag(@logo_image), @logo_page, class: 'navbar-brand' %>
+    <%= link_to big_dmicon(Rails.configuration.header_icon), main_root_path, class: 'navbar-brand navbar-icon', data: { turbo: false } %>
+    <%= link_to main_root_path, class: 'navbar-brand', data: { turbo: false } do %>
+      <%= @header_title %>
+      <div style="font-size: 75%">
+        <%= @header_subtitle %>
+      </div>
+    <% end %>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto flex-fill">
+        <%= content %>
+      </ul> 
+
+      <% if @search_component %>  
+        <%= render @search_component %>  
+      <% end %>
+
+      <ul class="navbar-nav">
+        <% if @sso_user_upn %>
+          <span class="navbar-text ps-1">
+            <%= @sso_user_upn %>
+          </span>
+          <li><%= helpers.logout_link %></li>
+        <% else %>
+          <li><%= helpers.login_link %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
