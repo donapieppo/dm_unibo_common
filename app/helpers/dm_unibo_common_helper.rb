@@ -26,7 +26,7 @@ module DmUniboCommonHelper
   # in confiiguration dm_unibo_common[:impersonate_admins] is array of upn/email that can
   # impersonate (gem pretender)
   def true_user_can_impersonate?
-    true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
+    true_user && Rails.configuration.dm_unibo_common[:impersonate_admins] && Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
 
   # from https://github.com/seyhunak/twitter-bootstrap-rails
