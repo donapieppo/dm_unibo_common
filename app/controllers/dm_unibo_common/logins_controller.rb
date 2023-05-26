@@ -51,15 +51,15 @@ class LoginsController < ::ApplicationController
 
   def developer
     Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise
-    request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or request.remote_ip =~ /^172\.\d+\.\d+\.\d+/  or raise "ONLY LOCAL OF DOCKER. YOU ARE #{request.remote_ip}"
+    request.remote_ip == '127.0.0.1' or request.remote_ip == '::1' or request.remote_ip =~ /^172\.\d+\.\d+\.\d+/ or raise "ONLY LOCAL OF DOCKER. YOU ARE #{request.remote_ip}"
     sign_in_and_redirect ::User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
   end
 
   # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
   #         ["_lauree_session", "YU5RSTM2OXdYMkRyVjV0SXI1K3c3eDJJdjZQ..... "]
   def logout
-    #cookies.delete(Rails.configuration.session_options[:key].to_sym)
-    #cookies.delete(shibapplicationid.to_sym)
+    # cookies.delete(Rails.configuration.session_options[:key].to_sym)
+    # cookies.delete(shibapplicationid.to_sym)
     session[:user_id] = nil
     cookies.clear
     reset_session
@@ -77,7 +77,7 @@ class LoginsController < ::ApplicationController
     # raise env.inspect
   end
 
-  private 
+  private
 
   # the default is conservative where you log only if user in database
   def login_method
@@ -156,4 +156,3 @@ class LoginsController < ::ApplicationController
   end
 end
 end
-
