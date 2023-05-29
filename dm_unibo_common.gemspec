@@ -1,45 +1,41 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path('../lib', __FILE__)
-require 'dm_unibo_common/version'
+require_relative "lib/dm_unibo_common/version"
 
-Gem::Specification.new do |s|
-  s.name        = 'dm_unibo_common'
-  s.version     = DmUniboCommon::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Pietro Donatini"]
-  s.email       = ["pietro.donatini@unibo.it"]
-  s.homepage    = ""
-  s.summary     = %q{Common lib for DM UNIBO}
-  s.description = %q{Css Js etc etc for use in DM UNIBO projects}
+Gem::Specification.new do |spec|
+  spec.name        = "dm_unibo_common"
+  spec.version     = DmUniboCommon::VERSION
+  spec.authors     = ["Pietro Donatini"]
+  spec.email       = ["pietro.donatini@unibo.it"]
+  spec.homepage    = ""
+  spec.summary     = "Common lib for DM UNIBO"
+  spec.description = "Css/scss js etc etc for use in DM UNIBO projects."
+  spec.license     = "MIT"
 
-  s.rubyforge_project = 'dm_unibo_common'
+  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
+  # to allow pushing to a single host or delete this section to allow pushing to any host.
+  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ['lib']
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  end
 
-  s.add_dependency "rails", "~> 7.0"
-  s.add_dependency "sprockets-rails"
-  s.add_dependency "mysql2", "~> 0.5"
-  s.add_dependency "puma", "~> 5.0"
-  s.add_dependency "importmap-rails"
-  s.add_dependency "jbuilder"
-  s.add_dependency "turbo-rails"
-  s.add_dependency "stimulus-rails"
-  s.add_dependency "view_component"
-  s.add_dependency "jsbundling-rails"
-  s.add_dependency "cssbundling-rails"
+  spec.add_dependency "rails", ">= 7.0.5"
+  spec.add_dependency "sprockets-rails"
+  spec.add_dependency "mysql2", "~> 0.5"
+  spec.add_dependency "puma", "~> 5.0"
+  spec.add_dependency "importmap-rails"
+  spec.add_dependency "jbuilder"
+  spec.add_dependency "turbo-rails"
+  spec.add_dependency "stimulus-rails"
+  spec.add_dependency "view_component"
+  spec.add_dependency "jsbundling-rails"
+  spec.add_dependency "cssbundling-rails"
 
-  s.add_dependency "image_processing"
+  spec.add_dependency "omniauth"
+  spec.add_dependency "omniauth-shibboleth"
+  spec.add_dependency "omniauth-google-oauth2"
+  spec.add_dependency "pretender"
+  spec.add_dependency "pundit"
+  spec.add_dependency "simple_form", "~> 5.1"
 
-  # auth
-  s.add_dependency "omniauth"
-  s.add_dependency "omniauth-shibboleth"
-  s.add_dependency "omniauth-google-oauth2"
-  s.add_dependency "pretender"
-  s.add_dependency "pundit"
-  s.add_dependency "simple_form", "~> 5.1"
+  spec.add_development_dependency "rspec-rails"
 end
-
-# Development dependencies aren't installed by default and aren't activated when a gem is required.
