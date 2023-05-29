@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "5.0.0"
+  VERSION = "5.1.0"
 end
+# 5.1.0
+# many components e review of specs
 # 5.0.0
 # authlevels configurable in application
 # 4.0.0
