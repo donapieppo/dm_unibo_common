@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    dm_unibo_common (0.1.0)
+    dm_unibo_common (5.1.0)
       cssbundling-rails
       importmap-rails
       jbuilder
