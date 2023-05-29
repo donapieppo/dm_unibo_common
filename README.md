@@ -21,8 +21,9 @@ gem 'dm_unibo_common'
 
 to the Gemfile of your project, you also have
 to create a file
+
 ```bash
-/home/rails/got/config/dm_unibo_common.yml
+touch ./config/dm_unibo_common.yml
 ```
 
 like
