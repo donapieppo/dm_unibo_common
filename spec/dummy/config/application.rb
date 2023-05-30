@@ -12,6 +12,7 @@ CESIA_UPN=['pietro.donatini@unibo.it']
 module Dummy
   class Application < Rails::Application
     config.load_defaults Rails::VERSION::STRING.to_f
+    config.hosts << "tester.example.com"
 
     config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
     config.authlevels = {
