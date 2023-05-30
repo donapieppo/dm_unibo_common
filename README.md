@@ -5,22 +5,31 @@ with code and configurations common to my ruby projects.
 
 # Installation
 
+Check to have this gems in Gemfile:
+
+```
+gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
+gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
+
+gem "cssbundling-rails", "~> 1.1"
+gem "sprockets-rails"
+gem "jsbundling-rails"
+```
+
+We use asbuild and postcss and so run
+
 ```bash
-$ git clone https://github.com/donapieppo/dm_unibo_common.git
-$ cd dm_unibo_common
-$ rake install 
+./bin/rails css:install:postcss
+./bin/rails javascript:install:esbuild
 ```
 
-# Configuration
+(if you generate a new app use `rails new pippo -j esbuild --css postcss`).
 
-When you add 
+Add `"dm_unibo_common": "donapieppo/dm_unibo_common.git#turbo"` in 
+package.json.
 
-```
-gem 'dm_unibo_common'
-```
+Create a file
 
-to the Gemfile of your project, you also have
-to create a file
 ```bash
 /home/rails/got/config/dm_unibo_common.yml
 ```
