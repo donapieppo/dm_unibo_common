@@ -28,10 +28,10 @@ require 'dm_unibo_common/authorization'
 require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
 
-require 'dm_unibo_common/policies/application_policy'
-require 'dm_unibo_common/policies/organization_policy'
-require 'dm_unibo_common/policies/permission_policy'
-require 'dm_unibo_common/policies/impersonation_policy'
+#require 'dm_unibo_common/policies/application_policy'
+#require 'dm_unibo_common/policies/organization_policy'
+#require 'dm_unibo_common/policies/permission_policy'
+#require 'dm_unibo_common/policies/impersonation_policy'
 
 module DmUniboCommon
 end
