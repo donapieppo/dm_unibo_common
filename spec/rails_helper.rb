@@ -1,14 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 # donatini
 # require_relative '../config/environment'
 require File.expand_path("../dummy/config/environment", __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
-require 'factory_bot_rails'
-require 'database_cleaner'
+require "factory_bot_rails"
+require "database_cleaner"
 
 FactoryBot.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
 FactoryBot.find_definitions
