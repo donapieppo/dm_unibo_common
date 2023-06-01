@@ -20,7 +20,7 @@
       <%= yield %>
     </div><!-- container -->
 
-    <%= dm_footer %>  
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
   </body>
 </html>
 
