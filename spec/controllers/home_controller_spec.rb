@@ -7,25 +7,35 @@ RSpec.describe HomeController, type: :controller do
   let(:org1) { FactoryBot.create(:organization) }
   let(:org2) { FactoryBot.create(:organization) }
 
-  it "correct response for index" do
+  before(:each) do
     request.session[:user_id] = current_user.id
+  end
+
+  it "correct response for index" do
     get :index
     expect(response.body).to match(/<h1>Hello test/)
   end
 
+  it "show_if_current_organization with no current_user redirects_to root" do
+    request.session[:user_id] = nil
+    get :show_if_current_organization, params: {__org__: org2.code}
+    expect(response).to redirect_to(root_path)
+  end
+
   it "show_if_current_organization raises without current_organization" do
-    request.session[:user_id] = current_user.id
     expect { get :show_if_current_organization }.to raise_error(Pundit::NotAuthorizedError)
   end
 
+  it "show_if_current_organization raises with no policy" do
+    expect { get :show_if_current_organization, params: {__org__: org2.code} }.to raise_error(Pundit::NotAuthorizedError)
+  end
+
   it "show_if_current_organization raises with wrong organization" do
-    request.session[:user_id] = current_user.id
     FactoryBot.create(:permission, user: current_user, organization: org1, authlevel: 1)
     expect { get :show_if_current_organization, params: {__org__: org2.code} }.to raise_error(Pundit::NotAuthorizedError)
   end
 
-  it "show_if_current_organization redirects to index with wrong organization" do
-    request.session[:user_id] = current_user.id
+  it "show_if_current_organization ok with correct organization" do
     FactoryBot.create(:permission, user: current_user, organization: org1, authlevel: 1)
     get :show_if_current_organization, params: {__org__: org1.code}
     expect(response.body).to match(/hidden content/)
