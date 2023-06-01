@@ -16,6 +16,8 @@ RSpec.describe HomeController, type: :controller do
     expect(response.body).to match(/<h1>Hello test/)
   end
 
+  # in spec/dummy/app/controllers/application_controller.rb
+  # before_action :set_current_user, :update_authorization, :set_current_organization, :log_current_user, :redirect_unsigned_user
   it "show_if_current_organization with no current_user redirects_to root" do
     request.session[:user_id] = nil
     get :show_if_current_organization, params: {__org__: org2.code}
