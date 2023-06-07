@@ -11,6 +11,8 @@ module DmUniboMenuHelper
       dm_unibo_common.auth_google_oauth2_callback_path
     when :developer
       dm_unibo_common.auth_developer_callback_path
+    when :test
+      dm_unibo_common.auth_test_callback_path
     end
     link_to image_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, ' Login'), url
   end
@@ -23,7 +25,7 @@ module DmUniboMenuHelper
   end
 
   def dropdown_menu(id, title, &block)
-    raw %Q|
+    raw %(
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown#{id}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     #{title}
@@ -31,6 +33,6 @@ module DmUniboMenuHelper
   <ul class="dropdown-menu" aria-labelledby="navbarDropdown#{id}">
     #{capture(&block)}
   </ul>
-</li>|
+</li>)
   end
 end
