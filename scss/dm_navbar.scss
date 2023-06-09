@@ -1,42 +1,14 @@
-/* NAVBAR */
-.dm-navbar {
-  @extend .navbar;
-  @extend .navbar-expand-lg;
-  @extend .navbar-light; // necessary for .navbar-dark .navbar-toggler-icon
-  @extend .mb-3;
-
-  background-color: $dm-green;
-
-  ul.navbar-nav > li {
-    @extend .nav-item;
-  }
-  ul.navbar-nav > li > a {
-    @extend .nav-link;
-    color: rgba(255, 255, 255, 0.9) !important;
-  }
-  ul.dropdown-menu > li > a {
-    @extend .dropdown-item;
-  }
+ul.navbar-nav > li {
+        @extend .nav-item;
 }
+ul.navbar-nav > li > a {
+        @extend .nav-link;
+        color: rgba(255, 255, 255, 0.9) !important;
+}
+ul.dropdown-menu > li > a {
+        @extend .dropdown-item;
+}
+
 .navbar-brand {
-  font-size: 18px;
-  line-height: 16px;
-  color: rgba(255, 255, 255, 0.9) !important;
-  small {
-    display: block;
-  }
+        color: rgba(255, 255, 255, 0.9) !important;
 }
-.dropdown-menu i {
-  //@extend .fa-fw;
-}
-
-@media (max-width: 450px) {
-  .navbar-brand {
-  }
-  .navbar-icon i {
-  }
-  .navbar-image {
-    display: none;
-  }
-}
-
