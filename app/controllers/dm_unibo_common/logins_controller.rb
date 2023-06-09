@@ -77,7 +77,7 @@ class LoginsController < ::ApplicationController
 
   # Not authorized but valid credentials
   def no_access
-    @no_menu = true
+    render layout: nil
   end
 
   def pippo_show
