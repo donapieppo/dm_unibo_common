@@ -1,22 +1,21 @@
-<nav class="dm-navbar">
-  <div class="container-fluid">
+<% main_root_path = @current_organization ? helpers.main_app.current_organization_root_path : root_path %>
+
+<nav class="navbar navbar-expand-lg px-3 py-2 mb-3" data-bs-theme="dark" style="background-color: #669966">
+  <div class="container-fluid align-items-center">
+    <%= link_to main_root_path, class: 'navbar-brand fs-6', data: { turbo: false } do %>
+      <%# <%= image_tag @logo_image, class: 'me-2' %1> %>
+      <%= big_dmicon Rails.configuration.header_icon, size: 32 %> &nbsp;
+      <%= @header_title %>
+      <div class="d-block lh-base">
+        <small><%= @header_subtitle %></small>
+      </div>
+    <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <% main_root_path = @current_organization ? helpers.current_organization_root_path : root_path %>
-
-    <%= link_to image_tag(@logo_image), @logo_page, class: 'navbar-brand' %>
-    <%= link_to big_dmicon(Rails.configuration.header_icon), main_root_path, class: 'navbar-brand navbar-icon', data: { turbo: false } %>
-    <%= link_to main_root_path, class: 'navbar-brand', data: { turbo: false } do %>
-      <%= @header_title %>
-      <div style="font-size: 75%">
-        <%= @header_subtitle %>
-      </div>
-    <% end %>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto flex-fill">
+      <ul class="navbar-nav text-end flex-fill">
         <%= content %>
       </ul> 
 
@@ -24,7 +23,7 @@
         <%= render @search_component %>  
       <% end %>
 
-      <ul class="navbar-nav">
+      <ul class="navbar-nav text-end">
         <% if @sso_user_upn %>
           <span class="navbar-text ps-1">
             <%= @sso_user_upn %>
