@@ -26,7 +26,7 @@ module DmUniboMenuHelper
 
   def dropdown_menu(id, title, &block)
     raw %(
-<li class="nav-item dropdown">
+<li class="nav-item dropdown" data-bs-theme="light">
   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown#{id}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     #{title}
   </a>
