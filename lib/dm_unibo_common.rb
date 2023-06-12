@@ -5,14 +5,15 @@ require "dm_unibo_common/engine"
 require 'mysql2'
 
 # auth
-require 'omniauth'
-require 'omniauth-shibboleth'
-require 'omniauth-google-oauth2'  
-require 'pretender'
-require 'pundit'
-require 'view_component'
+require "omniauth"
+require "omniauth-shibboleth"
+require "omniauth-google-oauth2"
+require "pretender"
+require "pundit"
+require "view_component"
 require "turbo-rails"
 require "stimulus-rails"
+require "simple_form"
 
 #ActiveSupport.on_load(:'turbo-rails') do
 #  include Turbo::FramesHelper
