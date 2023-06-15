@@ -22,12 +22,6 @@ module DmUniboCommonHelper
     request.env["HTTP_EPPN"] || (current_user && current_user.upn) || (current_user && current_user.email) 
   end
 
-  # in confiiguration dm_unibo_common[:impersonate_admins] is array of upn/email that can
-  # impersonate (gem pretender)
-  def true_user_can_impersonate?
-    true_user && Rails.configuration.dm_unibo_common[:impersonate_admins] && Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
-  end
-
   # from https://github.com/seyhunak/twitter-bootstrap-rails
   ALERT_TYPES = [:success, :info, :warning, :danger]
   def bootstrap_flash
