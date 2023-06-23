@@ -8,11 +8,7 @@
     <meta name="author" content="Dipartimento di Matematica - Unibo">
     <title><%= :header_title %></title>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_pack_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= dm_unibo_common_headers %>
   </head>
   <body style="border: 10px solid red">
 
@@ -24,8 +20,7 @@
       <%= yield %>
     </div><!-- container -->
 
-    <%= dm_footer %>  
-    <%= bootstrap_modal_div %>
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
   </body>
 </html>
 

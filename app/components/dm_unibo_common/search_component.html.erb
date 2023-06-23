@@ -1,0 +1,4 @@
+<%= form_tag @search_path, class: "d-flex my-2 my-lg-0 me-2", role: "search", data: { turbo: false } do %>
+  <input name="search_string" size="4" class="form-control mr-sm-2" type="<%= @type %>" placeholder="<%= @placeholder %>" title="<%= @title %>" aria-label="Cerca" />
+<% end %>
+

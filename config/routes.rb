@@ -2,6 +2,7 @@ DmUniboCommon::Engine.routes.draw do
   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
   get 'auth/developer/callback',     to: 'logins#developer'
+  get 'auth/test/callback',          to: 'logins#test'
   get 'logins/logout',               to: 'logins#logout',    as: :logout
   get 'logins/no_access',            to: 'logins#no_access', as: :no_access
   get 'logins/pippo_show',           to: 'logins#pippo_show' 
@@ -20,7 +21,7 @@ DmUniboCommon::Engine.routes.draw do
   resources :organizations do
     resources :permissions
   end
- 
+
   # example: with https://example.it/math your working on
   # Organization.find_by_code('math')
   # restart app after adding new organization
@@ -28,10 +29,9 @@ DmUniboCommon::Engine.routes.draw do
   #   get o.code, to: "home#index", __org__: o.code
   # end
 
-  get 'helps/index', to: 'helps#index', as: :helps
+  get "helps/index", to: "helps#index", as: :helps
 
   # remember !!!!
   # scope ":__org__" do
   #   get '/', to: 'home#index', as: 'current_organization_root'
 end
-

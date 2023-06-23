@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 2020_02_13_095950) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_04_073352) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "code"
@@ -31,4 +31,3 @@ ActiveRecord::Schema.define(version: 2020_02_13_095950) do
   end
 
 end
-

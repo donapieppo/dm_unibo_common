@@ -10,7 +10,7 @@ end
 module DmUniboFormHelper
   def dm_form_default_title(record)
     record = record[-1] if record.is_a?(Array)
-    (record.new_record? ? t(:new) : t(:edit)) + " " + t("activerecord.models." + record.model_name.to_s.downcase).downcase
+    (record.new_record? ? t(:new) : t(:edit)) + " " + t("activerecord.models." + record.class.name.underscore).downcase
   end
 
   def dm_form_for(record, options={}, &block)
@@ -39,5 +39,3 @@ module DmUniboFormHelper
     simple_form_for(record, options, &block)
   end
 end
-
-

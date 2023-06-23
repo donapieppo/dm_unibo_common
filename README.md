@@ -5,22 +5,30 @@ with code and configurations common to my ruby projects.
 
 # Installation
 
+Check to have this gems in Gemfile:
+
+```
+gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_search.git'
+gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
+
+gem "cssbundling-rails", "~> 1.1"
+gem "sprockets-rails"
+gem "jsbundling-rails"
+```
+
+We use asbuild and postcss and so run
+
 ```bash
-$ git clone https://github.com/donapieppo/dm_unibo_common.git
-$ cd dm_unibo_common
-$ rake install 
+./bin/rails css:install:postcss
+./bin/rails javascript:install:esbuild
 ```
 
-# Configuration
+(if you generate a new app use `rails new pippo -j esbuild --css postcss`).
 
-When you add 
+Add `"dm_unibo_common": "donapieppo/dm_unibo_common.git"` in 
+package.json.
 
-```
-gem 'dm_unibo_common'
-```
-
-to the Gemfile of your project, you also have
-to create a file
+Create a file
 
 ```bash
 touch ./config/dm_unibo_common.yml
@@ -174,11 +182,31 @@ DmUniboCommon::Authorization provides the next methods:
     - organizations -> array of organizations where user has some level of access 
     - authlevel(org) -> int (level of authorization in organization)
 
+# DmUniboCommon::Modal
 
+in `app/javascript/controllers/index.js` add 
 
+```javascript
+import { TurboModalController } from "dm_unibo_common"
+application.register("turbo-modal", TurboModalController)
+```
 
+and in `app/views/layouts/application.html.erb` 
 
+```erb
+<%= turbo_frame_tag "modal" %>
+```
 
+When you want to link to a modal content
 
+```erb
+<%= link_to article_path(article, modal: 1), data: { turbo_frame: :modal } %>  
+```
 
+and in `app/views/articles/show.html.erb`
 
+```erb
+<%= render DmUniboCommon::ModalComponent.new(title: @article.name) do %>
+...
+<% end %>
+```

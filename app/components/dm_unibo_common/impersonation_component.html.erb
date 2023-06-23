@@ -1,0 +1,14 @@
+<div class="container alert alert-warning text-center">
+  <% if @current_user != @true_user %>
+    <div>
+      You (<%= @true_user.upn %>) are impersonating <strong><%= @current_user.upn %></strong>
+    </div>
+    <div>
+      <%= link_to dm_icon("reply", text: "back to admin"), DmUniboCommon::Engine.routes.url_helpers.stop_impersonating_path %>
+    </div>
+  <% end %>
+
+  <% if @can_impersonate %>
+    <%= link_to dm_icon("user", text: "impersona"), DmUniboCommon::Engine.routes.url_helpers.who_impersonate_path %>
+  <% end %>
+</div>

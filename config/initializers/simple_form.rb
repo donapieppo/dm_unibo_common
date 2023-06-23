@@ -1,5 +1,3 @@
-require 'simple_form'
-
 # frozen_string_literal: true
 #
 # Uncomment this and change the path if necessary to include your own
@@ -114,7 +112,7 @@ SimpleForm.setup do |config|
   # You can define the class to use on all labels. Default is nil.
   # config.label_class = nil
 
-  # You can define the default class to be used on forms. Can be overriden
+  # You can define the default class to be used on forms. Can be overridden
   # with `html: { :class }`. Defaulting to none.
   # config.default_form_class = nil
 

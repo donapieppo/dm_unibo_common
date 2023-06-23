@@ -1,14 +1,23 @@
+require "dm_unibo_common/version"
 require "dm_unibo_common/engine"
 
 # rails
 require 'mysql2'
 
 # auth
-require 'omniauth'
-require 'omniauth-shibboleth'
-require 'omniauth-google-oauth2'  
-require 'pretender'
-require 'pundit'
+require "omniauth"
+require "omniauth-shibboleth"
+require "omniauth-google-oauth2"
+require "pretender"
+require "pundit"
+require "view_component"
+require "turbo-rails"
+require "stimulus-rails"
+require "simple_form"
+
+#ActiveSupport.on_load(:'turbo-rails') do
+#  include Turbo::FramesHelper
+#end
 
 # self
 require 'dm_unibo_common/errors'
@@ -20,10 +29,10 @@ require 'dm_unibo_common/authorization'
 require 'dm_unibo_common/user_upn_methods'
 require 'dm_unibo_common/controllers/helpers'
 
-require 'dm_unibo_common/policies/application_policy'
-require 'dm_unibo_common/policies/organization_policy'
-require 'dm_unibo_common/policies/permission_policy'
-require 'dm_unibo_common/policies/impersonation_policy'
+#require 'dm_unibo_common/policies/application_policy'
+#require 'dm_unibo_common/policies/organization_policy'
+#require 'dm_unibo_common/policies/permission_policy'
+#require 'dm_unibo_common/policies/impersonation_policy'
 
 module DmUniboCommon
 end

@@ -1,0 +1,37 @@
+<% main_root_path = @current_organization ? helpers.main_app.current_organization_root_path : root_path %>
+
+<nav class="navbar navbar-expand-lg px-3 py-2 mb-3" style="background-color: #669966">
+  <div class="container-fluid align-items-center">
+    <%= link_to main_root_path, class: 'navbar-brand fs-6', data: { turbo: false } do %>
+      <%= big_dmicon Rails.configuration.header_icon, size: 28 %> &nbsp;
+      <%= @header_title %>
+      <div class="d-block lh-base text-end">
+        <small><%= @header_subtitle %></small>
+      </div>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav text-end flex-fill">
+        <%= content %>
+      </ul> 
+
+      <% if @search_component %>  
+        <%= render @search_component %>  
+      <% end %>
+
+      <ul class="navbar-nav text-end">
+        <% if @sso_user_upn %>
+          <span class="navbar-text ps-1">
+            <%= @sso_user_upn %>
+          </span>
+          <li><%= helpers.logout_link %></li>
+        <% else %>
+          <li><%= helpers.login_link %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

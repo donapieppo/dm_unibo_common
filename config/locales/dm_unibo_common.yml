@@ -14,5 +14,11 @@ it:
     too_many_users: Sono presenti troppi utenti nel database di Ateneo che soddisfano i parametri di ricerca. Si prega di raffinare la ricerca
   can_manage: Può amministrare
   can_read: Può consultare
+  activerecord:
+    models:
+      permission: Permesso
+    attributes:
+      permission:
+        authlevel: Permesso
 
 

@@ -21,7 +21,7 @@ module DmUniboCommon
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
-          base.helper_method :modal_page, 
+          base.helper_method :modal_page,
                              :set_current_user, :current_user, 
                              :set_current_organization, :current_organization,  
                              :update_authorization,
@@ -29,17 +29,18 @@ module DmUniboCommon
                              :current_user_owns?,  :current_user_owns!, 
                              :current_user_admin?, :current_user_admin!, 
                              :current_user_cesia?, :current_user_user_cesia!,
-                             :current_user_has_some_authorization?, :current_user_possible_organizations 
+                             :current_user_has_some_authorization?, 
+                             :current_user_possible_organizations 
         end
       end
 
       def modal_page
-        params[:modal] && params[:modal] == 'yyy'
+        request.headers.fetch('HTTP_TURBO_FRAME', '') == 'modal'
       end
 
       def set_current_user
         if request.session[:user_id]
-          @_current_user = ::User.find(session[:user_id])
+          @_current_user = ::User.find(request.session[:user_id])
         end
       end
 
@@ -70,33 +71,35 @@ module DmUniboCommon
       # Use in app/controllers/application_controller.rb like
       # before_filter :log_current_user, :force_sso_user
       def force_sso_user
-        if ! current_user
+        if !current_user
           session[:original_request] = request.fullpath
 
           if Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
-            redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return 
+            redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
-            redirect_to dm_unibo_common.auth_shibboleth_callback_path and return 
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer 
+            redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
+          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer
             redirect_to dm_unibo_common.auth_developer_callback_path and return
+          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :test
+            redirect_to dm_unibo_common.auth_test_callback_path and return
           else
-            raise "problem in omniauth provider (not in :google_oauth2, :shibboleth, :developer)"
+            raise "problem in omniauth provider (not in :google_oauth2, :shibboleth, :developer, :test)"
           end
-          # redirect_to user_google_oauth2_omniauth_authorize_path and return 
+          # redirect_to user_google_oauth2_omniauth_authorize_path and return
           # redirect_to new_user_session_path and return
         end
       end
 
       def redirect_unsigned_user
-        if ! user_signed_in?
+        if !user_signed_in?
           redirect_to main_app.root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
           return
         end
       end
 
       def shibapplicationid
-        "_shibsession_" + ENV['Shib-Application-ID'].to_s
-      end 
+        "_shibsession_" + ENV["Shib-Application-ID"].to_s
+      end
 
       # no security hidden. 
       # ?__org__=mat

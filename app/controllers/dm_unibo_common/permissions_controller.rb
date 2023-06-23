@@ -20,34 +20,32 @@ class PermissionsController < ::ApplicationController
 
   def new
     @organization = ::Organization.find(params[:organization_id])
-    @users = ::User.order('users.surname, users.name')
-
     @permission = @organization.permissions.new
     authorize @permission
   end
 
   def create
     @organization = ::Organization.find(params[:organization_id])
-    @permission = @organization.permissions.new(user_id:   params[:permission][:user_id], 
+    @permission = @organization.permissions.new(user_upn:  params[:permission][:user_upn], 
                                                 authlevel: params[:permission][:authlevel])
     authorize @permission
     if @permission.save
-      redirect_to permissions_path, notice: 'OK'
+      redirect_to permissions_path(organization_id: @organization.id), notice: 'OK'
     else
-      @users = ::User.order('users.surname, users.name')
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     @permission = Permission.find(params[:id])
+    @organization = @permission.organization
     authorize @permission
     if @permission.destroy
       flash[:notice] = "OK."
     else
       flash[:error] = "Non è stato possibile eliminare l'autorizzazione."
     end
-    redirect_to permissions_path
+    redirect_to organization_permissions_path(@organization)
   end
 end
 end

@@ -23,7 +23,7 @@ class OrganizationsController < ::ApplicationController
     if @organization.save
       redirect_to organizations_path, notice: 'La struttura è stata creata.' 
     else
-      render action: :new
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class OrganizationsController < ::ApplicationController
     if @organization.update(organization_params)
       redirect_to edit_organization_path(@organization), notice: 'La Struttura è stata modificata.'
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

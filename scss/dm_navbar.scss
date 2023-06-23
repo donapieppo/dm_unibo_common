@@ -1,0 +1,14 @@
+ul.navbar-nav > li {
+        @extend .nav-item;
+}
+ul.navbar-nav > li > a {
+        @extend .nav-link;
+        color: rgba(255, 255, 255, 0.9) !important;
+}
+ul.dropdown-menu > li > a {
+        @extend .dropdown-item;
+}
+
+.navbar-brand {
+        color: rgba(255, 255, 255, 0.9) !important;
+}

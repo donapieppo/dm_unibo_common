@@ -1,0 +1,42 @@
+// DM-FORM
+.dm-form {
+  @extend .dm-card;
+  input.input-small {
+    width: 10em;
+  }
+}
+.dm-form-title {
+  @extend .dm-card-title;
+}
+.dm-form-body {
+  @extend .card-body;
+}
+// SUMBIT
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+} 
+
+.simple_form input[type="submit"] {
+  @extend .offset-sm-3;
+}
+.simple_form label {
+  font-weight: bold;
+  @extend .text-start;
+  @extend .text-sm-end;
+}
+input.decimal {
+  width: 8em;
+}
+input.integer {
+  width: 8em;
+}
+select.hour {
+  width: 5em;
+}
+input.date {
+  width: auto;
+}
+label.collection_check_boxes {
+  @extend .ms-1;
+}

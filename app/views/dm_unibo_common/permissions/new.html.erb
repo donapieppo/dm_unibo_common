@@ -1,10 +1,13 @@
 <h1><%= @organization %></h1>
 
-<%= dm_form_for [@organization, @permission], title: 'New permission' do |p| %>  
-  <%= p.association :user, collection: @users, label_method: :cn_militar %>  
+<%= dm_form_for [@organization, @permission], title: 'New permission', html: { data: { turbo: false }} do |p| %>  
+  <%= p.input :user_upn, label: 'Email' %>
+  <%# p.association :user, collection: @users, label_method: :cn_militar %>  
   <%= p.input :network %>  
+  <% collection = ::Authorization.all_level_list.map {|x| [::Authorization.level_description(x), x] } %>
+  <%= p.input :authlevel, as: :radio_buttons, collection: collection %>  
   <%# <% collection = ::Authorization.all_level_list.map {|x| [::Authorization.level_description(x), x] } %1> %>
-  <%= p.input :authlevel, as: :radio_buttons, collection: ::Authorization.all_authlevels.to_a %>  
+  <%# <%= p.input :authlevel, as: :radio_buttons, collection: ::Authorization.all_authlevels.to_a %1> %>  
 
   <%= p.submit %>  
 <% end %>
