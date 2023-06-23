@@ -2,11 +2,12 @@ Rails.application.reloader.to_prepare do
   if Rails.configuration.dm_unibo_common[:smtp_unibo] 
     ActionMailer::Base.smtp_settings = {
       address:        'mail.unibo.it',
+      smtp_domain:    'unibo.it',
+      enable_starttls_auto: true,
       port:           587,
       user_name:      ENV['UNIBO_SMTP_USERNAME'],
       password:       ENV['UNIBO_SMTP_PASSWORD'],
-      authentication: :login,
-      enable_starttls_auto: true
+      authentication: :login
     }
   else
     ActionMailer::Base.smtp_settings = { 
