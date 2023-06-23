@@ -21,7 +21,7 @@ DmUniboCommon::Engine.routes.draw do
   resources :organizations do
     resources :permissions
   end
- 
+
   # example: with https://example.it/math your working on
   # Organization.find_by_code('math')
   # restart app after adding new organization
@@ -29,10 +29,9 @@ DmUniboCommon::Engine.routes.draw do
   #   get o.code, to: "home#index", __org__: o.code
   # end
 
-  get 'helps/index', to: 'helps#index', as: :helps
+  get "helps/index", to: "helps#index", as: :helps
 
   # remember !!!!
   # scope ":__org__" do
   #   get '/', to: 'home#index', as: 'current_organization_root'
 end
-
