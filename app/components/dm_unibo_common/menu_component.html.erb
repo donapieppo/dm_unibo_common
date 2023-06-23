@@ -1,12 +1,11 @@
 <% main_root_path = @current_organization ? helpers.main_app.current_organization_root_path : root_path %>
 
-<nav class="navbar navbar-expand-lg px-3 py-2 mb-3" data-bs-theme="dark" style="background-color: #669966">
+<nav class="navbar navbar-expand-lg px-3 py-2 mb-3" style="background-color: #669966">
   <div class="container-fluid align-items-center">
     <%= link_to main_root_path, class: 'navbar-brand fs-6', data: { turbo: false } do %>
-      <%# <%= image_tag @logo_image, class: 'me-2' %1> %>
-      <%= big_dmicon Rails.configuration.header_icon, size: 32 %> &nbsp;
+      <%= big_dmicon Rails.configuration.header_icon, size: 28 %> &nbsp;
       <%= @header_title %>
-      <div class="d-block lh-base">
+      <div class="d-block lh-base text-end">
         <small><%= @header_subtitle %></small>
       </div>
     <% end %>
