@@ -6,7 +6,7 @@ class ImpersonationsController < ::ApplicationController
       @users = ::User.order(:surname)
       @main_users = ::User.where(upn: Rails.configuration.dm_unibo_common[:main_impersonations] || [])
     else
-      redirect_to main_app.root_path and return 
+      redirect_to main_app.root_path and return
     end
   end
 
@@ -29,7 +29,7 @@ class ImpersonationsController < ::ApplicationController
     redirect_to main_app.root_path and return
   end
 
-  private 
+  private
 
   # for example in config/initializers/project_name.rb you have
   # config.dm_unibo_common[:impersonate_admins] = ['user.one@unibo.it', 'user.two@unibo.it']
@@ -38,4 +38,3 @@ class ImpersonationsController < ::ApplicationController
   end
 end
 end
-
