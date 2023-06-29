@@ -14,7 +14,7 @@
       <% end %>
 
       <% if @documentation_path %>
-        <%= link_to big_dmicon('book') + ' Istruzioni', "https://www.dm.unibo.it/almarusco/help/docs/intro/", class: "mx-2" %>
+        <%= link_to big_dmicon('book') + ' Istruzioni', @documentation_path, class: "mx-2" %>
       <% end %>
 
       <%= link_to big_dmicon('eye') + " Privacy", "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali", class: "mx-2" %>
