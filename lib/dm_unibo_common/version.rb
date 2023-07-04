@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "5.1.0"
+  VERSION = "5.1.1"
 end
+# 5.1.1
+# icons and helpers
 # 5.1.0
 # many components e review of specs
 # 5.0.0
@@ -10,7 +12,7 @@ end
 # isolate_namespace DmUniboCommon !!!!!!!
 # 2.1.0
 # with version 0.2.0 of dm_unibo_search
-# to resolve bug with search with id_anagrafica_unica for 
+# to resolve bug with search with id_anagrafica_unica for
 # teacher and find a old student
 # This version provides methods to syncronize with a select proc
 # def syncronize_with_select(upn_or_id, c = User, select_proc = nil)
