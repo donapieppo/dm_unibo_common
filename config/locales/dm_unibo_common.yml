@@ -20,5 +20,8 @@ it:
     attributes:
       permission:
         authlevel: Permesso
+  date:
+    formats:
+      dm_with_day: "%A %d %B %Y"
 
 
