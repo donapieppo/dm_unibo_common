@@ -1,6 +1,8 @@
 module DmUniboCommon
 class ImpersonationsController < ::ApplicationController
-  layout 'dm_unibo_common_layout'
+  skip_before_action :after_current_user_and_organization, only: [:stop_impersonating]
+
+  layout "dm_unibo_common_layout"
   def who_impersonate
     if true_user_can_impersonate?
       @users = ::User.order(:surname)
