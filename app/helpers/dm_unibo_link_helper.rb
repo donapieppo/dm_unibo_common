@@ -4,6 +4,9 @@ module DmUniboLinkHelper
   end
 
   def link_to_delete(name, url, button: false, add_class: "", size: nil)
+    if button
+      add_class += " btn btn-danger"
+    end
     button_to url,
       method: :delete,
       title: "elimina",
