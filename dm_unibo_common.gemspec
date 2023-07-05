@@ -1,14 +1,14 @@
 require_relative "lib/dm_unibo_common/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "dm_unibo_common"
-  spec.version     = DmUniboCommon::VERSION
-  spec.authors     = ["Pietro Donatini"]
-  spec.email       = ["pietro.donatini@unibo.it"]
-  spec.homepage    = ""
-  spec.summary     = "Common lib for DM UNIBO"
+  spec.name = "dm_unibo_common"
+  spec.version = DmUniboCommon::VERSION
+  spec.authors = ["Pietro Donatini"]
+  spec.email = ["pietro.donatini@unibo.it"]
+  spec.homepage = ""
+  spec.summary = "Common lib for DM UNIBO"
   spec.description = "Css/scss js etc etc for use in DM UNIBO projects."
-  spec.license     = "MIT"
+  spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
