@@ -36,6 +36,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pretender"
   spec.add_dependency "pundit"
   spec.add_dependency "simple_form", "~> 5.1"
-
-  spec.add_development_dependency "rspec-rails"
 end
