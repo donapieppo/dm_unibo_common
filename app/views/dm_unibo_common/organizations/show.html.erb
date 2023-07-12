@@ -7,7 +7,7 @@
       <li class="list-group-item py-1">
         <strong><%= link_to (p.user ? p.user.cn_militar : p.network), dm_unibo_common.permission_path(p) %></strong>
         (<%= p.authlevel_string %>)
-        <span class="float-right"><%= link_to_delete dm_unibo_common.permission_path(p) %></span>
+        <span class="float-right"><%= link_to_delete "", dm_unibo_common.permission_path(p) %></span>
       </li>
     <% end %>
   </ul>
