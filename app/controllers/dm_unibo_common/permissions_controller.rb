@@ -1,16 +1,16 @@
 module DmUniboCommon
 class PermissionsController < ::ApplicationController
-  layout 'dm_unibo_common_layout'
+  layout "dm_unibo_common_layout"
   before_action :check_user_is_cesia
 
   def index
     if params[:organization_id]
-      @organizations = [ ::Organization.find(params[:organization_id]) ]
+      @organizations = [::Organization.find(params[:organization_id])]
     else
       @organizations = ::Organization.includes(permissions: :user).order(:name)
       @networks = Permission.where.not(network: nil).includes(:organization)
     end
-    authorize DmUniboCommon::Permission
+    authorize :permission, policy_class: DmUniboCommon::PermissionPolicy
   end
 
   def show
@@ -26,11 +26,13 @@ class PermissionsController < ::ApplicationController
 
   def create
     @organization = ::Organization.find(params[:organization_id])
-    @permission = @organization.permissions.new(user_upn:  params[:permission][:user_upn], 
-                                                authlevel: params[:permission][:authlevel])
+    @permission = @organization.permissions.new(
+      user_upn: params[:permission][:user_upn],
+      authlevel: params[:permission][:authlevel]
+    )
     authorize @permission
     if @permission.save
-      redirect_to permissions_path(organization_id: @organization.id), notice: 'OK'
+      redirect_to permissions_path(organization_id: @organization.id), notice: "OK"
     else
       render :new, status: :unprocessable_entity
     end
