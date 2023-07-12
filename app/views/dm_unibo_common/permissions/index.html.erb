@@ -22,14 +22,14 @@
             <li class="list-group-item py-1">
               <strong><%= link_to (p.user ? p.user.cn_militar : p.network), dm_unibo_common.permission_path(p) %></strong>
               (<%= p.authlevel_string %>)
-              <span class="float-right"><%= link_to_delete dm_unibo_common.permission_path(p) %></span>
+              <span class="float-right"><%= link_to_delete "", dm_unibo_common.permission_path(p) %></span>
             </li>
           <% end %>
         </ul>
       </div>
       <div class="text-center">
-        <%= link_to 'Edit Organization', dm_unibo_common.edit_organization_path(organization.id), class: 'btn btn-primary my-2' %>
-        <%= link_to 'Add new admin', dm_unibo_common.new_organization_permission_path(organization.id), class: 'btn btn-primary my-2' %>
+        <%= link_to "Edit Organization", dm_unibo_common.edit_organization_path(organization.id), class: "btn btn-primary my-2" %>
+        <%= link_to "Add new admin", dm_unibo_common.new_organization_permission_path(organization.id), class: "btn btn-primary my-2" %>
       </div>
     </div>
   </div>
