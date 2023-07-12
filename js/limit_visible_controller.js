@@ -16,12 +16,13 @@ class LimitVisibleController extends Controller {
                 var check;
 
                 if (e.target.type == "checkbox") {
+                        // For checkbox set true / false as data-text="true"
                         input = e.target.checked.toString();
                 } else {
                         input = e.target.value.trim().toLowerCase();
                 }
                 
-                console.log(`update with ${input}`)
+                console.log(`limit visible updated with ${input}`)
 
                 this.itemTargets.forEach((o) => {
                         if ('text' in o.dataset) {
@@ -37,3 +38,6 @@ class LimitVisibleController extends Controller {
 }
 
 export { LimitVisibleController as default };
+
+// TODO
+// change text -> string_to_match
