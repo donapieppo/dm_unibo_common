@@ -5,37 +5,37 @@ module DmUniboCommon
       # helper :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
 
       # helper_method in AbstractController::Helpers::ClassMethods
-      # Declare a controller method as a helper. 
+      # Declare a controller method as a helper.
       # ActiveSupport.on_load(:action_controller) do
       #   if respond_to?(:helper_method)
-      #     helper_method :current_user, 
-      #                   :user_signed_in?, 
-      #                   :user_owns?,  :user_owns!, 
-      #                   :user_admin?, :user_admin!, 
+      #     helper_method :current_user,
+      #                   :user_signed_in?,
+      #                   :user_owns?,  :user_owns!,
+      #                   :user_admin?, :user_admin!,
       #                   :user_cesia?, :user_cesia!
       #   end
       # end
       #
-      # With Rails.configuration.dm_unibo_common[:default_current_organization] 
+      # With Rails.configuration.dm_unibo_common[:default_current_organization]
       # you can set a default organization to redirect urls without organization
       def self.included(base)
         base.extend Helpers
         if base.respond_to? :helper_method
           base.helper_method :modal_page,
-                             :set_current_user, :current_user, 
-                             :set_current_organization, :current_organization,  
-                             :update_authorization,
-                             :user_signed_in?, 
-                             :current_user_owns?,  :current_user_owns!, 
-                             :current_user_admin?, :current_user_admin!, 
-                             :current_user_cesia?, :current_user_user_cesia!,
-                             :current_user_has_some_authorization?, 
-                             :current_user_possible_organizations 
+            :set_current_user, :current_user,
+            :set_current_organization, :current_organization,
+            :update_authorization,
+            :user_signed_in?,
+            :current_user_owns?, :current_user_owns!,
+            :current_user_admin?, :current_user_admin!,
+            :current_user_cesia?, :current_user_user_cesia!,
+            :current_user_has_some_authorization?,
+            :current_user_possible_organizations
         end
       end
 
       def modal_page
-        request.headers.fetch('HTTP_TURBO_FRAME', '') == 'modal'
+        request.headers.fetch("HTTP_TURBO_FRAME", "") == "modal"
       end
 
       def set_current_user
@@ -46,7 +46,7 @@ module DmUniboCommon
 
       # to separate from set_current_user because of impersonation (Pretender gem)
       def update_authorization
-        current_user && current_user.extend(DmUniboCommon::CurrentUser) && current_user.update_authorization_by_ip(request.remote_ip)
+        current_user&.extend(DmUniboCommon::CurrentUser) && current_user&.update_authorization_by_ip(request.remote_ip)
       end
 
       def current_user
@@ -62,7 +62,7 @@ module DmUniboCommon
         if current_user != true_user
           logger.info("#{true_user.upn} IMPERSONATING #{current_user.upn}")
         else
-          logger.info("Current user: #{current_user.upn}")
+          logger.info("Current user: #{current_user.upn} on #{current_organization.code}")
         end
       end
 
@@ -101,7 +101,7 @@ module DmUniboCommon
         "_shibsession_" + ENV["Shib-Application-ID"].to_s
       end
 
-      # no security hidden. 
+      # no security hidden.
       # ?__org__=mat
       # /mat/seminars
       # if not params[:__org__] consider the first possible organization of current_user
@@ -109,7 +109,7 @@ module DmUniboCommon
       def set_current_organization
         if params.has_key?(:__org__)
           @_current_organization = ::Organization.find_by_code(params[:__org__])
-        elsif current_user && current_user.has_some_authorization?
+        elsif current_user&.has_some_authorization?
           @_current_organization = current_user.my_organizations.first
           logger.info("set_current_organization for first of current_user.my_organizations")
         elsif Rails.configuration.dm_unibo_common[:default_current_organization]
@@ -128,15 +128,15 @@ module DmUniboCommon
 
       # PERMISSIONS (FIXME: TODO: Move all to dm_unibo_common/app/models/dm_unibo_common/current_user)
       def current_user_has_some_authorization?
-        current_user && current_user.has_some_authorization?
+        current_user&.has_some_authorization?
       end
-      
+
       def current_user_possible_organizations
         current_user ? current_user.my_organizations : []
       end
 
       def current_user_owns?(what)
-        current_user && current_user.owns?(what)
+        current_user&.owns?(what)
       end
 
       def current_user_owns!(what)
@@ -152,7 +152,7 @@ module DmUniboCommon
       end
 
       def current_user_cesia?
-        current_user and current_user.is_cesia? 
+        current_user&.is_cesia?
       end
 
       def current_user_cesia!
@@ -161,4 +161,3 @@ module DmUniboCommon
     end
   end
 end
-
