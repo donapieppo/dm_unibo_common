@@ -1,4 +1,4 @@
-require 'dm_unibo_user_search'
+require "dm_unibo_user_search"
 
 module DmUniboCommon::User
   extend ActiveSupport::Concern
@@ -6,8 +6,8 @@ module DmUniboCommon::User
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
 
-    validates :email, uniqueness: { case_sensitive: false }, allow_blank: true 
-    validates :upn, uniqueness: { case_sensitive: false }, allow_blank: true 
+    validates :email, uniqueness: {case_sensitive: false}, allow_blank: true
+    validates :upn, uniqueness: {case_sensitive: false}, allow_blank: true
   end
 
   def cn
@@ -35,11 +35,11 @@ module DmUniboCommon::User
     self.upn
   end
 
-  # Fast Authorizations if defined CESIA_UPN 
+  # Fast Authorizations if defined CESIA_UPN
   def is_cesia?
     CESIA_UPN.include?(self.upn)
   end
- 
+
   # example book with has_and_belongs_to_many
   # user.owns?(book) if book.user_ids.include?(user.id)
   def owns?(what)
@@ -50,16 +50,16 @@ module DmUniboCommon::User
     end
     return self.is_cesia?
   end
-  
+
   def owns!(what)
     self.owns?(what) or raise DmUniboCommon::NoAccess
   end
 
   # ClassMethods
-    
+
   module ClassMethods
     # if ADMINS exists
-    def admin_mails 
+    def admin_mails
       ADMINS
     end
 
@@ -72,7 +72,7 @@ module DmUniboCommon::User
     end
 
     # Always asks to remote, updates user data or eventually create new user
-    # to mantain old compatibility 
+    # to mantain old compatibility
     def syncronize(upn_or_id, c = User)
       syncronize_with_select(upn_or_id, nil, c)
     end
@@ -85,28 +85,28 @@ module DmUniboCommon::User
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       upn = id = false
-      if upn_or_id.is_a? Integer or upn_or_id =~ /^\d+$/
+      if upn_or_id.is_a?(Integer) || upn_or_id =~ /^\d+$/
         id = upn_or_id.to_i
       else
         upn = upn_or_id
       end
 
-      # remote search 
+      # remote search
       result = dm_unibo_user_search_client.find_user(upn_or_id, select_proc)
       if result.count < 1
         raise DmUniboCommon::NoUser
-      elsif result.count > 1 and upn
+      elsif result.count > 1 && upn
         raise DmUniboCommon::TooManyUsers
-      end        
+      end
 
       # remote user
       dsa_user = nil
-      # if id was given we still have to check that the search resul did not get new results with 
+      # if id was given we still have to check that the search resul did not get new results with
       # id equal to other numeric fields like matricola...
-      if id 
+      if id
         result.users.each do |u|
           if u.id_anagrafica_unica.to_i == id
-            dsa_user = u 
+            dsa_user = u
             break
           end
         end
@@ -117,11 +117,13 @@ module DmUniboCommon::User
 
       # local user
       local_user = c.where(id: dsa_user.id_anagrafica_unica).first
-      if ! local_user
-        local_user = c.new({id:      dsa_user.id_anagrafica_unica,
-                            upn:     dsa_user.upn,
-                            name:    dsa_user.name,
-                            surname: dsa_user.sn})
+      if !local_user
+        local_user = c.new({
+          id: dsa_user.id_anagrafica_unica,
+          upn: dsa_user.upn,
+          name: dsa_user.name,
+          surname: dsa_user.sn
+        })
 
         if local_user.respond_to?(:employeeNumber)
           local_user.employeeNumber = dsa_user.employee_id
@@ -150,11 +152,9 @@ module DmUniboCommon::User
         u ||= User.create(upn: upn_or_id, email: upn_or_id)
       end
     end
-
   end
 
   def self.included(base)
     base.extend ClassMethods
   end
 end
-
