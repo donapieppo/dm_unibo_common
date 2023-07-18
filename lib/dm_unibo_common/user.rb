@@ -141,16 +141,22 @@ module DmUniboCommon::User
     # User.find_or_syncronize('pippo@pluto.com') finds the user by upn/mail in local database
     # if user is not in local database it creates it from remote DmUniboUserSearch
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
-      upn_or_id = upn_or_id.to_i if upn_or_id =~ /^\d+$/
+      if upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/)
+        upn_or_id = upn_or_id.to_i
+      end
 
       field = upn_or_id.is_a?(Integer) ? :id : :upn
+      Rails.logger.info("find_or_syncronize on #{field} with #{upn_or_id}")
+
       u = User.where(field => upn_or_id).first
 
-      if Rails.configuration.dm_unibo_common[:searchable_provider]
-        u ||= User.syncronize_with_select(upn_or_id, select_proc, c)
-      elsif field == :upn
-        u ||= User.create(upn: upn_or_id, email: upn_or_id)
+      if !u && Rails.configuration.dm_unibo_common[:searchable_provider]
+        u = User.syncronize_with_select(upn_or_id, select_proc, c)
+      elsif !u && field == :upn
+        u = User.create(upn: upn_or_id, email: upn_or_id)
       end
+
+      u
     end
   end
 
