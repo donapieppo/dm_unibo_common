@@ -1,5 +1,5 @@
 module DmUniboCommon
-  VERSION = "5.1.1"
+  VERSION = "5.1.2"
 end
 # 5.1.1
 # icons and helpers
