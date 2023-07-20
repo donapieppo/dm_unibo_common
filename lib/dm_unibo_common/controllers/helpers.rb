@@ -62,7 +62,7 @@ module DmUniboCommon
         if current_user != true_user
           logger.info("#{true_user.upn} IMPERSONATING #{current_user.upn}")
         else
-          logger.info("Current user: #{current_user.upn} on #{current_organization.code}")
+          logger.info("Current user: #{current_user.upn} on #{current_organization&.code}")
         end
       end
 
