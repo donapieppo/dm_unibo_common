@@ -1,23 +1,30 @@
-<div id="footer" role="navigation">
-  <div class="container" style="text-align: center">
-    <div>
-      &mdash; <strong><a href="http://www.matematica.unibo.it">Dipartimento di Matematica</a></strong> &mdash;<br/>
-      <a href="http://www.unibo.it">Università di Bologna</a><br/>
-      Piazza di Porta San Donato, 5 - 40126 Bologna<br/>
+<div id="footer" role="navigation" style="border-top: 2px solid #ddd" class="mt-5">
+  <div class="container mt-5 text-secondary" style="text-align: center">
+    <div class="">
+      <div>
+        &mdash; <strong><a href="http://www.matematica.unibo.it">Dipartimento di Matematica</a></strong> &mdash;
+      </div>
+      <div class="my-1">
+        <a href="http://www.unibo.it">Università di Bologna</a>
+      </div>
+      <div>
+        Piazza di Porta San Donato, 5 - 40126 Bologna
+      </div>
     </div>
 
-    <div>
+    <div class="mt-2">
       <% if @contacts_path %>  
-        <%= link_to big_dmicon('envelope') + ' Contatti', @contacts_path, class: "mx-2" %> 
+        <%= link_to dm_icon("envelope", text: "Contatti", size: :xl), @contacts_path, class: "mx-2" %> 
       <% elsif @contact_mail %>
-        <%= mail_to @contact_mail, big_dmicon('envelope') + ' Contatti', class: "mx-2" %> 
+        <%= mail_to @contact_mail, dm_icon("envelope", text: "Contatti", size: :xl), class: "mx-2" %> 
       <% end %>
 
       <% if @documentation_path %>
-        <%= link_to big_dmicon('book') + ' Istruzioni', @documentation_path, class: "mx-2" %>
+        <%= link_to dm_icon("book", text: "Istruzioni", size: :xl), @documentation_path, class: "mx-2" %>
       <% end %>
 
-      <%= link_to big_dmicon('eye') + " Privacy", "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali", class: "mx-2" %>
+      <%= link_to dm_icon("eye", text: "Privacy", size: :xl), 
+                          "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali", class: "mx-2" %>
     </div>
   </div>
 </div>
