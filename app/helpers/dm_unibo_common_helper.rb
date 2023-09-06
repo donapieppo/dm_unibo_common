@@ -1,10 +1,10 @@
-include DmUniboMenuHelper
-include DmUniboFormHelper
-include DmUniboLinkHelper
-include DmUniboModalHelper
-include DmUniboIconHelper
-
 module DmUniboCommonHelper
+  include DmUniboMenuHelper
+  include DmUniboFormHelper
+  include DmUniboLinkHelper
+  include DmUniboModalHelper
+  include DmUniboIconHelper
+
   def dm_unibo_common_headers
     csrf_meta_tags.to_s +
       csp_meta_tag.to_s +
@@ -18,8 +18,10 @@ module DmUniboCommonHelper
   end
 
   # If user is sso logged even if he has no access should see his eppn (and logout link)
+  # MMMM todo but I'am not sure. The app needs a login even if shibboleth user already logged
   def sso_user_upn
-    request.env["HTTP_EPPN"] || (current_user && current_user.upn) || (current_user && current_user.email) 
+    # request.env["HTTP_EPPN"] || (current_user&.upn) || (current_user&.email)
+    current_user&.upn || current_user&.email
   end
 
   # from https://github.com/seyhunak/twitter-bootstrap-rails
@@ -47,15 +49,15 @@ module DmUniboCommonHelper
 
   def tooltip(key)
     message = Tooltip.message(key)
-    raw %$<h3 class="info"> $ + image_tag("info.png", width: '15') + 
-      %$ #{message[0]} <span>#{message[1]}</span></h3>$
+    raw %(<h3 class="info"> ) + image_tag("info.png", width: "15") +
+      %( #{message[0]} <span>#{message[1]}</span></h3>)
   end
 
   def popover_help(title, content)
-    raw %Q|
+    raw %(
     <span type="button" class="float-right" title="#{content}">
       <i class="fa fa-question-circle float-end"></i>
-    </span>|
+    </span>)
   end
 
   # dl_field(User.first, :name)
