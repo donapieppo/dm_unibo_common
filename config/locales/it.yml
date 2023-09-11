@@ -25,6 +25,7 @@ it:
     - ven
     - sab
     abbr_month_names:
+    - 
     - gen
     - feb
     - mar
