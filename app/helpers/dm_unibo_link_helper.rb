@@ -3,7 +3,7 @@ module DmUniboLinkHelper
     link_to "indietro", url, data: {turbo: false}
   end
 
-  def link_to_delete(name, url, button: false, add_class: "", size: nil)
+  def link_to_delete(name, url, button: false, add_class: "", size: nil, confirm_message: "Siete sicuri di voler cancellare?")
     if button
       add_class += " btn btn-danger"
     end
@@ -11,8 +11,7 @@ module DmUniboLinkHelper
       method: :delete,
       title: "elimina",
       form: {
-        data: {"turbo-confirm": "Siete sicuri di voler cancellare?"},
-        class: "d-inline px-0 mx-0 #{add_class}"
+        data: {"turbo-confirm": confirm_message}, class: "d-inline px-0 mx-0 #{add_class}"
       } do
       dm_icon("trash-alt", text: name, size: size)
     end
