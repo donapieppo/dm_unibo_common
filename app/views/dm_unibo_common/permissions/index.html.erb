@@ -31,6 +31,18 @@
         <%= link_to "Edit Organization", dm_unibo_common.edit_organization_path(organization.id), class: "btn btn-primary my-2" %>
         <%= link_to "Add new admin", dm_unibo_common.new_organization_permission_path(organization.id), class: "btn btn-primary my-2" %>
       </div>
+
+      <pre class="alert alert-info">
+  Presso la struttura 
+  <%= organization %> 
+  sono abilitati all'utilizzo di gemma 
+  i seguenti colleghi:
+
+  <% organization.permissions.each do |p|%>
+    <% p.user or next %>
+    <%= p.user.cn_militar %>
+  <% end %>
+      </pre>
     </div>
   </div>
 <% end %>
