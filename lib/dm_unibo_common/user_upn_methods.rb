@@ -38,20 +38,20 @@ module DmUniboCommon
 
           # dsa_validate_supervisor
           # se e' definito @@_user_upn[:superuser] setto superuser da dsa
-          define_method("dsa_validate_" + user_class.to_s) do 
+          define_method("dsa_validate_" + user_class.to_s) do
             # il nil non comporta nulla. Se si vuole nil si mette thesis.supervisor = nil e non 
             # thesis.supervisor_upn = nil.
             # invece thesis.supervisor_upn = '' e' ok per gli update_attributes
-            return if upns_cache[user_class].nil? 
+            return if upns_cache[user_class].nil?
 
             if upns_cache[user_class].blank?
               Rails.logger.info "eliminate #{user_class}_upn"
-              self.send(user_class.to_s + '=', nil)
+              self.send(user_class.to_s + "=", nil)
             else
               begin
                 # supervisor = User.find_or_syncronize(...)
                 # self.send("#{user_class.to_s}=", self.send(user_class).class.find_or_syncronize(@@_user_upn[user_class]))
-                self.send(user_class.to_s + '=', ::User.find_or_syncronize(upns_cache[user_class]))
+                self.send(user_class.to_s + "=", ::User.find_or_syncronize(upns_cache[user_class]))
               rescue => e
                 Rails.logger.info "#{e.to_s} while validating #{user_class}_upn=#{upns_cache[user_class]}"
                 self.errors.add("#{user_class}_upn".to_sym, e.to_s)
@@ -67,6 +67,3 @@ module DmUniboCommon
     end
   end
 end
-
-
-
