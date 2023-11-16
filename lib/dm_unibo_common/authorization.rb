@@ -7,11 +7,11 @@
 module DmUniboCommon::Authorization
   TO_CESIA = 100
 
-  # @authlevels[46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # @authlevels[46] = DmUniboCommon::Authorization::TO_ADMIN
   # means that "user:ip" can admin organization with id=46
   attr_reader :authlevels
 
-  # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN 
+  # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN
   # means that key k can admin organization with id=46
   @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
 
@@ -21,9 +21,9 @@ module DmUniboCommon::Authorization
 
   # Authorization depends on client ip and user
   def initialize(client_ip, user)
-    @user      = user
+    @user = user
     @client_ip = client_ip
-    @is_cesia  = CESIA_UPN.include?(@user.upn) 
+    @is_cesia = CESIA_UPN.include?(@user.upn)
     @authlevels_cache_key = "#{user.id}:#{client_ip}"
 
     update_authlevels_cache(@authlevels_cache_key)
@@ -37,7 +37,7 @@ module DmUniboCommon::Authorization
 
   # multi_organizations?: false/true if user has access to more than one organization
   def multi_organizations?
-    @authlevels && @authlevels.size > 1 
+    @authlevels && @authlevels.size > 1
   end
 
   def organizations
@@ -69,8 +69,8 @@ module DmUniboCommon::Authorization
 
   module ClassMethods
     # example: h = { read: 10, manage: 20 }
-    # creates methods like can_read?, can_manage?  
-    #                      can_only_read?, can_only_manage?  
+    # creates methods like can_read?, can_manage?
+    #                      can_only_read?, can_only_manage?
     # use in config/initializers
     def configure_authlevels
       @@authlevels = Rails.configuration.authlevels
@@ -92,25 +92,25 @@ module DmUniboCommon::Authorization
     def all_authlevels
       @@authlevels
     end
-    
-    # TO_CESIA only by file configuration 
+
+    # TO_CESIA only by file configuration
     def all_level_list
       @@authlevels.values
     end
 
     # to clear cache !!!!
     def authlevels_reload!
-      @@authlevels_cache = Hash.new{|h, k| h[k] = {}}
+      @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
     end
 
     # per visualizzazione livelli di autorizzazione
-    def level_description(level, html=1)
-      p = @@authlevels.select{|s,n| n==level}
+    def level_description(level, html = 1)
+      p = @@authlevels.select { |s, n| n == level }
       I18n.t("can_#{p.keys.first}")
     end
   end
 
-  private 
+  private
 
   # uno user puo' essere in diverse organizations con diversi authlevels
   # se si trova nel database admin sovrascrivo authlevel di update_authlevels_by_network
@@ -124,7 +124,7 @@ module DmUniboCommon::Authorization
         @@authlevels_cache[k][net.organization_id] = @is_cesia ? TO_CESIA : net.authlevel.to_i
       end
     end
-    
+
     @user.permissions.order(authlevel: :asc).each do |permission|
       if @is_cesia
         @@authlevels_cache[k][permission.organization_id] = TO_CESIA
@@ -134,18 +134,17 @@ module DmUniboCommon::Authorization
     end
 
     # FIXME:
-    if @is_cesia and o = ::Organization.first
+    if @is_cesia && (o = ::Organization.first)
       @@authlevels_cache[k][o.id] = TO_CESIA
     end
   end
 
   def each_network
-    net = @client_ip.split(/\./) # net[0]=137 net[1]=204 net[2]=134 net[3]=32
+    net = @client_ip.split(".") # net[0]=137 net[1]=204 net[2]=134 net[3]=32
     raise Gemma::SystemError, "problemi con client_ip=#{client_ip}" unless net.length == 4
 
     ["#{net[0]}.0.0.0", "#{net[0]}.#{net[1]}.0.0", "#{net[0]}.#{net[1]}.#{net[2]}.0", @client_ip].each do |network|
       yield(network)
     end
   end
-
 end
