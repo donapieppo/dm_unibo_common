@@ -1,27 +1,11 @@
 module DmUniboCommon
   module Controllers
     module Helpers
-      # extend ActiveSupport::Concern
-      # helper :user_owns?, :user_owns!, :user_admin?, :user_admin!, :user_cesia?, :user_cesia!
+      extend ActiveSupport::Concern
 
-      # helper_method in AbstractController::Helpers::ClassMethods
-      # Declare a controller method as a helper.
-      # ActiveSupport.on_load(:action_controller) do
-      #   if respond_to?(:helper_method)
-      #     helper_method :current_user,
-      #                   :user_signed_in?,
-      #                   :user_owns?,  :user_owns!,
-      #                   :user_admin?, :user_admin!,
-      #                   :user_cesia?, :user_cesia!
-      #   end
-      # end
-      #
-      # With Rails.configuration.dm_unibo_common[:default_current_organization]
-      # you can set a default organization to redirect urls without organization
-      def self.included(base)
-        base.extend Helpers
-        if base.respond_to? :helper_method
-          base.helper_method :modal_page,
+      included do
+        if respond_to?(:helper_method)
+          helper_method :modal_page,
             :set_current_user, :current_user,
             :set_current_organization, :current_organization,
             :update_authorization,
