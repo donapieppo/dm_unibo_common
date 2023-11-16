@@ -14,7 +14,7 @@
     "postcss-cli": "^10.1.0",
     "sass": "^1.69.5",
     "@popperjs/core": "^2.11.8",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.0.1"
   },
   "version": "0.1.0",
   "description": "Dm Unibo Common is a js (actually part of a Rails Engine) with code and configurations common to my ruby projects.",
