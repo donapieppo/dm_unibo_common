@@ -27,11 +27,11 @@ module DmUniboCommon
   class LoginsController < ::ApplicationController
     # raise: false see http://api.rubyonrails.org/classes/ActiveSupport/Callbacks/ClassMethods.html#method-i-skip_callback
     skip_before_action :force_sso_user, :redirect_unsigned_user, :check_role, :retrive_authlevel, :after_current_user_and_organization, raise: false
-    skip_after_action :verify_authorized
 
     # env['omniauth.auth'].info = {email, name, last_name}
     def google_oauth2
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
+      skip_authorization
       parse_google_omniauth
       send login_method
     end
@@ -39,6 +39,7 @@ module DmUniboCommon
     # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
     def shibboleth
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth or raise DmUniboCommon::WrongOauthMethod
+      skip_authorization
       log_unibo_omniauth
       parse_unibo_omniauth
 
@@ -52,6 +53,7 @@ module DmUniboCommon
 
     def developer
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise DmUniboCommon::WrongOauthMethod
+      skip_authorization
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
         sign_in_and_redirect ::User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
       else
@@ -61,6 +63,7 @@ module DmUniboCommon
 
     def test
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :test or raise
+      skip_authorization
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
         user = ::User.find(params[:user_id_id])
         Rails.logger.info("#{params[:user_id_id]} -> #{user.inspect}")
@@ -73,6 +76,7 @@ module DmUniboCommon
     # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
     #         ["_lauree_session", "YU5RSTM2OXdYMkRyVjV0SXI1K3c3eDJJdjZQ..... "]
     def logout
+      skip_authorization
       # cookies.delete(Rails.configuration.session_options[:key].to_sym)
       # cookies.delete(shibapplicationid.to_sym)
       session[:user_id] = nil
@@ -85,10 +89,12 @@ module DmUniboCommon
 
     # Not authorized but valid credentials
     def no_access
+      skip_authorization
       render layout: nil
     end
 
     def pippo_show
+      skip_authorization
       # raise env.inspect
     end
 
