@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "5.1.2"
+  VERSION = "5.1.3"
 end
+# 5.1.3
+# try moving helpers
 # 5.1.1
 # icons and helpers
 # 5.1.0
