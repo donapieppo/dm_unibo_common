@@ -5,13 +5,6 @@ module DmUniboCommonHelper
   include DmUniboCommonIconHelper
   include DmUniboCommonPrivacy
 
-  def dm_unibo_common_headers
-    csrf_meta_tags.to_s +
-      csp_meta_tag.to_s +
-      stylesheet_link_tag("application", "data-turbo-track": "reload") +
-      javascript_include_tag("application", "data-turbo-track": "reload", defer: true)
-  end
-
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
     content_tag(:h1, srt)
@@ -45,12 +38,6 @@ module DmUniboCommonHelper
       end
     end
     flash_messages.join("\n").html_safe
-  end
-
-  def tooltip(key)
-    message = Tooltip.message(key)
-    raw %(<h3 class="info"> ) + image_tag("info.png", width: "15") +
-      %( #{message[0]} <span>#{message[1]}</span></h3>)
   end
 
   def popover_help(title, content)
