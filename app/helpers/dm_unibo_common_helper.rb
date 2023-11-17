@@ -1,9 +1,9 @@
 module DmUniboCommonHelper
-  include DmUniboMenuHelper
-  include DmUniboFormHelper
-  include DmUniboLinkHelper
-  include DmUniboModalHelper
-  include DmUniboIconHelper
+  include DmUniboCommonMenuHelper
+  include DmUniboCommonFormHelper
+  include DmUniboCommonLinkHelper
+  include DmUniboCommonIconHelper
+  include DmUniboCommonPrivacy
 
   def dm_unibo_common_headers
     csrf_meta_tags.to_s +
