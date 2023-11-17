@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="it">
+  <%= render DmUniboCommon::HeaderComponent.new %>
+  <body style="border: 10px solid red; background-color: #eee; min-height: 100vh">
+    <div class="text-center my-2">
+      <%= link_to dm_icon('home'), main_app.root_path  %>  
+    </div>
+    <div class="container">
+      <%= bootstrap_flash %>
+      <%= yield %>
+    </div><!-- container -->
+
+    <%= render DmUniboCommon::FooterComponent.new(current_user, contact_mail: "dipmat-supportoweb@unibo.it") %>  
+  </body>
+</html>
