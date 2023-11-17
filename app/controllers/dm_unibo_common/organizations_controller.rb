@@ -1,6 +1,6 @@
 module DmUniboCommon
 class OrganizationsController < ::ApplicationController
-  layout 'dm_unibo_common_layout'
+  layout "dm_unibo_common_layout"
   before_action :check_user_is_cesia
   before_action :get_organization_and_check_permission, only: [:show, :edit, :update, :destroy]
 
@@ -21,7 +21,7 @@ class OrganizationsController < ::ApplicationController
     @organization = ::Organization.new(organization_params)
     authorize @organization, policy_class: DmUniboCommon::OrganizationPolicy
     if @organization.save
-      redirect_to organizations_path, notice: 'La struttura è stata creata.' 
+      redirect_to organizations_path, notice: "La struttura è stata creata."
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class OrganizationsController < ::ApplicationController
 
   def update
     if @organization.update(organization_params)
-      redirect_to edit_organization_path(@organization), notice: 'La Struttura è stata modificata.'
+      redirect_to edit_organization_path(@organization), notice: "La Struttura è stata modificata."
     else
       render action: :edit, status: :unprocessable_entity
     end
@@ -50,7 +50,7 @@ class OrganizationsController < ::ApplicationController
   end
 
   def organization_params
-    p =  []
+    p = []
     p += [:code, :name, :description, :booking] if current_user.is_cesia?
     params[:organization].permit(p)
   end
