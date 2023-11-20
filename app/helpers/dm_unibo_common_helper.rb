@@ -3,7 +3,6 @@ module DmUniboCommonHelper
   include DmUniboCommonFormHelper
   include DmUniboCommonLinkHelper
   include DmUniboCommonIconHelper
-  include DmUniboCommonPrivacy
 
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
