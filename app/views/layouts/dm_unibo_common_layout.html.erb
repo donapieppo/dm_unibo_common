@@ -6,7 +6,7 @@
       <%= link_to dm_icon('home'), main_app.root_path  %>  
     </div>
     <div class="container">
-      <%= bootstrap_flash %>
+      <%= render DmUniboCommon::BootstrapAlertComponent.new(flash) %>  
       <%= yield %>
     </div><!-- container -->
 
