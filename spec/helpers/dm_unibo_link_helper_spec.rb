@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DmUniboLinkHelper, type: :helper do
+RSpec.describe DmUniboCommonLinkHelper, type: :helper do
   describe "#link_to_back" do
     it "returns indietro as text" do
       expect(helper.link_to_back("/pippo")).to match(/indietro/)
