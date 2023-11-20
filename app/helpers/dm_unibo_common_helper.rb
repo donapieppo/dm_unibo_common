@@ -16,29 +16,6 @@ module DmUniboCommonHelper
     current_user&.upn || current_user&.email
   end
 
-  # from https://github.com/seyhunak/twitter-bootstrap-rails
-  ALERT_TYPES = [:success, :info, :warning, :danger]
-  def bootstrap_flash
-    flash_messages = []
-    flash.each do |type, message|
-      next if message.blank?
-
-      type = type.to_sym
-      type = :success if type.to_s == :notice.to_s
-      type = :danger if type.to_s == :alert.to_s
-      type = :danger if type.to_s == :error.to_s
-      next unless ALERT_TYPES.include?(type)
-
-      i = (type == :danger) ? "exclamation-triangle" : "info-circle"
-
-      Array(message).each do |msg|
-        text = content_tag(:div, dm_icon(i) + " " + msg.html_safe, class: "alert alert-#{type}", role: "alert")
-        flash_messages << text.html_safe if msg
-      end
-    end
-    flash_messages.join("\n").html_safe
-  end
-
   def popover_help(title, content)
     raw %(
     <span type="button" class="float-right" title="#{content}">
