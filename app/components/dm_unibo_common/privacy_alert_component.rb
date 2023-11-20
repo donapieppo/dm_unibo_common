@@ -4,12 +4,15 @@ DM_UNIBO_COMMON_PRIVACY_KEY = (Rails.configuration.session_options[:key] + "_pri
 
 class DmUniboCommon::PrivacyAlertComponent < ViewComponent::Base
   def initialize(cookies)
-    if !cookies[DM_UNIBO_COMMON_PRIVACY_KEY]
+    @privacy_accepted = cookies[DM_UNIBO_COMMON_PRIVACY_KEY]
+    if !@privacy_accepted
       cookies[DM_UNIBO_COMMON_PRIVACY_KEY] = {value: "accepted", expires: 1.year.from_now}
     end
   end
 
+  private
+
   def render?
-    !cookies[DM_UNIBO_COMMON_PRIVACY_KEY]
+    !@privacy_accepted
   end
 end
