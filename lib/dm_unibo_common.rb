@@ -14,6 +14,7 @@ require "view_component"
 require "turbo-rails"
 require "stimulus-rails"
 require "simple_form"
+require 'sprockets/railtie'
 
 # ActiveSupport.on_load(:'turbo-rails') do
 #   include Turbo::FramesHelper
