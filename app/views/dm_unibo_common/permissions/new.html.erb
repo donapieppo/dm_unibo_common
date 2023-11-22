@@ -1,6 +1,6 @@
 <h1><%= @organization %></h1>
 
-<%= dm_form_for [@organization, @permission], title: 'New permission', html: { data: { turbo: false }} do |p| %>  
+<%= dm_form_for [@organization, @permission], title: 'New permission', html: {data:{turbo: false}} do |p| %>  
   <%= p.input :user_upn, label: 'Email' %>
   <%# p.association :user, collection: @users, label_method: :cn_militar %>  
   <%= p.input :network %>  
