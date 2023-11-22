@@ -1,12 +1,15 @@
-<h1>Organizations</h1>
+<h1>Strutture Unibo</h1>
 
 <% if policy(:organization).new? %>  
-  <%= link_to 'New', dm_unibo_common.new_organization_path, class: 'btn btn-primary my-3' %>  
+  <%= link_to 'Crea una nuova struttura', dm_unibo_common.new_organization_path, class: 'btn btn-primary my-3' %>  
 <% end %>
 
 <div class="list-group">
   <% @organizations.each do |o| %>  
-    <%= link_to o, dm_unibo_common.organization_path(o), class: "list-group list-group-item list-group-item-action p-2" %>
+    <%= link_to dm_unibo_common.organization_path(o), class: "list-group list-group-item list-group-item-action p-2 d-flex flex-row" do %>
+      <div style="width: 10rem"><%= o.code.upcase %></div>
+      <div class="text-muted"><%= o.description %></div>
+    <% end %>
   <% end %>
 </div>
 
