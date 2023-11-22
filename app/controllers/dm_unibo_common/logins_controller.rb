@@ -53,11 +53,12 @@ module DmUniboCommon
 
     def developer
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise DmUniboCommon::WrongOauthMethod
+      Rails.configuration.dm_unibo_common[:omniauth_developer_user_id] or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
         sign_in_and_redirect ::User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
       else
-        raise "ONLY LOCAL OF DOCKER. YOU ARE #{request.remote_ip}"
+        raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
       end
     end
 
