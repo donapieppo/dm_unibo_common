@@ -1,6 +1,7 @@
 module DmUniboCommon
 class ImpersonationsController < ::ApplicationController
   skip_before_action :after_current_user_and_organization, only: [:stop_impersonating]
+  skip_after_action :verify_authorized
 
   layout "dm_unibo_common_layout"
   def who_impersonate
