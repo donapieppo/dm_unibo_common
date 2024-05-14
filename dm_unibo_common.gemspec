@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "omniauth"
   spec.add_dependency "omniauth-shibboleth"
   spec.add_dependency "omniauth-google-oauth2"
+  spec.add_dependency "omniauth-azure_activedirectory_v2"
   spec.add_dependency "pretender"
   spec.add_dependency "pundit"
   spec.add_dependency "simple_form", "~> 5.1"
