@@ -58,7 +58,9 @@ module DmUniboCommon
         if !current_user
           session[:original_request] = request.fullpath
 
-          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
+          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2
+            redirect_to dm_unibo_common.auth_azure_activedirectory_v2_callback_path and return
+          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
             redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
             redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
@@ -67,7 +69,7 @@ module DmUniboCommon
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :test
             redirect_to dm_unibo_common.auth_test_callback_path and return
           else
-            raise "problem in omniauth provider (not in :google_oauth2, :shibboleth, :developer, :test)"
+            raise "problem in omniauth provider (not in :azure_activedirectory_v2, :google_oauth2, :shibboleth, :developer, :test)"
           end
           # redirect_to user_google_oauth2_omniauth_authorize_path and return
           # redirect_to new_user_session_path and return
