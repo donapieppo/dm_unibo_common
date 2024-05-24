@@ -6,6 +6,7 @@
 #   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #   get 'auth/developer/callback',     to: 'logins#developer'
 #   get 'auth/test/callback',          to: 'logins#test'
+#   get 'auth/azureactivedirectory/callback' to: 'login#azure'
 #
 # The application that uses dm_unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
@@ -33,6 +34,13 @@ module DmUniboCommon
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_google_omniauth
+      send login_method
+    end
+
+    def azure_activedirectory
+      Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2 or raise DmUniboCommon::WrongOauthMethod
+      skip_authorization
+      parse_azure_omniauth
       send login_method
     end
 
@@ -104,6 +112,14 @@ module DmUniboCommon
     # the default is conservative where you log only if user in database
     def login_method
       Rails.configuration.dm_unibo_common[:login_method] || "allow_if_email"
+    end
+
+    def parse_azure_omniauth
+      raise request.env.inspect
+      oinfo = request.env["omniauth.auth"].info
+      @email = oinfo.email
+      @name = oinfo.name
+      @surname = oinfo.last_name
     end
 
     def parse_google_omniauth

@@ -7,6 +7,8 @@ module DmUniboCommonMenuHelper
     url = case Rails.configuration.dm_unibo_common[:omniauth_provider]
     when :shibboleth
       dm_unibo_common.auth_shibboleth_callback_path
+    when :azure_activedirectory_v2
+      dm_unibo_common.auth_azureactivedirectory_callback_path
     when :google_oauth2
       dm_unibo_common.auth_google_oauth2_callback_path
     when :developer
