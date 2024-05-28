@@ -59,7 +59,7 @@ module DmUniboCommon
           session[:original_request] = request.fullpath
 
           if Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2
-            redirect_to dm_unibo_common.auth_azureactivedirectory_callback_path and return
+            redirect_to main_app.home_path and return
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
             redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return
           elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
