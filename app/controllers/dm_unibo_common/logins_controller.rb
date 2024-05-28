@@ -6,7 +6,7 @@
 #   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #   get 'auth/developer/callback',     to: 'logins#developer'
 #   get 'auth/test/callback',          to: 'logins#test'
-#   get 'auth/azureactivedirectory/callback' to: 'login#azure'
+#   get 'auth/azure_activedirectory_v2/callback' to: 'login#azure'
 #
 # The application that uses dm_unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
@@ -37,7 +37,7 @@ module DmUniboCommon
       send login_method
     end
 
-    def azure_activedirectory
+    def azure_activedirectory_v2
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2 or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_azure_omniauth
@@ -115,11 +115,12 @@ module DmUniboCommon
     end
 
     def parse_azure_omniauth
-      raise request.env.inspect
-      oinfo = request.env["omniauth.auth"].info
-      @email = oinfo.email
-      @name = oinfo.name
-      @surname = oinfo.last_name
+      if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
+        @email = oa.email
+        @name = oa.first_name
+        @surname = oa.last_name
+        @id_anagrafica_unica = oa.idAnagraficaUnica.to_i
+      end
     end
 
     def parse_google_omniauth
@@ -134,11 +135,11 @@ module DmUniboCommon
       oinfo = request.env["omniauth.auth"].info
       extra = request.env["omniauth.auth"].extra.raw_info
 
-      @idAnagraficaUnica = extra.idAnagraficaUnica.to_i
-      @idAnagraficaUnica > 0 or raise "NO idAnagraficaUnica"
+      @id_anagrafica_unica = extra.idAnagraficaUnica.to_i
+      @id_anagrafica_unica > 0 or raise "NO idAnagraficaUnica"
 
-      @isMemberOf = extra.isMemberOf ? extra.isMemberOf.split(";") : []
-      set_memberof_session(@isMemberOf)
+      @is_member_of = extra.isMemberOf ? extra.isMemberOf.split(";") : []
+      set_memberof_session(@is_member_of)
 
       @email = @upn
       @name = oinfo.first_name || oinfo.name
@@ -146,17 +147,17 @@ module DmUniboCommon
       @nationalpin = extra.codiceFiscale
     end
 
-    def set_memberof_session(isMemberOf)
-      (Rails.env.development? and isMemberOf << 'user') unless isMemberOf.include?('user')
-      session[:isMemberOf] = isMemberOf
+    def set_memberof_session(is_member_of)
+      (Rails.env.development? and is_member_of << "user") unless is_member_of.include?("user")
+      session[:is_member_of] = is_member_of
     end
 
     def allow_and_create
-      user = @idAnagraficaUnica ? ::User.where(id: @idAnagraficaUnica).first : ::User.where(email: @email).first
+      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
       if !user
         logger.info "Authentication: User #{@email} to be CREATED"
         h = {
-          id: @idAnagraficaUnica || 0,
+          id: @id_anagrafica_unica || 0,
           upn: @email,
           email: @email,
           name: @name,
@@ -165,15 +166,16 @@ module DmUniboCommon
         h[:nationalpin] = @nationalpin if ::User.column_names.include?("nationalpin")
         user = ::User.create!(h)
       end
-      logger.info "Authentication: allow_and_create as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
+      logger.info "Authentication: allow_and_create as #{user.inspect} with groups #{session[:is_member_of].inspect}"
       sign_in_and_redirect user
     end
     alias_method :log_and_create, :allow_and_create # old syntax
 
     def allow_if_email
-      user = @idAnagraficaUnica ? ::User.where(id: @idAnagraficaUnica).first : ::User.where(email: @email).first
+      Rails.logger.info("Authentication: allow_if_email with @email = #{@email} @id_anagrafica_unica = #{@id_anagrafica_unica}")
+      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
       if user
-        logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:isMemberOf].inspect}"
+        logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:is_member_of].inspect}"
         user.update(name: @name, surname: @surname)
         sign_in_and_redirect user
       else
