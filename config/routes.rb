@@ -1,8 +1,9 @@
 DmUniboCommon::Engine.routes.draw do
   get "auth/shibboleth/callback", to: "logins#shibboleth"
-  get "auth/azureactivedirectory/callback", to: "logins#azure_activedirectory"
+  get "auth/azure_activedirectory_v2/callback", to: "logins#azure_activedirectory_v2"
 
   # get "auth/google_oauth2/callback", to: "logins#google_oauth2"
+
   if Rails.env.development?
     get "auth/developer/callback", to: "logins#developer"
   end
