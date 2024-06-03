@@ -55,10 +55,6 @@ module DmUniboCommon::User
     self.owns?(what) or raise DmUniboCommon::NoAccess
   end
 
-  def organizations_with_permissions
-    Organization.order(:id).find(permissions.group(:organization_id).select(:organization_id).map(&:organization_id))
-  end
-
   # ClassMethods
 
   module ClassMethods
