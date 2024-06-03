@@ -61,10 +61,9 @@ module DmUniboCommon
 
     def developer
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise DmUniboCommon::WrongOauthMethod
-      Rails.configuration.dm_unibo_common[:omniauth_developer_user_id] or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
-        sign_in_and_redirect ::User.find(Rails.configuration.dm_unibo_common[:omniauth_developer_user_id])
+        sign_in_and_redirect ::User.find_by_upn(params[:upn])
       else
         raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
       end
@@ -92,6 +91,9 @@ module DmUniboCommon
       cookies.clear
       reset_session
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
+      if Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2
+        redirect_to home_path and return
+      end
       redirect_to Rails.configuration.dm_unibo_common[:logout_link], allow_other_host: true
       # redirect_to (params[:return] || 'http://www.unibo.it')
     end
