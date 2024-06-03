@@ -11,48 +11,52 @@ module DmUniboCommon::User
   end
 
   def cn
-    "%s %s" % [self.name, self.surname]
+    "%s %s" % [name, surname]
   end
 
   def cn_militar
-    "%s, %s" % [self.surname, self.name]
+    "%s, %s" % [surname, name]
   end
 
   def abbr
-    "%s. %s" % [self.name[0], self.surname]
+    "%s. %s" % [name[0], surname]
   end
 
   # after create admin withouth searchable_provider name, sn are blank and we show email/upn
   def to_s
-    if self.surname.blank?
-      self.upn
+    if surname.blank?
+      upn
     else
-      self.cn
+      cn
     end
   end
 
   def mail
-    self.upn
+    upn
   end
 
   # Fast Authorizations if defined CESIA_UPN
   def is_cesia?
-    CESIA_UPN.include?(self.upn)
+    CESIA_UPN.include?(upn)
   end
 
   # example book with has_and_belongs_to_many
   # user.owns?(book) if book.user_ids.include?(user.id)
   def owns?(what)
     if what.respond_to?(:user_ids)
-      return what.user_ids.include?(self.id)
+      return what.user_ids.include?(id)
     elsif what.respond_to?(:user_id)
-      return what.user_id == self.id
+      return what.user_id == id
     end
-    return self.is_cesia?
+    return is_cesia?
   end
 
   def owns!(what)
     self.owns?(what) or raise DmUniboCommon::NoAccess
+  end
+
+  def organizations_with_permissions
+    Organization.order(:id).find(permissions.group(:organization_id).select(:organization_id).map(&:organization_id))
   end
 
   # ClassMethods
