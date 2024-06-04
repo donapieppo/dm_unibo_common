@@ -32,8 +32,8 @@ module DmUniboCommon::CurrentUser
     @_authorization&.multi_organizations?
   end
 
-  def my_organizations
-    @_authorization ? @_authorization.organizations : []
+  def my_organizations(ordering: :name)
+    @_authorization ? @_authorization.organizations(ordering: ordering) : []
   end
 
   def can_read?(oid)
