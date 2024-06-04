@@ -92,11 +92,14 @@ module DmUniboCommon
       cookies.clear
       reset_session
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
-      if Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2
-        redirect_to home_path and return
+      case Rails.configuration.dm_unibo_common[:omniauth_provider]
+      when :azure_activedirectory_v2
+        redirect_to main_app.home_path and return
+      when :developer
+        redirect_to main_app.home_path and return
+      when :shibboleth
+        redirect_to Rails.configuration.dm_unibo_common[:logout_link], allow_other_host: true
       end
-      redirect_to Rails.configuration.dm_unibo_common[:logout_link], allow_other_host: true
-      # redirect_to (params[:return] || 'http://www.unibo.it')
     end
 
     # Not authorized but valid credentials
