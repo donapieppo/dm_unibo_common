@@ -56,30 +56,19 @@ module DmUniboCommon
       # before_filter :log_current_user, :force_sso_user
       def force_sso_user
         if !current_user
-          session[:original_request] = request.fullpath
-
-          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2
-            redirect_to main_app.home_path and return
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2
-            redirect_to dm_unibo_common.auth_google_oauth2_callback_path and return
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
+          Rails.logger.info("no current_user")
+          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
+            session[:original_request] = request.fullpath
             redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer
-            redirect_to dm_unibo_common.auth_developer_callback_path and return
-          elsif Rails.configuration.dm_unibo_common[:omniauth_provider] == :test
-            redirect_to dm_unibo_common.auth_test_callback_path and return
           else
-            raise "problem in omniauth provider (not in :azure_activedirectory_v2, :google_oauth2, :shibboleth, :developer, :test)"
+            redirect_to main_app.home_path and return
           end
-          # redirect_to user_google_oauth2_omniauth_authorize_path and return
-          # redirect_to new_user_session_path and return
         end
       end
 
       def redirect_unsigned_user
         if !user_signed_in?
-          redirect_to main_app.root_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
-          return
+          redirect_to main_app.home_path, alert: "Si prega di loggarsi per accedere alla pagina richiesta."
         end
       end
 
