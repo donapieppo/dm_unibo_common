@@ -84,15 +84,15 @@ module DmUniboCommon
       def set_current_organization
         if params.has_key?(:__org__)
           @_current_organization = ::Organization.find_by_code(params[:__org__])
-        elsif current_user&.has_some_authorization?
+        elsif current_user&.single_organization?
           @_current_organization = current_user.my_organizations.first
-          logger.info("set_current_organization for first of current_user.my_organizations")
+          logger.info("set_current_organization as the only for current_user")
         elsif Rails.configuration.dm_unibo_common[:default_current_organization]
           @_current_organization = ::Organization.find_by_code(Rails.configuration.dm_unibo_common[:default_current_organization])
           logger.info("set_current_organization for default_current_organization")
         end
 
-        if current_user
+        if current_user && @_current_organization
           current_user.current_organization = @_current_organization
         end
       end
