@@ -62,8 +62,9 @@ module DmUniboCommon
     def developer
       Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
+      parse_developer_omniauth
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
-        sign_in_and_redirect ::User.find_by_upn(params[:upn])
+        send login_method
       else
         raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
       end
@@ -149,6 +150,10 @@ module DmUniboCommon
       @nationalpin = extra.codiceFiscale
     end
 
+    def parse_developer_omniauth
+      @upn = request["upn"]
+    end
+
     def set_memberof_session(is_member_of)
       (Rails.env.development? and is_member_of << "user") unless is_member_of.include?("user")
       session[:is_member_of] = is_member_of
@@ -174,14 +179,14 @@ module DmUniboCommon
     alias_method :log_and_create, :allow_and_create # old syntax
 
     def allow_if_email
-      Rails.logger.info("Authentication: allow_if_email with @email = #{@email} @id_anagrafica_unica = #{@id_anagrafica_unica}")
-      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
+      Rails.logger.info("Authentication: allow_if_email with @email=#{@email} @id_anagrafica_unica=#{@id_anagrafica_unica} @upn=#{@upn}")
+      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(upn: @upn).first
       if user
         logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:is_member_of].inspect}"
         user.update(name: @name, surname: @surname)
         sign_in_and_redirect user
       else
-        logger.info "User #{@email} not allowed"
+        logger.info "User #{@upn} #{@id_anagrafica_unica} not allowed"
         redirect_to no_access_path
       end
     end
