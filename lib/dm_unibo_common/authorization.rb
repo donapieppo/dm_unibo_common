@@ -44,8 +44,8 @@ module DmUniboCommon::Authorization
     @authlevels && @authlevels.size == 1
   end
 
-  def organizations
-    ::Organization.order(:name).find(@authlevels.keys)
+  def organizations(ordering: :name)
+    ::Organization.order(ordering).find(@authlevels.keys)
   end
 
   def authlevel(o)
