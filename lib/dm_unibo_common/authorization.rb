@@ -40,6 +40,10 @@ module DmUniboCommon::Authorization
     @authlevels && @authlevels.size > 1
   end
 
+  def single_organization?
+    @authlevels && @authlevels.size == 1
+  end
+
   def organizations
     ::Organization.order(:name).find(@authlevels.keys)
   end
