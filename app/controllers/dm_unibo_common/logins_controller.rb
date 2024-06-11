@@ -154,7 +154,7 @@ module DmUniboCommon
     end
 
     def parse_developer_omniauth
-      @upn = request["upn"]
+      @upn = @email = request["upn"]
     end
 
     def set_memberof_session(is_member_of)
