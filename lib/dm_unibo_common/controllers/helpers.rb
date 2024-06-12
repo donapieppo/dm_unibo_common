@@ -44,7 +44,7 @@ module DmUniboCommon
       def log_current_user
         current_user or return true
         if current_user != true_user
-          logger.info("#{true_user.upn} IMPERSONATING #{current_user.upn}")
+          logger.info("#{true_user.upn} IMPERSONATING #{current_user.upn} on #{current_organization&.code}")
         else
           logger.info("Current user: #{current_user.upn} on #{current_organization&.code}")
         end
@@ -56,7 +56,7 @@ module DmUniboCommon
       # before_filter :log_current_user, :force_sso_user
       def force_sso_user
         if !current_user
-          Rails.logger.info("no current_user")
+          logger.info("force_sso_user: no current_user")
           if Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
             session[:original_request] = request.fullpath
             redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
