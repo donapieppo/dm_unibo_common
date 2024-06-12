@@ -1,6 +1,6 @@
 module DmUniboCommon
 class ImpersonationsController < ::ApplicationController
-  skip_before_action :after_current_user_and_organization, only: [:stop_impersonating]
+  skip_before_action :after_current_user_and_organization
   skip_after_action :verify_authorized
 
   layout "dm_unibo_common_layout"
@@ -29,7 +29,7 @@ class ImpersonationsController < ::ApplicationController
   def stop_impersonating
     authorize :impersonation, policy_class: DmUniboCommon::ImpersonationPolicy
     stop_impersonating_user
-    redirect_to main_app.root_path and return
+    redirect_to main_app.root_path(__org__: nil) and return
   end
 
   private
@@ -37,7 +37,7 @@ class ImpersonationsController < ::ApplicationController
   # for example in config/initializers/project_name.rb you have
   # config.dm_unibo_common[:impersonate_admins] = ['user.one@unibo.it', 'user.two@unibo.it']
   def true_user_can_impersonate?
-    true_user and Rails.configuration.dm_unibo_common[:impersonate_admins] and Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
+    true_user && Rails.configuration.dm_unibo_common[:impersonate_admins] && Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
   end
 end
 end
