@@ -15,7 +15,7 @@ module DmUniboCommonMenuHelper
     when :google_oauth2
       button_to txt, "/dm_unibo_common/auth/google_oauth2", form: {data: {turbo: false}}
     when :developer
-      link_to txt, dm_unibo_common.auth_developer_callback_path
+      button_to txt, "/dm_unibo_common/auth/developer", form: {data: {turbo: false}}
     when :test
       link_to txt, dm_unibo_common.auth_test_callback_path
     end
