@@ -5,7 +5,7 @@
     <li>
       <%= permission.authlevel_string %>
       <%= link_to permission.organization, main_app.current_organization_edit_path(__org__: permission.organization.code) %>
-      <%= link_to dm_icon('trash'), permission_path(permission), method: :delete, data: { confirm: 'Sicuri?'} %>
+      <%= link_to helpers.dm_icon('trash'), permission_path(permission), method: :delete, data: { confirm: 'Sicuri?'} %>
     </li>
   <% end %>
 </ul>
