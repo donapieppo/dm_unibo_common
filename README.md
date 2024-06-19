@@ -46,8 +46,6 @@ production:
   logout_link:       https://idp.example.comt/adfs/ls/?wa=wsignout1.0
   login_icon:        dm_unibo_common/ssologo18x18.png
   logout_icon:       dm_unibo_common/ssologo18x18.png
-  logo_page:         http://www.example.com
-  logo_image:        dm_unibo_common/unibo.png
 
 development:
   omniauth_provider: :shibboleth
@@ -58,8 +56,6 @@ development:
   logout_link:       https://idptest.example.com/adfs/ls/?wa=wsignout1.0
   login_icon:        dm_unibo_common/ssologo18x18.png
   logout_icon:       dm_unibo_common/ssologo18x18.png
-  logo_page:         http://www.example.com
-  logo_image:        dm_unibo_common/unibo.png
 ```
 
 and load in `config/application.rb` with
