@@ -57,8 +57,8 @@ module DmUniboCommon
       def force_sso_user
         if !current_user
           logger.info("force_sso_user: no current_user")
+          session[:original_unlogged_request] = request.fullpath
           if Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
-            session[:original_request] = request.fullpath
             redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
           else
             redirect_to main_app.home_path and return
