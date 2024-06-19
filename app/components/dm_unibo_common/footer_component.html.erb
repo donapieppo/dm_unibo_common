@@ -8,16 +8,16 @@
 
     <div class="mt-2">
       <% if @contacts_path %>  
-        <%= link_to dm_icon("envelope", text: "Contatti", size: :xl), @contacts_path, class: "mx-2" %> 
+        <%= link_to helpers.dm_icon("envelope", text: "Contatti", size: :xl), @contacts_path, class: "mx-2" %> 
       <% elsif @contact_mail %>
-        <%= mail_to @contact_mail, dm_icon("envelope", text: "Contatti", size: :xl), class: "mx-2" %> 
+        <%= mail_to @contact_mail, helpers.dm_icon("envelope", text: "Contatti", size: :xl), class: "mx-2" %> 
       <% end %>
 
       <% if @documentation_path %>
-        <%= link_to dm_icon("book", text: "Istruzioni", size: :xl), @documentation_path, class: "mx-2" %>
+        <%= link_to helpers.dm_icon("book", text: "Istruzioni", size: :xl), @documentation_path, class: "mx-2" %>
       <% end %>
 
-      <%= link_to dm_icon("eye", text: "Privacy", size: :xl), 
+      <%= link_to helpers.dm_icon("eye", text: "Privacy", size: :xl), 
                           "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali", class: "mx-2" %>
     </div>
   </div>
