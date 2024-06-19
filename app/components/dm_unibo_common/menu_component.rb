@@ -11,8 +11,5 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
       header_subtitle
     end
     @search_component = search_component
-
-    @logo_image = Rails.configuration.dm_unibo_common[:logo_image]
-    @logo_page = Rails.configuration.dm_unibo_common[:logo_page]
   end
 end
