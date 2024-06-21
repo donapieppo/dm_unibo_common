@@ -1,6 +1,6 @@
 <% @flash.each do |type, message| %>
   <div class="<%= alert_type(type) %>">
     <%= icon(type) %>
-    <%= message %>
+    <%= raw message %>
   </div>
 <% end %>
