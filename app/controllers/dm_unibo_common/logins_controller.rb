@@ -155,6 +155,8 @@ module DmUniboCommon
 
     def parse_developer_omniauth
       @upn = @email = request["upn"]
+      last_user = ::User.where("id < 3000").order("id desc").first
+      @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
     end
 
     def set_memberof_session(is_member_of)
@@ -165,9 +167,10 @@ module DmUniboCommon
     def allow_and_create
       user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
       if !user
+        new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || 0
         logger.info "Authentication: User #{@email} to be CREATED"
         h = {
-          id: @id_anagrafica_unica || 0,
+          id: new_user_id,
           upn: @email,
           email: @email,
           name: @name,
@@ -204,7 +207,8 @@ module DmUniboCommon
 
     def sign_in_and_redirect(user)
       session[:user_id] = user.id
-      redirect_to session[:original_request] || main_app.root_path
+      logger.info("sign_in_and_redirect with original_unlogged_request=#{session[:original_unlogged_request]}")
+      redirect_to session[:original_unlogged_request] || main_app.root_path
     end
   end
 end
