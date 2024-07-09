@@ -122,6 +122,7 @@ module DmUniboCommon
 
     def parse_azure_omniauth
       if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
+        Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
         @email = oa.email
         @name = oa.first_name
         @surname = oa.last_name
@@ -189,7 +190,7 @@ module DmUniboCommon
       user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(upn: @upn).first
       if user
         logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:is_member_of].inspect}"
-        user.update(name: @name, surname: @surname)
+        # user.update(name: @name, surname: @surname)
         sign_in_and_redirect user
       else
         logger.info "User #{@upn} #{@id_anagrafica_unica} not allowed"
