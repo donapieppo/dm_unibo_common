@@ -122,10 +122,10 @@ module DmUniboCommon
 
     def parse_azure_omniauth
       if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
+        # Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
         @email = oa.email
-        @name = oa.first_name
-        @surname = oa.last_name
+        @name = oa.given_name
+        @surname = oa.family_name
         @id_anagrafica_unica = oa.idAnagraficaUnica.to_i
       end
     end
