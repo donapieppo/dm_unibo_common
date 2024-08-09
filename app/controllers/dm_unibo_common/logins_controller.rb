@@ -155,7 +155,7 @@ module DmUniboCommon
     end
 
     def parse_developer_omniauth
-      @upn = @email = request["upn"]
+      @upn = @email = params[:upn]
       last_user = ::User.where("id < 3000").order("id desc").first
       @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
     end
