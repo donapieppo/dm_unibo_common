@@ -27,9 +27,9 @@ class LimitVisibleController extends Controller {
                 this.itemTargets.forEach((o) => {
                         if ('text' in o.dataset) {
                                 if (this.substringValue) {
-                                        check = o.dataset.text.includes(input)
+                                        check = o.dataset.text.toLowerCase().includes(input)
                                 } else {
-                                        check = o.dataset.text == input
+                                        check = o.dataset.text.toLowerCase() == input
                                 }
                                 o.style.display = check ? this.displayValue : 'none';
                         }
