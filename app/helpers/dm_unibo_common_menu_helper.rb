@@ -22,10 +22,9 @@ module DmUniboCommonMenuHelper
   end
 
   def logout_link
-    link_to(image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, " Logout"),
-      dm_unibo_common.logout_path,
-      data: {turbo: false})
-    # Rails.configuration.dm_unibo_common[:logout_link]
+    link_to dm_unibo_common.logout_path, data: {turbo: false} do
+      image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, " Logout")
+    end
   end
 
   def dropdown_menu(id, title, &block)
