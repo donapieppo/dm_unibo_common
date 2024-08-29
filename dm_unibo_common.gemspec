@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", "~> 7.1.3"
+  spec.add_dependency "rails", "< 7.2"
   spec.add_dependency "sprockets-rails"
   spec.add_dependency "mysql2", "~> 0.5"
   spec.add_dependency "puma", "~> 6.4"
