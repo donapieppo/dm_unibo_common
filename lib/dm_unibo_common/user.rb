@@ -80,6 +80,7 @@ module DmUniboCommon::User
     # Always asks to remote, updates user data or eventually create new user
     # accept a third parameter with a proc toi select users
     # syncronize_with_select(12324, User, -> (u) {u.upn.name == 'Pietro')
+    # FIXME does actually not update values from remote to local
     def syncronize_with_select(upn_or_id, select_proc = nil, c = User)
       Rails.logger.info("Asked to syncronize '#{upn_or_id}' in '#{c.to_s}' class")
       upn_or_id.blank? and raise DmUniboCommon::NoUser
