@@ -5,9 +5,11 @@
 .dm-card-title, .dm-card-header {
   @extend .mb-0;
   @extend .card-header;
+  background-color: $card-bg-header;
+  color: $card-color-header;
   font-size: 120%;
   font-weight: bold;
-  border-bottom: 2px solid rgb(187,46,41);
+  border-bottom: 2px solid $card-border;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }

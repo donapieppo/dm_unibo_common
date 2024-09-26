@@ -1,14 +1,29 @@
-ul.navbar-nav > li {
-        @extend .nav-item;
-}
-ul.navbar-nav > li > a {
-        @extend .nav-link;
-        color: rgba(255, 255, 255, 0.9) !important;
-}
-ul.dropdown-menu > li > a {
-        @extend .dropdown-item;
+nav.navbar {
+  border-bottom: 2px solid $primary;
+  background-color: $navbar-bg;
 }
 
-.navbar-brand {
-        color: rgba(255, 255, 255, 0.9) !important;
+ul.navbar-nav > li {
+  @extend .nav-item;
+  color: $navbar-text;
 }
+ul.navbar-nav > li > a {
+  @extend .nav-link;
+  color: $navbar-text;
+  &:hover {
+    color: $navbar-text-hover;
+  }
+}
+ul.dropdown-menu > li > a {
+  @extend .dropdown-item;
+  color: $navbar-text;
+}
+
+.navbar-brand, .navbar-text {
+  color: $navbar-text;
+  &:hover {
+    color: $navbar-text-hover;
+  }
+}
+
+
