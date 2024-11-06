@@ -1,22 +1,26 @@
 nav.navbar {
-  border-bottom: 2px solid $primary;
+  border-bottom: 1px solid #333;
   background-color: $navbar-bg;
 }
 
-ul.navbar-nav > li {
+.navbar-nav > li {
   @extend .nav-item;
   color: $navbar-text;
 }
-ul.navbar-nav > li > a {
+.navbar-nav > li > a {
   @extend .nav-link;
   color: $navbar-text;
   &:hover {
     color: $navbar-text-hover;
   }
 }
+.navbar-nav .nav-link.show {
+  color: $navbar-text-hover;
+}
+
 ul.dropdown-menu > li > a {
   @extend .dropdown-item;
-  color: $navbar-text;
+  color: $navbar-dropdown-text;
 }
 
 .navbar-brand, .navbar-text {
@@ -25,5 +29,3 @@ ul.dropdown-menu > li > a {
     color: $navbar-text-hover;
   }
 }
-
-
