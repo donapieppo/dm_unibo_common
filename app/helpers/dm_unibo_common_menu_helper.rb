@@ -4,7 +4,7 @@ module DmUniboCommonMenuHelper
   # dm_unibo_common.auth_shibboleth_callback_path.inspect -> "/seminari/dm_unibo_common/auth/shibboleth/callback"
   # root_path -> seminari
   def login_link
-    txt = image_tag(Rails.configuration.dm_unibo_common[:login_icon]) + content_tag(:strong, " Login")
+    txt = dm_icon("sign-in", text: "Login")
 
     case Rails.configuration.dm_unibo_common[:omniauth_provider]
     when :shibboleth
@@ -23,7 +23,7 @@ module DmUniboCommonMenuHelper
 
   def logout_link
     link_to dm_unibo_common.logout_path, data: {turbo: false} do
-      image_tag(Rails.configuration.dm_unibo_common[:logout_icon]) + content_tag(:strong, " Logout")
+      dm_icon("sign-out", text: "Logout")
     end
   end
 
