@@ -1,4 +1,4 @@
-nav.navbar {
+.navbar {
   border-bottom: 1px solid #333;
   background-color: $navbar-bg;
 }
@@ -23,9 +23,3 @@ ul.dropdown-menu > li > a {
   color: $navbar-dropdown-text;
 }
 
-.navbar-brand, .navbar-text {
-  color: $navbar-text;
-  &:hover {
-    color: $navbar-text-hover;
-  }
-}
