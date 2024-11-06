@@ -1,4 +1,5 @@
 $dm-green: #696;
+$unibo-red: #BB2E29;
 
 $primary: #385e72;
 $secondary: #b7cfdc;
@@ -17,7 +18,10 @@ $container-max-widths: (
 
 $navbar-bg: $light;
 $navbar-text: $primary;
-$navbar-text-hover: #000000;
+$navbar-bg: $dm-green;
+$navbar-text: #fff;
+$navbar-text-hover: #ccc;
+$navbar-dropdown-text: #333;
 $h-color: #385e72;
 $card-bg-header: $secondary;
 $card-color-header: $primary;
