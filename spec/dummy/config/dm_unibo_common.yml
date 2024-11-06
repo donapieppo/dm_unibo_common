@@ -1,10 +1,9 @@
 test:
-  omniauth_provider: :developer
-  host:              tester.example.com
-  smtp_address:      mailhost.example.com
-  smtp_domain:       example.com
-  support_mail:      supportoweb@example.com
-  logout_link:       https://idptest.example.com/adfs/ls/?wa=wsignout1.0
-  login_icon:        dm_unibo_common/ssologo18x18.png
-  logout_icon:       dm_unibo_common/ssologo18x18.png
+  omniauth_provider:   :developer
+  host:                tester.example.com
+  searchable_provider: false
+  smtp_address:        mailhost.example.com
+  smtp_domain:         example.com
+  support_mail:        supportoweb@example.com
+  logout_link:         https://idptest.example.com/adfs/ls/?wa=wsignout1.0
 
