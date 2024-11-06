@@ -1,8 +1,7 @@
-.navbar {
+nav.navbar {
   border-bottom: 1px solid #333;
   background-color: $navbar-bg;
 }
-
 .navbar-nav > li {
   @extend .nav-item;
   color: $navbar-text;
@@ -22,4 +21,12 @@ ul.dropdown-menu > li > a {
   @extend .dropdown-item;
   color: $navbar-dropdown-text;
 }
-
+.navbar-text {
+  color: $navbar-text;
+}
+.navbar-brand {
+  color: $navbar-text;
+  &:hover {
+    color: $navbar-text-hover;
+  }
+}
