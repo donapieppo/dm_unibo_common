@@ -35,9 +35,8 @@ module DmUniboCommon::User
     upn
   end
 
-  # Fast Authorizations if defined CESIA_UPN
   def is_cesia?
-    CESIA_UPN.include?(upn)
+    Rails.configuration.unibo_common.superusers.include?(upn)
   end
 
   # example book with has_and_belongs_to_many
