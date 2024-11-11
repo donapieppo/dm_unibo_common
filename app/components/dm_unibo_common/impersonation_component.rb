@@ -6,7 +6,7 @@ class DmUniboCommon::ImpersonationComponent < ViewComponent::Base
     @true_user = true_user
     @who_impersonate_path = who_impersonate_path
     @stop_impersonating_path = stop_impersonating_path
-    @can_impersonate = @true_user && Rails.configuration.dm_unibo_common[:impersonate_admins] && Rails.configuration.dm_unibo_common[:impersonate_admins].include?(@true_user.upn)
+    @can_impersonate = @true_user && Rails.configuration.unibo_common.impersonate_admins && Rails.configuration.unibo_common.impersonate_admins.include?(@true_user.upn)
   end
 
   def render?

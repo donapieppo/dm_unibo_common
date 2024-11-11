@@ -4,7 +4,7 @@ DmUniboCommon::Engine.routes.draw do
 
   # get "auth/google_oauth2/callback", to: "logins#google_oauth2"
 
-  if Rails.env.development? && Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer
+  if Rails.env.development? && Rails.configuration.unibo_common.omniauth_provider == :developer
     get "auth/developer/callback", to: "logins#developer"
   end
   if Rails.env.test?

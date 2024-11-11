@@ -151,7 +151,7 @@ module DmUniboCommon::User
 
       u = User.where(field => upn_or_id).first
 
-      if !u && Rails.configuration.dm_unibo_common[:searchable_provider]
+      if !u && Rails.configuration.unibo_common.searchable_provider
         u = User.syncronize_with_select(upn_or_id, select_proc, c)
       elsif !u && field == :upn
         u = User.create(upn: upn_or_id, email: upn_or_id)

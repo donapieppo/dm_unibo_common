@@ -2,7 +2,7 @@
 
 class DmUniboCommon::HeaderComponent < ViewComponent::Base
   def initialize
-    @title = Rails.configuration.html_title
-    @description = Rails.configuration.html_description
+    @title = Rails.configuration.unibo_common.html_title
+    @description = Rails.configuration.unibo_common.html_description
   end
 end

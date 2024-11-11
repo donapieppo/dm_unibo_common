@@ -1,5 +1,5 @@
 Rails.application.reloader.to_prepare do
-  ActionMailer::Base.smtp_settings = if Rails.configuration.dm_unibo_common[:smtp_unibo]
+  ActionMailer::Base.smtp_settings = if Rails.configuration.unibo_common.smtp_unibo
     {
       address: "mail.unibo.it",
       smtp_domain: "unibo.it",
@@ -11,11 +11,11 @@ Rails.application.reloader.to_prepare do
     }
   else
     {
-      address: Rails.configuration.dm_unibo_common[:smtp_address],
-      domain: Rails.configuration.dm_unibo_common[:smtp_domain]
+      address: Rails.configuration.unibo_common.smtp_address,
+      domain: Rails.configuration.unibo_common.smtp_domain
     }
   end
 
   ActionMailer::Base.register_interceptor(DmUniboCommon::DevelopmentMailInterceptor)
-  Rails.application.routes.default_url_options[:host] = Rails.configuration.dm_unibo_common[:host]
+  Rails.application.routes.default_url_options[:host] = Rails.configuration.unibo_common.host
 end

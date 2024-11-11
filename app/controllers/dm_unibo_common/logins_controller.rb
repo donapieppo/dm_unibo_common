@@ -8,7 +8,7 @@
 #   get 'auth/test/callback',          to: 'logins#test'
 #   get 'auth/azure_activedirectory_v2/callback' to: 'login#azure'
 #
-# The application that uses dm_unibo_commmon can define two login_methods:
+# The application that uses unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
 #   means that only users already present in database can login
 # login_method: :allow_and_create
@@ -31,14 +31,14 @@ module DmUniboCommon
 
     # env['omniauth.auth'].info = {email, name, last_name}
     def google_oauth2
-      Rails.configuration.dm_unibo_common[:omniauth_provider] == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
+      Rails.configuration.unibo_common.omniauth_provider == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_google_omniauth
       send login_method
     end
 
     def azure_activedirectory_v2
-      Rails.configuration.dm_unibo_common[:omniauth_provider] == :azure_activedirectory_v2 or raise DmUniboCommon::WrongOauthMethod
+      Rails.configuration.unibo_common.omniauth_provider == :azure_activedirectory_v2 or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_azure_omniauth
       send login_method
@@ -46,12 +46,12 @@ module DmUniboCommon
 
     # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
     def shibboleth
-      Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth or raise DmUniboCommon::WrongOauthMethod
+      Rails.configuration.unibo_common.omniauth_provider == :shibboleth or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       log_unibo_omniauth
       parse_unibo_omniauth
 
-      if Rails.configuration.dm_unibo_common[:no_students] && @email !~ /@unibo.it$/
+      if Rails.configuration.unibo_common[:no_students] && @email !~ /@unibo.it$/
         logger.info "Students are not allowed: #{@email} user not allowed."
         redirect_to no_access_path and return
       else
@@ -60,7 +60,7 @@ module DmUniboCommon
     end
 
     def developer
-      Rails.configuration.dm_unibo_common[:omniauth_provider] == :developer or raise DmUniboCommon::WrongOauthMethod
+      Rails.configuration.unibo_common.omniauth_provider == :developer or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_developer_omniauth
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
@@ -71,7 +71,7 @@ module DmUniboCommon
     end
 
     def test
-      Rails.configuration.dm_unibo_common[:omniauth_provider] == :test or raise
+      Rails.configuration.unibo_common.omniauth_provider == :test or raise
       skip_authorization
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
         user = ::User.find(params[:user_id_id])
@@ -92,13 +92,13 @@ module DmUniboCommon
       cookies.clear
       reset_session
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
-      case Rails.configuration.dm_unibo_common[:omniauth_provider]
+      case Rails.configuration.unibo_common.omniauth_provider
       when :azure_activedirectory_v2
         redirect_to main_app.home_path and return
       when :developer
         redirect_to main_app.home_path and return
       when :shibboleth
-        redirect_to Rails.configuration.dm_unibo_common[:logout_link], allow_other_host: true
+        redirect_to Rails.configuration.unibo_common.logout_link, allow_other_host: true
       end
     end
 
@@ -117,7 +117,7 @@ module DmUniboCommon
 
     # the default is conservative where you log only if user in database
     def login_method
-      Rails.configuration.dm_unibo_common[:login_method] || "allow_if_email"
+      Rails.configuration.unibo_common.login_method || "allow_if_email"
     end
 
     def parse_azure_omniauth

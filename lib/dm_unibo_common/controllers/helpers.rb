@@ -50,7 +50,7 @@ module DmUniboCommon
         end
       end
 
-      # see Rails.configuration.dm_unibo_common[:omniauth_provider]
+      # see Rails.configuration.unibo_common.omniauth_provider
       # actually: shibboleth (for unibo) and google_oauth2
       # Use in app/controllers/application_controller.rb like
       # before_filter :log_current_user, :force_sso_user
@@ -58,7 +58,7 @@ module DmUniboCommon
         if !current_user
           logger.info("force_sso_user: no current_user")
           session[:original_unlogged_request] = request.fullpath
-          if Rails.configuration.dm_unibo_common[:omniauth_provider] == :shibboleth
+          if Rails.configuration.unibo_common.omniauth_provider == :shibboleth
             redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
           else
             redirect_to main_app.home_path and return
@@ -87,9 +87,6 @@ module DmUniboCommon
         elsif current_user&.single_organization?
           @_current_organization = current_user.my_organizations.first
           logger.info("set_current_organization as the only for current_user")
-        elsif Rails.configuration.dm_unibo_common[:default_current_organization]
-          @_current_organization = ::Organization.find_by_code(Rails.configuration.dm_unibo_common[:default_current_organization])
-          logger.info("set_current_organization for default_current_organization")
         end
 
         if current_user && @_current_organization

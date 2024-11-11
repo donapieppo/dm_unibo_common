@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 class DmUniboCommon::MenuComponent < ViewComponent::Base
-  def initialize(sso_user_upn, current_organization: nil, header_title: Rails.configuration.header_title, header_subtitle: Rails.configuration.header_subtitle, search_component: nil)
+  def initialize(
+    sso_user_upn,
+    current_organization: nil,
+    header_title: Rails.configuration.unibo_common.header_title,
+    header_subtitle: Rails.configuration.unibo_common.header_subtitle,
+    search_component: nil
+  )
     @sso_user_upn = sso_user_upn
     @current_organization = current_organization
     @header_title = header_title

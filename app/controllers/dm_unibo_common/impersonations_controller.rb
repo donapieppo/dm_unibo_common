@@ -7,7 +7,7 @@ class ImpersonationsController < ::ApplicationController
   def who_impersonate
     if true_user_can_impersonate?
       @users = ::User.order(:surname)
-      @main_users = ::User.where(upn: Rails.configuration.dm_unibo_common[:main_impersonations] || [])
+      @main_users = ::User.where(upn: Rails.configuration.unibo_common.main_impersonations || [])
     else
       redirect_to main_app.root_path and return
     end
@@ -34,10 +34,9 @@ class ImpersonationsController < ::ApplicationController
 
   private
 
-  # for example in config/initializers/project_name.rb you have
-  # config.dm_unibo_common[:impersonate_admins] = ['user.one@unibo.it', 'user.two@unibo.it']
+  # config.unibo_common.impersonate_admins = ['user.one@unibo.it', 'user.two@unibo.it']
   def true_user_can_impersonate?
-    true_user && Rails.configuration.dm_unibo_common[:impersonate_admins] && Rails.configuration.dm_unibo_common[:impersonate_admins].include?(true_user.upn)
+    true_user && Rails.configuration.unibo_common.impersonate_admins && Rails.configuration.unibo_common.impersonate_admins.include?(true_user.upn)
   end
 end
 end

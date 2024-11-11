@@ -8,14 +8,14 @@ module DmUniboCommon
       if Rails.env.development?
         Rails.logger.info("Modify recipient mail.")
         message.subject = "[to :#{message.to} cc:#{message.cc} bcc:#{message.bcc}] #{message.subject}"
-        message.to = Rails.configuration.dm_unibo_common[:interceptor_mails]
+        message.to = Rails.configuration.unibo_common.interceptor_mails
         message.cc = nil
         message.bcc = nil
       elsif !message.bcc.is_a?(Array)
         message.bcc = message.bcc ? [message.bcc] : []
       end
-      if Rails.configuration.dm_unibo_common[:message_footer] && !Rails.configuration.dm_unibo_common[:message_footer].blank?
-        message.body = message.body.to_s + "\n ------------------- \n" + Rails.configuration.dm_unibo_common[:message_footer]
+      if Rails.configuration.unibo_common.message_footer && !Rails.configuration.unibo_common.message_footer.blank?
+        message.body = message.body.to_s + "\n ------------------- \n" + Rails.configuration.unibo_common.message_footer
       end
     end
   end

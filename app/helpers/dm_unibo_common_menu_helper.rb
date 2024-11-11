@@ -6,7 +6,7 @@ module DmUniboCommonMenuHelper
   def login_link
     txt = dm_icon("sign-in", text: "Login")
 
-    case Rails.configuration.dm_unibo_common[:omniauth_provider]
+    case Rails.configuration.unibo_common.omniauth_provider
     when :shibboleth
       dm_unibo_common.auth_shibboleth_callback_path
     when :azure_activedirectory_v2
