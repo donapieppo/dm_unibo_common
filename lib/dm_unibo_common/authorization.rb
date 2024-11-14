@@ -145,7 +145,7 @@ module DmUniboCommon::Authorization
 
   def each_network
     net = @client_ip.split(".") # net[0]=137 net[1]=204 net[2]=134 net[3]=32
-    raise Gemma::SystemError, "problemi con client_ip=#{client_ip}" unless net.length == 4
+    raise ArgumentError, "problemi con client_ip=#{client_ip}" unless net.length == 4
 
     ["#{net[0]}.0.0.0", "#{net[0]}.#{net[1]}.0.0", "#{net[0]}.#{net[1]}.#{net[2]}.0", @client_ip].each do |network|
       yield(network)
