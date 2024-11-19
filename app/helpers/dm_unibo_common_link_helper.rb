@@ -4,15 +4,16 @@ module DmUniboCommonLinkHelper
   end
 
   def link_to_delete(name, url, button: false, add_class: "", size: nil, confirm_message: "Siete sicuri di voler cancellare?")
-    if button
-      add_class += " btn btn-danger"
+    add_class += if button
+      " btn btn-danger"
+    else
+      " d-inline px-0 mx-0"
     end
     button_to url,
       method: :delete,
       title: "elimina",
-      form: {
-        data: {"turbo-confirm": confirm_message}, class: "d-inline px-0 mx-0 #{add_class}"
-      } do
+      form_class: add_class,
+      form: {data: {"turbo-confirm": confirm_message}} do
       dm_icon("trash-alt", text: name, size: size)
     end
   end
