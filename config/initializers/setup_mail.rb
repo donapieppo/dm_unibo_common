@@ -4,7 +4,7 @@ Rails.application.reloader.to_prepare do
       address: "mail.unibo.it",
       smtp_domain: "unibo.it",
       enable_starttls_auto: true,
-      port: 587,
+      port: 25587,
       user_name: ENV["SMTP_USERNAME"],
       password: ENV["SMTP_PASSWORD"],
       authentication: :login
