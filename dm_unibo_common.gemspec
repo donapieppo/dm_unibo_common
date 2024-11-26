@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bootsnap"
 
   spec.add_dependency "omniauth"
+  spec.add_dependency "omniauth-entra-id"
   spec.add_dependency "omniauth-shibboleth"
   spec.add_dependency "omniauth-google-oauth2"
   spec.add_dependency "omniauth-azure-activedirectory-v2"
