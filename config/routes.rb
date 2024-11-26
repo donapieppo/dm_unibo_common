@@ -1,4 +1,5 @@
 DmUniboCommon::Engine.routes.draw do
+  get "auth/entra_id/callback", to: "logins#entra_id"
   get "auth/shibboleth/callback", to: "logins#shibboleth"
   get "auth/azure_activedirectory_v2/callback", to: "logins#azure_activedirectory_v2"
 

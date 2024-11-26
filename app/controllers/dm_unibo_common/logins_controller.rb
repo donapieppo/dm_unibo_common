@@ -2,6 +2,7 @@
 # The main difference is that we mainly use shibboleth authentication.
 #
 # in routes we have
+#   get 'auth/entra_id/callback'       to: 'login#entra_id'
 #   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
 #   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #   get 'auth/developer/callback',     to: 'logins#developer'
@@ -34,6 +35,13 @@ module DmUniboCommon
       Rails.configuration.unibo_common.omniauth_provider == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_google_omniauth
+      send login_method
+    end
+
+    def entra_id
+      Rails.configuration.unibo_common.omniauth_provider == :entra_id or raise DmUniboCommon::WrongOauthMethod
+      skip_authorization
+      parse_entra_id
       send login_method
     end
 
@@ -93,6 +101,8 @@ module DmUniboCommon
       reset_session
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
       case Rails.configuration.unibo_common.omniauth_provider
+      when :entra_id
+        redirect_to main_app.home_path and return
       when :azure_activedirectory_v2
         redirect_to main_app.home_path and return
       when :developer
@@ -118,6 +128,16 @@ module DmUniboCommon
     # the default is conservative where you log only if user in database
     def login_method
       Rails.configuration.unibo_common.login_method || "allow_if_email"
+    end
+
+    def parse_entra_id
+      if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
+        # Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
+        @email = oa.email
+        @name = oa.given_name
+        @surname = oa.family_name
+        @id_anagrafica_unica = oa.idAnagraficaUnica.to_i
+      end
     end
 
     def parse_azure_omniauth

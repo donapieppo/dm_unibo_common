@@ -9,9 +9,10 @@ module DmUniboCommonMenuHelper
     case Rails.configuration.unibo_common.omniauth_provider
     when :shibboleth
       dm_unibo_common.auth_shibboleth_callback_path
+    when :entra_id
+      button_to txt, "/dm_unibo_common/auth/entra_id", form: {data: {turbo: false}}
     when :azure_activedirectory_v2
       button_to txt, "/dm_unibo_common/auth/azure_activedirectory_v2", form: {data: {turbo: false}}
-      # dm_unibo_common.auth_azure_activedirectory_v2_path
     when :google_oauth2
       button_to txt, "/dm_unibo_common/auth/google_oauth2", form: {data: {turbo: false}}
     when :developer
