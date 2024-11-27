@@ -63,7 +63,7 @@ module DmUniboCommon::User
     end
 
     def dm_unibo_user_search_client
-      @@dsa ||= DmUniboUserSearch::Client.new
+      @@dsa ||= DmUniboUserSearch::Client.new(Rails.configuration.unibo_common.search_wsdl_file)
     end
 
     def search(str)
