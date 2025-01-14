@@ -125,6 +125,14 @@ module DmUniboCommon::User
           surname: dsa_user.sn
         })
 
+        if local_user.respond_to?(:uid)
+          local_user.uid = dsa_user.sam_account_name
+        end
+
+        if local_user.respond_to?(:sam)
+          local_user.sam = dsa_user.sam_account_name
+        end
+
         if local_user.respond_to?(:employeeNumber)
           local_user.employeeNumber = dsa_user.employee_id
         end
