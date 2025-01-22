@@ -70,8 +70,8 @@ module DmUniboCommon
     def developer
       Rails.configuration.unibo_common.omniauth_provider == :developer or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
-      parse_developer_omniauth
       if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
+        parse_developer_omniauth
         send login_method
       else
         raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
