@@ -1,0 +1,30 @@
+$dm-green: #696;
+$unibo-red: #BB2E29;
+
+$primary: #385e72;
+$secondary: #b7cfdc;
+$info: #6aabd2;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1440px // Custom width for larger screens
+);
+
+@import 'bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+$navbar-bg: $dm-green;
+$navbar-text: #eee;
+$navbar-bg: $light;
+$navbar-text: $primary;
+$navbar-text-hover: #000;
+$navbar-dropdown-text: $primary;
+$h-color: #385e72;
+$card-bg-header: $secondary;
+$card-color-header: $primary;
+$card-border: $primary;
+$enable-responsive-font-sizes: true;
+
