@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-#require "turbo-rails"
+# require "turbo-rails"
 # ActiveSupport.on_load(:action_controller_base) do
 #   helper Turbo::Engine.helpers
 #   include Turbo::FramesHelper
 # end
 
 class DmUniboCommon::ModalComponent < ViewComponent::Base
-  def initialize(title: "", hidden: false, noactions: false)
+  def initialize(title: "", hidden: false, noactions: false, size: :lg)
     @title = title
     @hidden = hidden
+    @size = size.to_s
     @actions = noactions ? "" : "turbo:click->turbo-modal#followLink
                                  keyup@window->turbo-modal#closeWithKeyboard
                                  click@window->turbo-modal#closeBackground

@@ -1,7 +1,7 @@
 <turbo-frame id="modal">
   <%= tag.div data: { controller: "turbo-modal", action: @actions } do %>
     <div id="modal_div" class="modal fade" tabindex="-1" aria-modal="true" label="modal">
-      <div id="modal_dialog" class="modal-dialog modal-lg modal-dialog-centered">
+      <div id="modal_dialog" class="modal-dialog modal-<%= @size %> modal-dialog-centered">
         <div id="modal_content" class="modal-content position-relative" data-turbo-modal-target="modalContent">
           <div class="position-absolute top-0 start-100 translate-middle p-2">
             <%= button_tag "Chiudi", data: {action: "turbo-modal#hideModal"}, class: "btn btn-success btn-sm" %>
