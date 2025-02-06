@@ -19,12 +19,17 @@ $container-max-widths: (
 $navbar-bg: $dm-green;
 $navbar-text: #eee;
 $navbar-bg: $light;
-$navbar-text: $primary;
+$navbar-bg: #F7F7F7;
+$navbar-text: #333333;
 $navbar-text-hover: #000;
-$navbar-dropdown-text: $primary;
+$navbar-dropdown-text: #333333;
+
 $h-color: #385e72;
+$h-color: $primary;
+
 $card-bg-header: $light;
-$card-color-header: $primary;
+$card-color-header: #333333;
 $card-border: $primary;
+
 $enable-responsive-font-sizes: true;
 
