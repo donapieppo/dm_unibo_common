@@ -34,7 +34,7 @@ module DmUniboCommonLinkHelper
     link_to dm_icon("plus-circle", text: name, fw: true), url, class: (button ? "button " : "")
   end
 
-  def support_mail
+  def support_mail_link
     mail = Rails.configuration.unibo_common.support_mail
     %(<a href="mailto:#{mail}">#{mail}</a>).html_safe
   end
