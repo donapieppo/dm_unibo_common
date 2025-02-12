@@ -7,6 +7,7 @@ Rails.application.configure do
     config.lograge.custom_payload do |controller|
       if !controller.is_a?(Rails::HealthController)
         res = {}
+        res[:remote_ip] = controller.request.remote_ip
         res[:host] = controller.request.host
         res[:current_user] = controller.current_user&.upn if controller.respond_to?(:current_user)
         res[:current_organization] = controller.current_organization&.code if controller.respond_to?(:current_organization)
