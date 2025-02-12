@@ -1,20 +1,21 @@
 <% main_root_path = @current_organization ? helpers.main_app.current_organization_root_path : root_path %>
 
-<nav class="navbar navbar-expand-lg px-3 py-2 mb-3">
+<nav class="navbar navbar-expand-lg py-2 mb-3">
   <div class="container-fluid align-items-center">
-    <%= link_to main_root_path, class: 'navbar-brand fs-6', data: {turbo: false} do %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <%= link_to main_root_path, class: 'navbar-brand fs-6 mx-lg-3', data: {turbo: false} do %>
       <%= helpers.dm_icon Rails.configuration.unibo_common.header_icon, size: "xl" %> &nbsp;
       <%= @header_title %>
       <div class="d-block lh-base text-end">
         <small><%= @header_subtitle %></small>
       </div>
     <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav text-end flex-fill">
+      <ul class="navbar-nav flex-fill">
         <%= content %>
       </ul> 
 
@@ -22,7 +23,7 @@
         <%= render @search_component %>  
       <% end %>
 
-      <ul class="navbar-nav text-end">
+      <ul class="navbar-nav text-end mx-lg-3">
         <% if @sso_user_upn %>
           <span class="navbar-text ps-1">
             <%= @sso_user_upn %>
