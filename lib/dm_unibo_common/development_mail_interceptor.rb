@@ -5,8 +5,8 @@
 module DmUniboCommon
   class DevelopmentMailInterceptor
     def self.delivering_email(message)
-      if Rails.env.development?
-        Rails.logger.info("Modify recipient mail.")
+      if Rails.env.development? || Rails.configuration.unibo_common.interceptor_mails&.any?
+        Rails.logger.info("DevelopmentMailInterceptor: Modify recipient mail with #{Rails.configuration.unibo_common.interceptor_mails.inspect}")
         message.subject = "[to :#{message.to} cc:#{message.cc} bcc:#{message.bcc}] #{message.subject}"
         message.to = Rails.configuration.unibo_common.interceptor_mails
         message.cc = nil
