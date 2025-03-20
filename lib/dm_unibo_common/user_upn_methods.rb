@@ -19,8 +19,8 @@ module DmUniboCommon
       def belongs_to_dsa_user(*args)
         # upns_cache[Supervisor] = 'pietro.donatini@unibo.it'
         # serve perche' supervisor_upn in lettura puo' essere .supervisor.upn
-        define_method("upns_cache") do 
-          @_upns_cache ||= Hash.new
+        define_method("upns_cache") do
+          @_upns_cache ||= {}
         end
 
         args.each do |user_class|
