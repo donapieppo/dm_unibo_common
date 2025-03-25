@@ -33,6 +33,7 @@ class Permission < ApplicationRecord
   end
 
   def reload_authlevels!
+    Rails.logger.info "DmUniboCommon::Permission reload_authlevels!"
     ::Authorization.authlevels_reload!
   end
 
