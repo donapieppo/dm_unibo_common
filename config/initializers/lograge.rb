@@ -19,7 +19,6 @@ Rails.application.configure do
     end
     config.lograge.custom_options = lambda do |event|
       {
-        error: event.payload[:exception],
         params: event.payload[:params].except(*%w[controller action format id])
       }
     end
