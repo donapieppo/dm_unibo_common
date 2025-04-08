@@ -47,4 +47,12 @@ module DmUniboCommon::CurrentUser
   def debug_authorizations
     @_authorization
   end
+
+  # FIXME
+  # to refactor. current_user has @_authorization
+  # and reload_authlevels_cache! reloads caches for all
+  # users
+  def reload_authlevels_cache!
+    @_authorization.reload_authlevels_cache!
+  end
 end

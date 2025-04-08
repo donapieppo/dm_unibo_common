@@ -30,7 +30,7 @@ module DmUniboCommon
 
       # to separate from set_current_user because of impersonation (Pretender gem)
       def update_authorization
-        current_user&.extend(DmUniboCommon::CurrentUser) && current_user&.update_authorization_by_ip(request.remote_ip)
+        current_user&.extend(DmUniboCommon::CurrentUser) && current_user.update_authorization_by_ip(request.remote_ip)
       end
 
       def current_user

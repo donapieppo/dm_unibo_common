@@ -31,7 +31,11 @@ class PermissionsController < ::ApplicationController
       authlevel: params[:permission][:authlevel]
     )
     authorize @permission
+
     if @permission.save
+      # FIXME FIXME FIXME brutto.
+      # Da rifare il cache di auth
+      current_user.reload_authlevels_cache!
       redirect_to permissions_path(organization_id: @organization.id), notice: "OK"
     else
       render :new, status: :unprocessable_entity

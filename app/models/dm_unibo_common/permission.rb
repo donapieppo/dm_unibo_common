@@ -20,9 +20,7 @@ class Permission < ApplicationRecord
                                     message: "Errore interno al sistema su authlevel. Contattare Assistenza."}
 
   validate :user_or_network
-
-  # FIXME not nice
-  after_save :reload_authlevels!
+  # after_save :reload_authlevels_cache
 
   def to_s
     "#{self.authlevel} #{self.user} on #{self.organization}"
@@ -32,14 +30,13 @@ class Permission < ApplicationRecord
     ::Authorization.level_description(self.authlevel)
   end
 
-  def reload_authlevels!
-    Rails.logger.info "DmUniboCommon::Permission reload_authlevels!"
-    ::Authorization.authlevels_reload!
-  end
-
   def user_or_network
     errors.add(:base, "Necessario fornire utente o network") if self.network.blank? && self.user_id == nil
   end
+
+  # def reload_authlevels_cache
+  #   self.user.reload_authlevels_cache!
+  # end
 end
 end
 

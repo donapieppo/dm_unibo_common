@@ -71,6 +71,12 @@ module DmUniboCommon::Authorization
     @authlevels.values.select { |n| n >= 40 }.any?
   end
 
+  # to clear cache !!!!
+  def reload_authlevels_cache!
+    Rails.logger.info "DmUniboCommon::Authorization reload_authlevels_cache!"
+    @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
+  end
+
   module ClassMethods
     # example: h = { read: 10, manage: 20 }
     # creates methods like can_read?, can_manage?
@@ -102,11 +108,6 @@ module DmUniboCommon::Authorization
       @@authlevels.values
     end
 
-    # to clear cache !!!!
-    def authlevels_reload!
-      @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
-    end
-
     # per visualizzazione livelli di autorizzazione
     def level_description(level, html = 1)
       p = @@authlevels.select { |s, n| n == level }
@@ -125,15 +126,19 @@ module DmUniboCommon::Authorization
 
     each_network do |network|
       DmUniboCommon::Permission.where(network: network).each do |net|
-        @@authlevels_cache[k][net.organization_id] = @is_cesia ? TO_CESIA : net.authlevel.to_i
+        @@authlevels_cache[k][net.organization_id] = if @is_cesia
+          TO_CESIA
+        else
+          net.authlevel.to_i
+        end
       end
     end
 
     @user.permissions.order(authlevel: :asc).each do |permission|
-      if @is_cesia
-        @@authlevels_cache[k][permission.organization_id] = TO_CESIA
+      @@authlevels_cache[k][permission.organization_id] = if @is_cesia
+        TO_CESIA
       else
-        @@authlevels_cache[k][permission.organization_id] = permission.authlevel.to_i
+        permission.authlevel.to_i
       end
     end
 
