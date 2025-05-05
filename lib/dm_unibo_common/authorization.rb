@@ -14,6 +14,7 @@ module DmUniboCommon::Authorization
   # @@authlevels_cache[k][46] = DmUniboCommon::Authorization::TO_ADMIN
   # means that key k can admin organization with id=46
   @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
+  @@authlevels_cache_last_change = Time.now
 
   def self.included(base)
     base.extend(ClassMethods)
@@ -122,6 +123,12 @@ module DmUniboCommon::Authorization
   # user permission overrides network permissions
   # in organization prendiamo quella più alta ordinando
   def update_authlevels_cache(k)
+    # reset cache every 30 minutes
+    if (Time.now - @@authlevels_cache_last_change) > 1800
+      @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
+      @@authlevels_cache_last_change = Time.now
+    end
+
     return @@authlevels_cache[k] if @@authlevels_cache.key?(k)
 
     each_network do |network|
