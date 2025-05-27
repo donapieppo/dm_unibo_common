@@ -23,11 +23,11 @@ class Permission < ApplicationRecord
   # after_save :reload_authlevels_cache
 
   def to_s
-    "#{self.authlevel} #{self.user} on #{self.organization}"
+    "#{authlevel} #{user} on #{organization}"
   end
 
   def authlevel_string
-    ::Authorization.level_description(self.authlevel)
+    ::Authorization.level_description(authlevel)
   end
 
   def user_or_network
