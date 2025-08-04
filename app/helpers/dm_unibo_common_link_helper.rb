@@ -12,7 +12,7 @@ module DmUniboCommonLinkHelper
     button_to url,
       method: :delete,
       title: "elimina",
-      form_class: add_class,
+      class: add_class,
       form: {data: {"turbo-confirm": confirm_message}} do
       dm_icon("trash-alt", text: name, size: size)
     end
