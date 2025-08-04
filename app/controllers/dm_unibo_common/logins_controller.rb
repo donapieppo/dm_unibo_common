@@ -102,13 +102,14 @@ module DmUniboCommon
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
       case Rails.configuration.unibo_common.omniauth_provider
       when :entra_id
-        redirect_to main_app.home_path and return
-      when :azure_activedirectory_v2
-        redirect_to main_app.home_path and return
+        redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_path}", allow_other_host: true
+        return
       when :developer
-        redirect_to main_app.home_path and return
+        redirect_to main_app.home_path
+        return
       when :shibboleth
         redirect_to Rails.configuration.unibo_common.logout_link, allow_other_host: true
+        return
       end
     end
 
@@ -213,7 +214,7 @@ module DmUniboCommon
         # user.update(name: @name, surname: @surname)
         sign_in_and_redirect user
       else
-        logger.info "User #{@upn} #{@id_anagrafica_unica} not allowed"
+        logger.info "User upn:#{@upn} id_anagrafica_unica: #{@id_anagrafica_unica} not allowed"
         redirect_to no_access_path
       end
     end
