@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Specify your gem's dependencies in dm_unibo_common.gemspec.
 gemspec
 
-gem "rails", "< 8.0.0"
+gem "rails", "~> 7.2.0"
 gem "puma"
 gem "sqlite3"
 gem "view_component", "< 4.0.0"
