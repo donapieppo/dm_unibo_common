@@ -7,7 +7,6 @@
 #   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #   get 'auth/developer/callback',     to: 'logins#developer'
 #   get 'auth/test/callback',          to: 'logins#test'
-#   get 'auth/azure_activedirectory_v2/callback' to: 'login#azure'
 #
 # The application that uses unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
@@ -42,14 +41,13 @@ module DmUniboCommon
       Rails.configuration.unibo_common.omniauth_provider == :entra_id or raise DmUniboCommon::WrongOauthMethod
       skip_authorization
       parse_entra_id
-      send login_method
-    end
 
-    def azure_activedirectory_v2
-      Rails.configuration.unibo_common.omniauth_provider == :azure_activedirectory_v2 or raise DmUniboCommon::WrongOauthMethod
-      skip_authorization
-      parse_azure_omniauth
-      send login_method
+      if Rails.configuration.unibo_common.no_students && @email !~ /@unibo.it$/
+        logger.info "Students are not allowed: #{@email} user not allowed."
+        redirect_to no_access_path and return
+      else
+        send login_method
+      end
     end
 
     # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
@@ -133,7 +131,8 @@ module DmUniboCommon
 
     def parse_entra_id
       if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        # Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
+        Rails.logger.info("omniauth.auth oa=#{request.env["omniauth.auth"]}")
+        Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
         @email = oa.email
         @name = oa.given_name
         @surname = oa.family_name
