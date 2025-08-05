@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "5.1.3"
+  VERSION = "6.0.0"
 end
+# 6.0.0
+# fix rails versions and view component
 # 5.1.3
 # try moving helpers
 # 5.1.1
