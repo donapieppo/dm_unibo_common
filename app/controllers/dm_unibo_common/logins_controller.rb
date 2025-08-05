@@ -131,8 +131,8 @@ module DmUniboCommon
 
     def parse_entra_id
       if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        Rails.logger.info("omniauth.auth oa=#{request.env["omniauth.auth"]}")
-        Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
+        # Rails.logger.info("omniauth.auth[extra]=#{request.env["omniauth.auth"]["extra"]}")
+        @upn = oa.upn
         @email = oa.email
         @name = oa.given_name
         @surname = oa.family_name
