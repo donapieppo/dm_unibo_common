@@ -102,7 +102,7 @@ module DmUniboCommon
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
       case Rails.configuration.unibo_common.omniauth_provider
       when :entra_id
-        redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_path}", allow_other_host: true
+        redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_url}", allow_other_host: true
         return
       when :developer
         redirect_to main_app.home_path
