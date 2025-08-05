@@ -7,9 +7,9 @@
   <meta name="author" content="Pietro Donatini - Unibo">
   <title><%= @title %></title>
 
-  <%= csrf_meta_tags %>
+  <%= helpers.csrf_meta_tags %>
   <%= helpers.csp_meta_tag %>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  <%= helpers.stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= helpers.javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 </head>
 
