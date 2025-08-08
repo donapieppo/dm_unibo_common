@@ -1,0 +1,25 @@
+test:
+  superusers:          ["pietro.donatini@unibo.it"]
+  omniauth_provider:   :developer
+  searchable_provider: true
+  host:                locahost
+  smtp_unibo:          false
+  smtp_address:        test.example.com
+  smtp_domain:         example.com
+  support_mail:        supportoweb@example.com
+  domain_name:         unibo.it
+  html_title:          TestDummy spec App - Università di Bologna
+  html_description:    Test spec for dm_unibo_common
+  header_title:        TestDummy
+  header_subtitle:     spec for dm_unibo_common
+  header_icon:         dumpster
+  contact_mail:        dipmat-gemma@unibo.it
+  default_from:        Pippo <pippo.123@unibo.it>
+  reply_to:            dipmat-gemma@unibo.it
+  login_method:        :allow_if_email
+  no_students:         true
+  message_footer:      ""
+  impersonate_admins: 
+    - pietro.donatini@unibo.it
+  interceptor_mails:  
+    - donatini@dm.unibo.it
