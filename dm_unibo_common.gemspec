@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "puma", "~> 7.1"
   spec.add_dependency "rack", "~> 3.2"
 
-  spec.add_dependency "view_component", "~ 4.1"
+  spec.add_dependency "view_component", "~> 4.1"
   spec.add_dependency "simple_form", "~> 5.3"
 
   # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
