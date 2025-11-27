@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 7.2"
   spec.add_dependency "mysql2", "~> 0.5"
-  spec.add_dependency "puma", "~> 6.4"
+  spec.add_dependency "puma", "~> 7.1"
   spec.add_dependency "rack", "~> 3.1"
 
   spec.add_dependency "view_component", "< 4.0.0" # FIXME
@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "omniauth-entra-id"
   spec.add_dependency "omniauth-shibboleth"
   spec.add_dependency "omniauth-google-oauth2"
-  spec.add_dependency "omniauth-rails_csrf_protection"
+  # spec.add_dependency "omniauth-rails_csrf_protection"
 
   spec.add_dependency "pretender"
   spec.add_dependency "pundit"
