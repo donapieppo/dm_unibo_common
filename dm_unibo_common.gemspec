@@ -18,12 +18,12 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", "~> 8.0"
+  spec.add_dependency "rails", "~> 8.1"
   spec.add_dependency "mysql2", "~> 0.5"
-  spec.add_dependency "puma", "~> 7.0"
+  spec.add_dependency "puma", "~> 7.1"
   spec.add_dependency "rack", "~> 3.2"
 
-  spec.add_dependency "view_component", "< 4.0.0" # FIXME
+  spec.add_dependency "view_component", "~ 4.1"
   spec.add_dependency "simple_form", "~> 5.3"
 
   # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "omniauth-entra-id"
   spec.add_dependency "omniauth-shibboleth"
   spec.add_dependency "omniauth-google-oauth2"
-  spec.add_dependency "omniauth-rails_csrf_protection"
+  # spec.add_dependency "omniauth-rails_csrf_protection"
 
   spec.add_dependency "pretender"
   spec.add_dependency "pundit"
