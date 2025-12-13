@@ -188,7 +188,7 @@ module DmUniboCommon
     def allow_and_create
       user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
       if !user
-        new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || 0
+        new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || nil
         logger.info "Authentication: User #{@email} to be CREATED"
         h = {
           id: new_user_id,
