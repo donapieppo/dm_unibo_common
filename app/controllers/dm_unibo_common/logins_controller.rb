@@ -101,13 +101,12 @@ module DmUniboCommon
       case Rails.configuration.unibo_common.omniauth_provider
       when :entra_id
         redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_url}", allow_other_host: true
-        return
       when :developer
         redirect_to main_app.home_path
-        return
       when :shibboleth
         redirect_to Rails.configuration.unibo_common.logout_link, allow_other_host: true
-        return
+      when :google_oauth2
+        redirect_to "https://www.google.com/accounts/Logout?continue=#{main_app.root_url}", allow_other_host: true
       end
     end
 
