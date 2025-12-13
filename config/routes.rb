@@ -1,9 +1,7 @@
 DmUniboCommon::Engine.routes.draw do
   get "auth/entra_id/callback", to: "logins#entra_id"
-  get "auth/shibboleth/callback", to: "logins#shibboleth"
-  get "auth/azure_activedirectory_v2/callback", to: "logins#azure_activedirectory_v2"
-
-  # get "auth/google_oauth2/callback", to: "logins#google_oauth2"
+  get "auth/google_oauth2/callback", to: "logins#google_oauth2"
+  # get "auth/shibboleth/callback", to: "logins#shibboleth"
 
   if Rails.env.development? && Rails.configuration.unibo_common.omniauth_provider == :developer
     get "auth/developer/callback", to: "logins#developer"
