@@ -86,7 +86,7 @@ module DmUniboCommon
       cookies.clear
       reset_session
       logger.info("after logout we redirect to params[:return] = #{params[:return]}")
-      case Rails.configuration.unibo_common.omniauth_provider
+      case omniauth_provider
       when :entra_id
         redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_url}", allow_other_host: true
       when :developer
@@ -116,10 +116,14 @@ module DmUniboCommon
 
     private
 
+    def omniauth_provider
+      Rails.configuration.unibo_common.omniauth_provider
+    end
+
     # check the provider in unibo_common config
     # for developer or test check only local connections
     def check_provider!(provider)
-      Rails.configuration.unibo_common.omniauth_provider == provider or raise DmUniboCommon::WrongOauthMethod
+      omniauth_provider == provider or raise DmUniboCommon::WrongOauthMethod
       if provider == :test || provider == :developer
         if !(request.remote_ip == "127.0.0.1" || 
              request.remote_ip == "::1" || 
@@ -198,8 +202,18 @@ module DmUniboCommon
       session[:is_member_of] = is_member_of
     end
 
+    def get_existing_user
+      if @id_anagrafica_unica
+        ::User.find_by_id(@id_anagrafica_unica)
+      elsif omniauth_provider == :google_oauth2
+        ::User.find_by_email(@email)
+      else
+        ::User.find_by_upn(@email)
+      end
+    end
+
     def allow_and_create
-      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(email: @email).first
+      user = get_existing_user
       if !user
         new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || nil
         logger.info "Authentication: User #{@email} to be CREATED"
