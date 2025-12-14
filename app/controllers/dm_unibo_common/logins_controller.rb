@@ -31,61 +31,49 @@ module DmUniboCommon
 
     # env['omniauth.auth'].info = {email, name, last_name}
     def google_oauth2
-      Rails.configuration.unibo_common.omniauth_provider == :google_oauth2 or raise DmUniboCommon::WrongOauthMethod
+      check_provider!(:google_oauth2)
       skip_authorization
       parse_google_omniauth
+
       send login_method
     end
 
     def entra_id
-      Rails.configuration.unibo_common.omniauth_provider == :entra_id or raise DmUniboCommon::WrongOauthMethod
+      check_provider!(:entra_id)
       skip_authorization
       parse_entra_id
 
-      if Rails.configuration.unibo_common.no_students && @email !~ /@unibo.it$/
-        logger.info "Students are not allowed: #{@email} user not allowed."
-        redirect_to no_access_path and return
-      else
+      if check_student_permission
         send login_method
+      else
+        redirect_to no_access_path and return
       end
     end
 
     # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
     def shibboleth
-      Rails.configuration.unibo_common.omniauth_provider == :shibboleth or raise DmUniboCommon::WrongOauthMethod
+      check_provider!(:shibboleth)
       skip_authorization
-      log_unibo_omniauth
-      parse_unibo_omniauth
+      parse_shibboleth
 
-      if Rails.configuration.unibo_common.no_students && @email !~ /@unibo.it$/
-        logger.info "Students are not allowed: #{@email} user not allowed."
-        redirect_to no_access_path and return
-      else
+      if check_student_permission
         send login_method
+      else
+        redirect_to no_access_path and return
       end
     end
 
     def developer
-      Rails.configuration.unibo_common.omniauth_provider == :developer or raise DmUniboCommon::WrongOauthMethod
+      check_provider!(:developer)
       skip_authorization
-      if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
-        parse_developer_omniauth
-        send login_method
-      else
-        raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
-      end
+      parse_developer_omniauth
+      send login_method
     end
 
     def test
-      Rails.configuration.unibo_common.omniauth_provider == :test or raise
+      check_provider!(:test)
       skip_authorization
-      if request.remote_ip == "127.0.0.1" || request.remote_ip == "::1" || request.remote_ip =~ /^172\.\d+\.\d+\.\d+/
-        user = ::User.find(params[:user_id_id])
-        Rails.logger.info("#{params[:user_id_id]} -> #{user.inspect}")
-        sign_in_and_redirect ::User.find(params[:user_id_id])
-      else
-        raise "ONLY LOCAL OF DOCKER. YOU ARE #{request.remote_ip}"
-      end
+      sign_in_and_redirect ::User.find(params[:user_id_id])
     end
 
     # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
@@ -118,19 +106,53 @@ module DmUniboCommon
 
     def pippo_show
       skip_authorization
-      # raise env.inspect
+      debug_message(env.inspect)
+    end
+
+    def failure
+      skip_authorization
+      Rails.logger.info("dm_unibo_common.login failure")
     end
 
     private
+
+    # check the provider in unibo_common config
+    # for developer or test check only local connections
+    def check_provider!(provider)
+      Rails.configuration.unibo_common.omniauth_provider == provider or raise DmUniboCommon::WrongOauthMethod
+      if provider == :test || provider == :developer
+        if !(request.remote_ip == "127.0.0.1" || 
+             request.remote_ip == "::1" || 
+             request.remote_ip =~ /^172\.\d+\.\d+\.\d+/)
+          raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
+        end
+      end
+      true
+    end
+
+    def check_student_permission
+      if Rails.configuration.unibo_common.no_students && @email !~ /@unibo.it$/
+        Rails.logger.info "dm_unibo_common.login: #{@email} not allowed as students are not allowed."
+        false
+      else
+        true
+      end
+    end
 
     # the default is conservative where you log only if user in database
     def login_method
       Rails.configuration.unibo_common.login_method || "allow_if_email"
     end
 
+    def debug_message(msg)
+      if Rails.configuration.unibo_common.login_debug
+        Rails.logger.info("dm_unibo_common.login debug: #{msg}")
+      end
+    end
+
     def parse_entra_id
+      debug_message(request.env["omniauth.auth"].inspect)
       if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        # Rails.logger.info("omniauth.auth[extra]=#{request.env["omniauth.auth"]["extra"]}")
         @upn = oa.upn
         @email = oa.email
         @name = oa.given_name
@@ -139,24 +161,16 @@ module DmUniboCommon
       end
     end
 
-    def parse_azure_omniauth
-      if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        # Rails.logger.info("parse_azure_omniauth oa=#{oa.inspect}")
-        @email = oa.email
-        @name = oa.given_name
-        @surname = oa.family_name
-        @id_anagrafica_unica = oa.idAnagraficaUnica.to_i
-      end
-    end
-
     def parse_google_omniauth
+      debug_message(request.env["omniauth.auth"].inspect)
       oinfo = request.env["omniauth.auth"].info
       @email = oinfo.email
       @name = oinfo.name
       @surname = oinfo.last_name
     end
 
-    def parse_unibo_omniauth
+    def parse_shibboleth
+      log_shibboleth
       @upn = request.env["omniauth.auth"].uid
       oinfo = request.env["omniauth.auth"].info
       extra = request.env["omniauth.auth"].extra.raw_info
@@ -218,7 +232,7 @@ module DmUniboCommon
     end
     alias_method :log_if_email, :allow_if_email # old syntax
 
-    def log_unibo_omniauth
+    def log_shibboleth
       request.env["omniauth.auth"] or return
       logger.info("Authentication: uid  = #{request.env["omniauth.auth"].uid}")
       logger.info("Authentication: info = #{request.env["omniauth.auth"].info}")
