@@ -1,12 +1,14 @@
-# Take a look at http://railscasts.com/episodes/241-simple-omniauth
-# The main difference is that we mainly use shibboleth authentication.
-#
+# based on config/unibo_common.rb :login_method,
 # in routes we have
-#   get 'auth/entra_id/callback'       to: 'login#entra_id'
-#   get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
-#   get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
-#   get 'auth/developer/callback',     to: 'logins#developer'
-#   get 'auth/test/callback',          to: 'logins#test'
+#  get 'auth/entra_id/callback'       to: 'login#entra_id'
+#  get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
+#  get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
+#  get 'auth/developer/callback',     to: 'logins#developer'
+#  get 'auth/test/callback',          to: 'logins#test'
+# 
+#  get "logins/logout", to: "logins#logout", as: :logout
+#  get "logins/no_access", to: "logins#no_access", as: :no_access
+#  get "auth/failure", to: "logins#failure"
 #
 # The application that uses unibo_commmon can define two login_methods:
 # login_method: :allow_if_email
@@ -16,9 +18,9 @@
 #   and is saved in database
 #
 # and in app/controllers/application_controller.rb can add
-# before_filter :log_current_user, :force_sso_user
+# before_filter :force_sso_user
 # or
-# before_filter :log_current_user, :redirect_unsigned_user
+# before_filter :redirect_unsigned_user
 #
 # force_sso_user means that all the pages are protected
 # redirect_unsigned_user means that unsigned user can still see something (to refactor)
@@ -28,18 +30,16 @@ module DmUniboCommon
   class LoginsController < ::ApplicationController
     # raise: false see http://api.rubyonrails.org/classes/ActiveSupport/Callbacks/ClassMethods.html#method-i-skip_callback
     skip_before_action :force_sso_user, :redirect_unsigned_user, :check_role, :after_current_user_and_organization, raise: false
+    skip_after_action :verify_authorized
 
-    # env['omniauth.auth'].info = {email, name, last_name}
     def google_oauth2
       check_provider!(:google_oauth2)
-      skip_authorization
       parse_omniauth
       send login_method
     end
 
     def entra_id
       check_provider!(:entra_id)
-      skip_authorization
       parse_omniauth
       if check_student_permission
         send login_method
@@ -51,7 +51,6 @@ module DmUniboCommon
     # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
     def shibboleth
       check_provider!(:shibboleth)
-      skip_authorization
       parse_omniauth
       if check_student_permission
         send login_method
@@ -62,21 +61,18 @@ module DmUniboCommon
 
     def developer
       check_provider!(:developer)
-      skip_authorization
       parse_omniauth
       send login_method
     end
 
     def test
       check_provider!(:test)
-      skip_authorization
       sign_in_and_redirect ::User.find(params[:user_id_id])
     end
 
     # example ["_shibsession_lauree", "_affcf2ffbe098d5a0928dc72cd9de489"]
     #         ["_lauree_session", "YU5RSTM2OXdYMkRyVjV0SXI1K3c3eDJJdjZQ..... "]
     def logout
-      skip_authorization
       # cookies.delete(Rails.configuration.session_options[:key].to_sym)
       # cookies.delete(shibapplicationid.to_sym)
       session[:user_id] = nil
@@ -97,17 +93,10 @@ module DmUniboCommon
 
     # Not authorized but valid credentials
     def no_access
-      skip_authorization
       render layout: nil
     end
 
-    def pippo_show
-      skip_authorization
-      debug_message(env.inspect)
-    end
-
     def failure
-      skip_authorization
       Rails.logger.info("dm_unibo_common.login failure")
     end
 
@@ -142,7 +131,11 @@ module DmUniboCommon
 
     # the default is conservative where you log only if user in database
     def login_method
-      Rails.configuration.unibo_common.login_method || "allow_if_email"
+      if @email.blank? && @upn.blank? && @id_anagrafica_unica < 1
+        render action: :failure
+      else
+        Rails.configuration.unibo_common.login_method || "allow_if_email"
+      end
     end
 
     def debug_message(msg)
@@ -206,6 +199,7 @@ module DmUniboCommon
     end
 
     def allow_and_create
+      Rails.logger.info("dm_unibo_common.login: allow_and_create: @email=#{@email} - @id_anagrafica_unica=#{@id_anagrafica_unica} - @upn=#{@upn}")
       user = get_existing_user
       if !user
         new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || nil
@@ -220,20 +214,20 @@ module DmUniboCommon
         h[:nationalpin] = @nationalpin if ::User.column_names.include?("nationalpin")
         user = ::User.create!(h)
       end
-      logger.info "Authentication: allow_and_create as #{user.inspect} with groups #{session[:is_member_of].inspect}"
+      logger.info "dm_unibo_common.login: allow_and_create: user: #{user.inspect}"
       sign_in_and_redirect user
     end
     alias_method :log_and_create, :allow_and_create # old syntax
 
     def allow_if_email
-      Rails.logger.info("Authentication: allow_if_email with @email=#{@email} @id_anagrafica_unica=#{@id_anagrafica_unica} @upn=#{@upn}")
-      user = @id_anagrafica_unica ? ::User.where(id: @id_anagrafica_unica).first : ::User.where(upn: @upn).first
+      Rails.logger.info("dm_unibo_common.login: allow_if_email: @email=#{@email} - @id_anagrafica_unica=#{@id_anagrafica_unica} @upn=#{@upn}")
+      user = get_existing_user
       if user
-        logger.info "Authentication: allow_if_email as #{user.inspect} with groups #{session[:is_member_of].inspect}"
+        logger.info "dm_unibo_common.login: allow_if_email: user: #{user.inspect}"
         # user.update(name: @name, surname: @surname)
         sign_in_and_redirect user
       else
-        logger.info "User upn:#{@upn} id_anagrafica_unica: #{@id_anagrafica_unica} not allowed"
+        logger.info "dm_unibo_common.login: allow_if_email: upn:#{@upn} - id_anagrafica_unica: #{@id_anagrafica_unica} not allowed"
         redirect_to no_access_path
       end
     end

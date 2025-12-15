@@ -15,7 +15,6 @@ DmUniboCommon::Engine.routes.draw do
 
   get "logins/logout", to: "logins#logout", as: :logout
   get "logins/no_access", to: "logins#no_access", as: :no_access
-  get "logins/pippo_show", to: "logins#pippo_show"
   get "auth/failure", to: "logins#failure"
 
   get "who_impersonate", to: "impersonations#who_impersonate", as: :who_impersonate
