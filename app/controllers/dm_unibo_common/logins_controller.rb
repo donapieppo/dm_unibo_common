@@ -111,8 +111,8 @@ module DmUniboCommon
     def check_provider!(provider)
       omniauth_provider == provider or raise DmUniboCommon::WrongOauthMethod
       if provider == :test || provider == :developer
-        if !(request.remote_ip == "127.0.0.1" || 
-             request.remote_ip == "::1" || 
+        if !(request.remote_ip == "127.0.0.1" ||
+             request.remote_ip == "::1" ||
              request.remote_ip =~ /^172\.\d+\.\d+\.\d+/)
           raise "ONLY LOCAL OR DOCKER IPS. YOU ARE #{request.remote_ip}"
         end
@@ -121,7 +121,7 @@ module DmUniboCommon
     end
 
     def check_student_permission
-      if Rails.configuration.unibo_common.no_students && @email !~ /@unibo.it$/
+      if Rails.configuration.unibo_common.no_students && @email && @email !~ /@unibo.it$/
         Rails.logger.info "dm_unibo_common.login: #{@email} not allowed as students are not allowed."
         false
       else
@@ -131,8 +131,9 @@ module DmUniboCommon
 
     # the default is conservative where you log only if user in database
     def login_method
-      if @email.blank? && @upn.blank? && @id_anagrafica_unica < 1
+      if @email.blank? && @upn.blank? && @id_anagrafica_unica.to_i < 1
         render action: :failure
+        return
       else
         Rails.configuration.unibo_common.login_method || "allow_if_email"
       end
@@ -148,6 +149,7 @@ module DmUniboCommon
       debug_message(request.env["omniauth.auth"].inspect)
       user_info = request.env["omniauth.auth"]
       @email = user_info.info.email
+      @upn = @email # can be updated for microsoft logins
       @name = user_info.info.first_name
       @surname = user_info.info.last_name
 
@@ -189,12 +191,12 @@ module DmUniboCommon
     # end
 
     def get_existing_user
-      if @id_anagrafica_unica
+      if @id_anagrafica_unica.to_i > 0
         ::User.find_by_id(@id_anagrafica_unica)
       elsif omniauth_provider == :google_oauth2
         ::User.find_by_email(@email)
       else
-        ::User.find_by_upn(@email)
+        ::User.find_by_upn(@upn)
       end
     end
 
@@ -206,12 +208,12 @@ module DmUniboCommon
         logger.info "Authentication: User #{@email} to be CREATED"
         h = {
           id: new_user_id,
-          upn: @email,
+          upn: @upn,
           email: @email,
           name: @name,
           surname: @surname
         }
-        h[:nationalpin] = @nationalpin if ::User.column_names.include?("nationalpin")
+        # h[:nationalpin] = @nationalpin if ::User.column_names.include?("nationalpin")
         user = ::User.create!(h)
       end
       logger.info "dm_unibo_common.login: allow_and_create: user: #{user.inspect}"
@@ -234,9 +236,13 @@ module DmUniboCommon
     alias_method :log_if_email, :allow_if_email # old syntax
 
     def sign_in_and_redirect(user)
+      original_request = session[:original_unlogged_request]
+      logger.info("dm_unibo_common.login: sign_in_and_redirect with original_unlogged_request=#{original_request}")
+
+      reset_session
       session[:user_id] = user.id
-      logger.info("dm_unibo_common.login: sign_in_and_redirect with original_unlogged_request=#{session[:original_unlogged_request]}")
-      redirect_to session[:original_unlogged_request] || main_app.root_path
+      session[:original_unlogged_request] = original_request if original_request
+      redirect_to original_request || main_app.root_path
     end
   end
 end
