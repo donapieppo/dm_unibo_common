@@ -18,7 +18,7 @@ module DmUniboCommonMenuHelper
     when :developer
       button_to txt, "/dm_unibo_common/auth/developer", form: {data: {turbo: false}}
     when :test
-      link_to txt, dm_unibo_common.auth_test_callback_path
+      button_to txt, dm_unibo_common.auth_test_callback_path, form: {data: {turbo: false}}
     end
   end
 
