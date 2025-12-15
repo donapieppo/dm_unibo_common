@@ -33,16 +33,14 @@ module DmUniboCommon
     def google_oauth2
       check_provider!(:google_oauth2)
       skip_authorization
-      parse_google_omniauth
-
+      parse_omniauth
       send login_method
     end
 
     def entra_id
       check_provider!(:entra_id)
       skip_authorization
-      parse_entra_id
-
+      parse_omniauth
       if check_student_permission
         send login_method
       else
@@ -54,8 +52,7 @@ module DmUniboCommon
     def shibboleth
       check_provider!(:shibboleth)
       skip_authorization
-      parse_shibboleth
-
+      parse_omniauth
       if check_student_permission
         send login_method
       else
@@ -66,7 +63,7 @@ module DmUniboCommon
     def developer
       check_provider!(:developer)
       skip_authorization
-      parse_developer_omniauth
+      parse_omniauth
       send login_method
     end
 
@@ -154,53 +151,49 @@ module DmUniboCommon
       end
     end
 
-    def parse_entra_id
+    def parse_omniauth
       debug_message(request.env["omniauth.auth"].inspect)
-      if (oa = request.env["omniauth.auth"]["extra"]["raw_info"])
-        @upn = oa.upn
-        @email = oa.email
-        @name = oa.given_name
-        @surname = oa.family_name
-        @id_anagrafica_unica = oa.idAnagraficaUnica.to_i
+      user_info = request.env["omniauth.auth"]
+      @email = user_info.info.email
+      @name = user_info.info.first_name
+      @surname = user_info.info.last_name
+
+      case omniauth_provider
+      when :entra_id
+        if request.env["omniauth.auth"]["extra"]["raw_info"]
+          @upn = user_info.extra.raw_info.upn
+          @id_anagrafica_unica = user_info.extra.raw_info.idAnagraficaUnica.to_i
+        end
+      when :shibboleth
+        @upn = user_info.uid
+      when :developer
+        @upn = @email = params[:upn]
+        last_user = ::User.where("id < 3000").order("id desc").first
+        @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
       end
     end
 
-    def parse_google_omniauth
-      debug_message(request.env["omniauth.auth"].inspect)
-      oinfo = request.env["omniauth.auth"].info
-      @email = oinfo.email
-      @name = oinfo.name
-      @surname = oinfo.last_name
-    end
+    # def parse_shibboleth
+    #   @upn = request.env["omniauth.auth"].uid
+    #   oinfo = request.env["omniauth.auth"].info
+    #   extra = request.env["omniauth.auth"].extra.raw_info
+    #
+    #   @id_anagrafica_unica = extra.idAnagraficaUnica.to_i
+    #   @id_anagrafica_unica > 0 or raise "NO idAnagraficaUnica"
+    #
+    #   @is_member_of = extra.isMemberOf ? extra.isMemberOf.split(";") : []
+    #   set_memberof_session(@is_member_of)
+    #
+    #   @email = @upn
+    #   @name = oinfo.first_name || oinfo.name
+    #   @surname = oinfo.last_name
+    #   @nationalpin = extra.codiceFiscale
+    # end
 
-    def parse_shibboleth
-      log_shibboleth
-      @upn = request.env["omniauth.auth"].uid
-      oinfo = request.env["omniauth.auth"].info
-      extra = request.env["omniauth.auth"].extra.raw_info
-
-      @id_anagrafica_unica = extra.idAnagraficaUnica.to_i
-      @id_anagrafica_unica > 0 or raise "NO idAnagraficaUnica"
-
-      @is_member_of = extra.isMemberOf ? extra.isMemberOf.split(";") : []
-      set_memberof_session(@is_member_of)
-
-      @email = @upn
-      @name = oinfo.first_name || oinfo.name
-      @surname = oinfo.last_name
-      @nationalpin = extra.codiceFiscale
-    end
-
-    def parse_developer_omniauth
-      @upn = @email = params[:upn]
-      last_user = ::User.where("id < 3000").order("id desc").first
-      @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
-    end
-
-    def set_memberof_session(is_member_of)
-      (Rails.env.development? and is_member_of << "user") unless is_member_of.include?("user")
-      session[:is_member_of] = is_member_of
-    end
+    # def set_memberof_session(is_member_of)
+    #   (Rails.env.development? and is_member_of << "user") unless is_member_of.include?("user")
+    #   session[:is_member_of] = is_member_of
+    # end
 
     def get_existing_user
       if @id_anagrafica_unica
@@ -246,16 +239,9 @@ module DmUniboCommon
     end
     alias_method :log_if_email, :allow_if_email # old syntax
 
-    def log_shibboleth
-      request.env["omniauth.auth"] or return
-      logger.info("Authentication: uid  = #{request.env["omniauth.auth"].uid}")
-      logger.info("Authentication: info = #{request.env["omniauth.auth"].info}")
-      logger.info("Authentication: extra = #{request.env["omniauth.auth"].extra}")
-    end
-
     def sign_in_and_redirect(user)
       session[:user_id] = user.id
-      logger.info("sign_in_and_redirect with original_unlogged_request=#{session[:original_unlogged_request]}")
+      logger.info("dm_unibo_common.login: sign_in_and_redirect with original_unlogged_request=#{session[:original_unlogged_request]}")
       redirect_to session[:original_unlogged_request] || main_app.root_path
     end
   end
