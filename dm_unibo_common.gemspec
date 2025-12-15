@@ -5,9 +5,9 @@ Gem::Specification.new do |spec|
   spec.version = DmUniboCommon::VERSION
   spec.authors = ["Pietro Donatini"]
   spec.email = ["pietro.donatini@unibo.it"]
-  spec.homepage = ""
+  spec.homepage = "https://github.com/donapieppo/dm_unibo_common.git"
   spec.summary = "Common lib for DM UNIBO"
-  spec.description = "Css/scss js etc etc for use in DM UNIBO projects."
+  spec.description = "Css/scss js etc etc for use in Rails DM UNIBO projects."
   spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
