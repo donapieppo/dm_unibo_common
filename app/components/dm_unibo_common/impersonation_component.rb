@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DmUniboCommon::ImpersonationComponent < ViewComponent::Base
+  include DmUniboCommon::IconHelper
+
   def initialize(current_user, true_user, who_impersonate_path: "", stop_impersonating_path: "")
     @current_user = current_user
     @true_user = true_user
