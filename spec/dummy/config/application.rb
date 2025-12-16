@@ -14,9 +14,9 @@ module Dummy
 
     config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
     config.authlevels = {
-      read:   1,
+      read: 1,
       manage: 2,
-      pippo:  3
+      pippo: 3
     }
 
     # For compatibility with applications that use this config
