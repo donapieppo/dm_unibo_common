@@ -7,7 +7,7 @@ module SimpleForm
   end
 end
 
-module DmUniboCommonFormHelper
+module DmUniboCommon::FormHelper
   def dm_form_default_title(record)
     record = record[-1] if record.is_a?(Array)
     (record.new_record? ? t(:new) : t(:edit)) + " " + t("activerecord.models." + record.class.name.underscore).downcase

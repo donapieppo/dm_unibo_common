@@ -1,9 +1,4 @@
-module DmUniboCommonHelper
-  include DmUniboCommonMenuHelper
-  include DmUniboCommonFormHelper
-  include DmUniboCommonLinkHelper
-  include DmUniboCommonIconHelper
-
+module DmUniboCommon::ApplicationHelper
   def main_title(srt)
     srt = srt.to_s unless srt.is_a?(String)
     content_tag(:h1, srt)

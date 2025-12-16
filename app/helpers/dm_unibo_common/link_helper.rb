@@ -1,4 +1,4 @@
-module DmUniboCommonLinkHelper
+module DmUniboCommon::LinkHelper
   def link_to_back url
     link_to "indietro", url, data: {turbo: false}
   end
