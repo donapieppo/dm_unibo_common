@@ -12,6 +12,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "factory_bot_rails"
 require "database_cleaner"
+require "view_component/test_helpers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -74,4 +75,7 @@ RSpec.configure do |config|
 
   # donatini
   config.include FactoryBot::Syntax::Methods
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include ViewComponent::SystemSpecHelpers, type: :feature
+  config.include ViewComponent::SystemSpecHelpers, type: :system
 end
