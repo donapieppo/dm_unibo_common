@@ -1,5 +1,3 @@
-require "rails/engine"
-
 module DmUniboCommon
   class Engine < ::Rails::Engine
     isolate_namespace DmUniboCommon
