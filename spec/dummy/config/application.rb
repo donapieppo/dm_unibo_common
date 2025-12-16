@@ -1,6 +1,20 @@
 require_relative "boot"
 
-require "rails/all"
+require "rails"
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "active_storage/engine"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_mailbox/engine"
+require "action_text/engine"
+require "action_view/railtie"
+require "action_cable/engine"
+require "rails/test_unit/railtie"
+require "propshaft"
+require "propshaft/railtie"
+# Intentionally leave out sprockets/railtie so we stick to propshaft in tests.
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -12,7 +26,7 @@ module Dummy
     config.load_defaults Rails::VERSION::STRING.to_f
     config.hosts << "tester.example.com"
 
-    config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
+    config.unibo_common = config_for(:unibo_common)
     config.authlevels = {
       read: 1,
       manage: 2,
@@ -29,5 +43,7 @@ module Dummy
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.generators.system_tests = nil
   end
 end
