@@ -13,7 +13,7 @@ module DmUniboCommon
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def default_url_options(o = {})
-      o[:__org__] = current_organization ? current_organization.code : nil
+      o[:__org__] = current_organization&.code
       o
     end
 
