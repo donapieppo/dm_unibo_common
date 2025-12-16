@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-include DmUniboCommon::IconHelper
-
 class DmUniboCommon::MenuComponent < ViewComponent::Base
+  include DmUniboCommon::IconHelper
+  # include DmUniboCommon::MenuHelper
+
   def initialize(
     sso_user_upn,
     current_organization: nil,
@@ -32,8 +33,6 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
       helpers.dm_unibo_common.auth_shibboleth_callback_path
     when :entra_id
       button_to txt, "/dm_unibo_common/auth/entra_id", form: {data: {turbo: false}}
-    when :azure_activedirectory_v2
-      button_to txt, "/dm_unibo_common/auth/azure_activedirectory_v2", form: {data: {turbo: false}}
     when :google_oauth2
       button_to txt, "/dm_unibo_common/auth/google_oauth2", form: {data: {turbo: false}}
     when :developer
@@ -46,6 +45,14 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
   def logout_link
     link_to helpers.dm_unibo_common.logout_path, data: {turbo: false} do
       dm_icon("sign-out", text: "Logout")
+    end
+  end
+
+  def main_root_path
+    if @current_organization
+      helpers.main_app.current_organization_root_path(__org__: @current_organization.code)
+    else
+      helpers.main_app.root_path
     end
   end
 end

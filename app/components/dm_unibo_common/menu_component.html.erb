@@ -1,5 +1,3 @@
-<% main_root_path = @current_organization ? helpers.main_app.current_organization_root_path : root_path %>
-
 <nav class="navbar navbar-expand-lg py-2 mb-3">
   <div class="container-fluid align-items-center">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +5,7 @@
     </button>
 
     <%= link_to main_root_path, class: 'navbar-brand fs-6 mx-lg-3', data: {turbo: false} do %>
-      <%= helpers.dm_icon Rails.configuration.unibo_common.header_icon, size: "xl" %> &nbsp;
+      <%= dm_icon Rails.configuration.unibo_common.header_icon, size: "xl" %> &nbsp;
       <%= @header_title %>
       <div class="d-block lh-base text-end">
         <small><%= @header_subtitle %></small>
