@@ -5,5 +5,10 @@ Rails.application.routes.draw do
 
   get "/show_if_current_organization", to: "home#show_if_current_organization"
   get "/home", to: "home#index", as: "home"
+
+  scope ":__org__" do
+    get "/", to: "home#index", as: "current_organization_root"
+  end
+
   root to: "home#index"
 end
