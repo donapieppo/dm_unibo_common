@@ -13,8 +13,8 @@ require "turbo-rails"
 require "stimulus-rails"
 require "simple_form"
 require "sprockets/railtie"
-require "lograge"
-require "propshaft/railtie"
+# require "lograge"
+# require "propshaft/railtie"
 
 # self
 require "dm_unibo_common/errors"
