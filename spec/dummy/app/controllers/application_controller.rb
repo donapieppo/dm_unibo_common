@@ -1,4 +1,14 @@
 class ApplicationController < DmUniboCommon::ApplicationController
-  before_action :set_current_user, :update_authorization, :set_current_organization, :log_current_user, :redirect_unsigned_user
-  after_action :verify_authorized, except: [:who_impersonate, :impersonate, :stop_impersonating]
+  include DmUniboCommon::Controllers::Helpers
+
+  before_action :set_current_user,
+    :update_authorization,
+    :force_sso_user,
+    :set_current_organization,
+    :after_current_user_and_organization,
+    :set_locale
+
+  def set_locale
+    I18n.locale = :it
+  end
 end
