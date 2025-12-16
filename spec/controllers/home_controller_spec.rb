@@ -21,20 +21,26 @@ RSpec.describe HomeController, type: :controller do
   it "show_if_current_organization with no current_user redirects_to root" do
     request.session[:user_id] = nil
     get :show_if_current_organization, params: {__org__: org2.code}
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to(home_path)
   end
 
-  it "show_if_current_organization raises without current_organization" do
-    expect { get :show_if_current_organization }.to raise_error(Pundit::NotAuthorizedError)
+  it "show_if_current_organization redirects when current_organization missing" do
+    get :show_if_current_organization
+    expect(response).to redirect_to(home_path)
+    expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 
-  it "show_if_current_organization raises with no policy" do
-    expect { get :show_if_current_organization, params: {__org__: org2.code} }.to raise_error(Pundit::NotAuthorizedError)
+  it "show_if_current_organization redirects when policy missing" do
+    get :show_if_current_organization, params: {__org__: org2.code}
+    expect(response).to redirect_to(home_path)
+    expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 
-  it "show_if_current_organization raises with wrong organization" do
+  it "show_if_current_organization redirects with wrong organization" do
     FactoryBot.create(:permission, user: current_user, organization: org1, authlevel: 1)
-    expect { get :show_if_current_organization, params: {__org__: org2.code} }.to raise_error(Pundit::NotAuthorizedError)
+    get :show_if_current_organization, params: {__org__: org2.code}
+    expect(response).to redirect_to(home_path)
+    expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 
   it "show_if_current_organization ok with correct organization" do
