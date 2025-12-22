@@ -39,7 +39,19 @@ module DmUniboCommon::LinkHelper
     %(<a href="mailto:#{mail}">#{mail}</a>).html_safe
   end
 
-  def assistenza_cesia
-    %(<a href="mailto:assistenza.cesia@unibo.it">assistenza.cesia@unibo.it</a>).html_safe
+  def main_organization_name
+    Rails.configuration.unibo_common.main_organization_name || "Università di Bologna"
+  end
+
+  def main_organization_url
+    Rails.configuration.unibo_common.main_organization_url || "https://www.unibo.it"
+  end
+
+  def main_organization(skip_link: false)
+    if skip_link
+      main_organization_name
+    else
+      link_to main_organization_name, main_organization_url
+    end
   end
 end
