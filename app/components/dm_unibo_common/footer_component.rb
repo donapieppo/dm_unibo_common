@@ -2,6 +2,7 @@
 
 class DmUniboCommon::FooterComponent < ViewComponent::Base
   include DmUniboCommon::IconHelper
+  include DmUniboCommon::LinkHelper
 
   def initialize(current_user, documentation_path: nil, contact_mail: nil, contacts_path: nil)
     @current_user = current_user

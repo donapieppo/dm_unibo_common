@@ -3,6 +3,7 @@
 class DmUniboCommon::MenuComponent < ViewComponent::Base
   include DmUniboCommon::IconHelper
   include DmUniboCommon::MenuHelper
+  include DmUniboCommon::LinkHelper
 
   def initialize(
     sso_user_upn,
