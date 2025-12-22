@@ -30,4 +30,10 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
       helpers.main_app.root_path
     end
   end
+
+  private
+
+  def dm_unibo_common
+    helpers.dm_unibo_common
+  end
 end
