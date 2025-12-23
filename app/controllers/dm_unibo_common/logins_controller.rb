@@ -203,7 +203,9 @@ module DmUniboCommon
     def allow_and_create
       Rails.logger.info("dm_unibo_common.login: allow_and_create: @email=#{@email} - @id_anagrafica_unica=#{@id_anagrafica_unica} - @upn=#{@upn}")
       user = get_existing_user
-      if !user
+      if user
+        update_missing_user_data(user)
+      else
         new_user_id = @id_anagrafica_unica || @developer_id_anagrafica_unica || nil
         logger.info "Authentication: User #{@email} to be CREATED"
         h = {
@@ -226,7 +228,7 @@ module DmUniboCommon
       user = get_existing_user
       if user
         logger.info "dm_unibo_common.login: allow_if_email: user: #{user.inspect}"
-        # user.update(name: @name, surname: @surname)
+        update_missing_user_data(user)
         sign_in_and_redirect user
       else
         logger.info "dm_unibo_common.login: allow_if_email: upn:#{@upn} - id_anagrafica_unica: #{@id_anagrafica_unica} not allowed"
@@ -243,6 +245,13 @@ module DmUniboCommon
       session[:user_id] = user.id
       session[:original_unlogged_request] = original_request if original_request
       redirect_to original_request || main_app.root_path
+    end
+
+    def update_missing_user_data(user)
+      if user&.name.blank? && @name.present?
+        logger.info "dm_unibo_common.login: updated user name, surname, email"
+        user.update(name: @name, surname: @surname, email: @email)
+      end
     end
   end
 end
