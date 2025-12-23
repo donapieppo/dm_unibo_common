@@ -1,9 +1,9 @@
 module DmUniboCommon
   class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
-
     include Pundit::Authorization
-    include DmUniboCommon::Controllers::Helpers
+    include DmUniboCommon::Concerns
+
+    protect_from_forgery with: :exception
 
     after_action :verify_authorized
 
