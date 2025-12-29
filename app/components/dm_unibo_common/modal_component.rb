@@ -7,6 +7,8 @@
 # end
 
 class DmUniboCommon::ModalComponent < ViewComponent::Base
+  include DmUniboCommon::ApplicationHelper
+
   def initialize(title: "", hidden: false, noactions: false, size: :lg)
     @title = title
     @hidden = hidden

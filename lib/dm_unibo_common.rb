@@ -23,7 +23,7 @@ require "dm_unibo_common/user"
 require "dm_unibo_common/organization"
 require "dm_unibo_common/authorization"
 require "dm_unibo_common/user_upn_methods"
-require "dm_unibo_common/controllers/helpers"
+# require "dm_unibo_common/controllers/helpers"
 
 module DmUniboCommon
 end

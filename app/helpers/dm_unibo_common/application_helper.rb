@@ -2,7 +2,6 @@ module DmUniboCommon::ApplicationHelper
   include DmUniboCommon::IconHelper
   include DmUniboCommon::FormHelper
   include DmUniboCommon::LinkHelper
-  include DmUniboCommon::FormHelper
   include DmUniboCommon::MenuHelper
 
   def main_title(srt)
@@ -58,7 +57,7 @@ module DmUniboCommon::ApplicationHelper
   end
 
   def check_user_is_cesia
-    current_user.is_cesia? or raise DmUniboCommon::NotAuthorized, "Non sufficienti privilegi per seguire l'operazione"
+    current_user.is_cesia? or raise DmUniboCommon::NotAuthorized, "Non sufficienti privilegi per seguire l'operazione."
   end
 
   def auth_callback_path
