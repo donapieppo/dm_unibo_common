@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class DmUniboCommon::MenuComponent < ViewComponent::Base
-  include DmUniboCommon::IconHelper
-  # include DmUniboCommon::MenuHelper
+  include DmUniboCommon::ApplicationHelper
 
   def initialize(
     sso_user_upn,
