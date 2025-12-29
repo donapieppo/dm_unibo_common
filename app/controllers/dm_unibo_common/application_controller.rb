@@ -24,7 +24,7 @@ module DmUniboCommon
 
     def user_not_authorized
       flash[:alert] = "Non siete abilitati ad accedere alla pagina."
-      redirect_to(home_path)
+      redirect_to("/") and return
     end
   end
 end
