@@ -31,7 +31,7 @@ class Permission < ApplicationRecord
   end
 
   def user_or_network
-    errors.add(:base, "Necessario fornire utente o network") if self.network.blank? && self.user_id.nil?
+    errors.add(:base, "Necessario fornire utente o network") if network.blank? && user_id.nil?
   end
 
   # def reload_authlevels_cache
