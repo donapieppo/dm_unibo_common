@@ -40,7 +40,7 @@
 
   <% organization.permissions.each do |p|%>
     <% p.user or next %>
-    <%= p.user.cn_militar %>
+    <%= p.user.cn_militar %> <small>(<%= p.user.upn %>)</small>
   <% end %>
       </pre>
     </div>
