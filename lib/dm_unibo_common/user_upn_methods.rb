@@ -53,7 +53,7 @@ module DmUniboCommon
                 # self.send("#{user_class.to_s}=", self.send(user_class).class.find_or_syncronize(@@_user_upn[user_class]))
                 self.send(user_class.to_s + "=", ::User.find_or_syncronize(upns_cache[user_class]))
               rescue => e
-                Rails.logger.info "#{e.to_s} while validating #{user_class}_upn=#{upns_cache[user_class]}"
+                Rails.logger.info "#{e} while validating #{user_class}_upn=#{upns_cache[user_class]}"
                 self.errors.add("#{user_class}_upn".to_sym, e.to_s)
                 self.errors.add(:base, e.to_s)
               end
