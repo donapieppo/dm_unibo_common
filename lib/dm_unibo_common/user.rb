@@ -7,7 +7,10 @@ module DmUniboCommon::User
     has_many :permissions, class_name: "DmUniboCommon::Permission"
 
     validates :email, uniqueness: {case_sensitive: false}, allow_blank: true
-    validates :upn, uniqueness: {case_sensitive: false}, allow_blank: true
+    validates :upn,
+      uniqueness: {case_sensitive: false},
+      format: {with: /\A[^@\s]+@[^@\s]+\z/, message: :invalid},
+      allow_blank: true
   end
 
   def cn
