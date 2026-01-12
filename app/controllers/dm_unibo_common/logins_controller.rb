@@ -163,6 +163,8 @@ module DmUniboCommon
         @upn = user_info.uid
       when :developer
         @upn = @email = params[:upn]
+        @name = params[:name]
+        @surname = params[:surname]
         last_user = ::User.where("id < 3000").order("id desc").first
         @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
       end
