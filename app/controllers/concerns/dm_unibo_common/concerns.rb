@@ -6,13 +6,13 @@ module DmUniboCommon
       if respond_to?(:helper_method)
         helper_method :modal_page,
           :current_user, :current_organization,
-          :update_authorization,
           :user_signed_in?,
           :current_user_owns?, :current_user_owns!,
           :current_user_admin?, :current_user_admin!,
-          :current_user_cesia?, :current_user_user_cesia!,
+          :current_user_cesia?, :current_user_cesia!,
           :current_user_has_some_authorization?,
           :current_user_possible_organizations
+          # :update_authorization,
       end
     end
 
