@@ -11,24 +11,32 @@ module DmUniboCommon::User
   end
 
   def cn
-    "%s %s" % [name, surname]
+    if surname.blank?
+      upn
+    else
+      "%s %s" % [name, surname]
+    end
   end
 
   def cn_militar
-    "%s, %s" % [surname, name]
+    if surname.blank?
+      upn
+    else
+      "%s, %s" % [surname, name]
+    end
   end
 
   def abbr
-    "%s. %s" % [name[0], surname]
+    if surname.blank?
+      upn
+    else
+      "%s. %s" % [name[0], surname]
+    end
   end
 
   # after create admin withouth searchable_provider name, sn are blank and we show email/upn
   def to_s
-    if surname.blank?
-      upn
-    else
-      cn
-    end
+    cn
   end
 
   def mail
@@ -47,11 +55,11 @@ module DmUniboCommon::User
     elsif what.respond_to?(:user_id)
       return what.user_id == id
     end
-    return is_cesia?
+    is_cesia?
   end
 
   def owns!(what)
-    self.owns?(what) or raise DmUniboCommon::NoAccess
+    owns?(what) or raise DmUniboCommon::NoAccess
   end
 
   # ClassMethods
