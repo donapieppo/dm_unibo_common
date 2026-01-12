@@ -126,7 +126,7 @@ module DmUniboCommon
     end
 
     def current_user_cesia!
-      user_cesia? or raise DmUniboCommon::NoAccess
+      current_user_cesia? or raise DmUniboCommon::NoAccess
     end
   end
 end
