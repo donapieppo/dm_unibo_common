@@ -10,7 +10,7 @@
 #  get "logins/no_access", to: "logins#no_access", as: :no_access
 #  get "auth/failure", to: "logins#failure"
 #
-# The application that uses unibo_commmon can define two login_methods:
+# The application that uses unibo_common can define two login_methods:
 # login_method: :allow_if_email
 #   means that only users already present in database can login
 # login_method: :allow_and_create
@@ -98,6 +98,25 @@ module DmUniboCommon
 
     def failure
       Rails.logger.info("dm_unibo_common.login failure")
+    end
+
+    def faker_login
+      ALLOW_FAKER or raise "NO FAKER"
+    end
+
+    def faker_create
+      ALLOW_FAKER or raise "NO FAKER"
+      params[:f] == "pietro" or raise "NO FAKER"
+      Rails.logger.info("FAKER")
+      faker_user_upn = "f.for.faker@#{Rails.configuration.unibo_common.domain}"
+      if Rails.configuration.unibo_common.faker.size > 10
+        faker_user = ::User.find_or_create_by(upn: faker_user_upn) do |u|
+          u.name = "F"
+          u.surname = "For Fake"
+          u.email = faker_user_upn
+        end
+        sign_in_and_redirect faker_user
+      end
     end
 
     private

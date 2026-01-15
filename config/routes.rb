@@ -13,6 +13,11 @@ DmUniboCommon::Engine.routes.draw do
     get "auth/test/callback", to: "logins#test"
   end
 
+  if ALLOW_FAKER && Rails.configuration.unibo_common.faker.size > 10
+    get "logins/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_login"
+    post "logins/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_create", as: "faker_create"
+  end
+
   get "logins/logout", to: "logins#logout", as: :logout
   get "logins/no_access", to: "logins#no_access", as: :no_access
   get "auth/failure", to: "logins#failure"
