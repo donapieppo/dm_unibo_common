@@ -3,6 +3,7 @@ test:
   omniauth_provider:   :developer
   searchable_provider: true
   host:                locahost
+  domanin:             example.com
   smtp_unibo:          false
   smtp_address:        test.example.com
   smtp_domain:         example.com
@@ -23,3 +24,4 @@ test:
     - pietro.donatini@unibo.it
   interceptor_mails:  
     - donatini@dm.unibo.it
+  faker: 734gdyeu38jd_w3u8sdhdkijkdie
