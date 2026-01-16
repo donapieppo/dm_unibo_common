@@ -56,10 +56,6 @@ module DmUniboCommon::ApplicationHelper
     mail_to Rails.configuration.unibo_common.contact_mail, Rails.configuration.unibo_common.contact_mail
   end
 
-  def check_user_is_cesia
-    current_user.is_cesia? or raise DmUniboCommon::NotAuthorized, "Non sufficienti privilegi per seguire l'operazione."
-  end
-
   def auth_callback_path
     dm_unibo_common.send(:"auth_#{Rails.configuration.unibo_common.omniauth_provider}_callback_path")
   end

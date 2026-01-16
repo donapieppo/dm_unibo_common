@@ -10,7 +10,7 @@ module DmUniboCommon
           :user_signed_in?,
           :current_user_owns?, :current_user_owns!,
           :current_user_admin?, :current_user_admin!,
-          :current_user_cesia?, :current_user_user_cesia!,
+          :current_user_cesia?, :current_user_cesia!,
           :current_user_has_some_authorization?,
           :current_user_possible_organizations
       end
@@ -126,7 +126,7 @@ module DmUniboCommon
     end
 
     def current_user_cesia!
-      user_cesia? or raise DmUniboCommon::NoAccess
+      current_user_cesia? or raise DmUniboCommon::NoAccess
     end
   end
 end
