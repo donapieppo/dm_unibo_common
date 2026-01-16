@@ -13,9 +13,9 @@ DmUniboCommon::Engine.routes.draw do
     get "auth/test/callback", to: "logins#test"
   end
 
-  if ALLOW_FAKER && Rails.configuration.unibo_common.faker.size > 10
-    get "logins/faker/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_login"
-    post "logins/faker/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_create", as: "faker_create"
+  if Rails.configuration.unibo_common.faker && ENV["FAKER_URL"].to_s.length > 10 && ENV["FAKER_PWD"].to_s.length > 10
+    get "logins/faker/#{ENV['FAKER_URL']}", to: "logins#faker_login"
+    post "logins/faker/#{ENV['FAKER_URL']}", to: "logins#faker_create", as: "faker_create"
   end
 
   get "logins/logout", to: "logins#logout", as: :logout

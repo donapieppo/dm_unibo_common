@@ -24,4 +24,4 @@ test:
     - pietro.donatini@unibo.it
   interceptor_mails:  
     - donatini@dm.unibo.it
-  faker: 734gdyeu38jd_w3u8sdhdkijkdie
+  faker: false

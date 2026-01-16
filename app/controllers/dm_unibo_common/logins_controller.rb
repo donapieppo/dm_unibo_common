@@ -101,22 +101,22 @@ module DmUniboCommon
     end
 
     def faker_login
-      ALLOW_FAKER or raise "NO FAKER"
+      Rails.configuration.unibo_common.faker or raise "NO FAKER"
     end
 
     def faker_create
-      ALLOW_FAKER or raise "NO FAKER"
-      params[:f] == "pietro" or raise "NO FAKER"
+      Rails.configuration.unibo_common.faker or raise "NO FAKER"
+      ENV["FAKER_URL"].to_s.length > 10 or raise "NO FAKER"
+      ENV["FAKER_PWD"].to_s.length > 10 or raise "NO FAKER"
+      params[:f] == ENV["FAKER_PWD"] or raise "NO FAKER"
       Rails.logger.info("FAKER")
       faker_user_upn = "f.for.faker@#{Rails.configuration.unibo_common.domain}"
-      if Rails.configuration.unibo_common.faker.size > 10
-        faker_user = ::User.find_or_create_by(upn: faker_user_upn) do |u|
-          u.name = "F"
-          u.surname = "For Fake"
-          u.email = faker_user_upn
-        end
-        sign_in_and_redirect faker_user
+      faker_user = ::User.find_or_create_by(upn: faker_user_upn) do |u|
+        u.name = "F"
+        u.surname = "For Fake"
+        u.email = faker_user_upn
       end
+      sign_in_and_redirect faker_user
     end
 
     private
