@@ -1,7 +1,7 @@
 # the authlevel is just a list of authlevel on organizations
 # and depends from  client ip and login name (upn)
 
-# a = DmUniboCommon::Authorization.new(client_ip, user)
+# a = Authorization.new(client_ip, user)
 # a.can_read?(Organization.first)
 # from ip and user reads the permissions on all organizations
 module DmUniboCommon::Authorization
