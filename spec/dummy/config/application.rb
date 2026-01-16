@@ -45,5 +45,7 @@ module Dummy
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.generators.system_tests = nil
+
+    config.faker_allowed = true
   end
 end

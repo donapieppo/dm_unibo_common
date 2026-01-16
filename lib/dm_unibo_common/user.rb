@@ -7,28 +7,39 @@ module DmUniboCommon::User
     has_many :permissions, class_name: "DmUniboCommon::Permission"
 
     validates :email, uniqueness: {case_sensitive: false}, allow_blank: true
-    validates :upn, uniqueness: {case_sensitive: false}, allow_blank: true
+    validates :upn,
+      uniqueness: {case_sensitive: false},
+      format: {with: /\A[^@\s]+@[^@\s]+\z/, message: :invalid},
+      allow_blank: true
   end
 
   def cn
-    "%s %s" % [name, surname]
+    if surname.blank?
+      upn
+    else
+      "%s %s" % [name, surname]
+    end
   end
 
   def cn_militar
-    "%s, %s" % [surname, name]
+    if surname.blank?
+      upn
+    else
+      "%s, %s" % [surname, name]
+    end
   end
 
   def abbr
-    "%s. %s" % [name[0], surname]
+    if surname.blank?
+      upn
+    else
+      "%s. %s" % [name[0], surname]
+    end
   end
 
   # after create admin withouth searchable_provider name, sn are blank and we show email/upn
   def to_s
-    if surname.blank?
-      upn
-    else
-      cn
-    end
+    cn
   end
 
   def mail
@@ -47,11 +58,11 @@ module DmUniboCommon::User
     elsif what.respond_to?(:user_id)
       return what.user_id == id
     end
-    return is_cesia?
+    is_cesia?
   end
 
   def owns!(what)
-    self.owns?(what) or raise DmUniboCommon::NoAccess
+    owns?(what) or raise DmUniboCommon::NoAccess
   end
 
   # ClassMethods
@@ -145,9 +156,9 @@ module DmUniboCommon::User
     end
 
     # User.find_or_syncronize(1203) finds the user by id in local database
-    # if user is not in local database it creates it from remote DmUniboUserSearch
     # User.find_or_syncronize('pippo@pluto.com') finds the user by upn/mail in local database
-    # if user is not in local database it creates it from remote DmUniboUserSearch
+    # if user is not in local database it creates it from remote DmUniboUserSearch if
+    # Rails.configuration.unibo_common.searchable_provider == true
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
       if upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/)
         upn_or_id = upn_or_id.to_i
@@ -158,10 +169,14 @@ module DmUniboCommon::User
 
       u = User.where(field => upn_or_id).first
 
-      if !u && Rails.configuration.unibo_common.searchable_provider
-        u = User.syncronize_with_select(upn_or_id, select_proc, c)
-      elsif !u && field == :upn
-        u = User.create(upn: upn_or_id, email: upn_or_id)
+      if !u
+        if Rails.configuration.unibo_common.searchable_provider
+          u = User.syncronize_with_select(upn_or_id, select_proc, c)
+        elsif field == :upn && upn_or_id.include?("@")
+          u = User.create(upn: upn_or_id, email: upn_or_id)
+        else
+          Rails.logger.info("No @ in upn")
+        end
       end
 
       u
