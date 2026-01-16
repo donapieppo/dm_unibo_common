@@ -14,8 +14,8 @@ DmUniboCommon::Engine.routes.draw do
   end
 
   if ALLOW_FAKER && Rails.configuration.unibo_common.faker.size > 10
-    get "logins/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_login"
-    post "logins/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_create", as: "faker_create"
+    get "logins/faker/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_login"
+    post "logins/faker/#{Rails.configuration.unibo_common.faker}", to: "logins#faker_create", as: "faker_create"
   end
 
   get "logins/logout", to: "logins#logout", as: :logout
