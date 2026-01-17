@@ -21,7 +21,7 @@ module DmUniboCommon::MenuHelper
     when :google_oauth2
       button_to txt, "/dm_unibo_common/auth/google_oauth2", form: {data: {turbo: false}}, class: form_class
     when :developer
-      Rails.env.development? or raise "Developer login not in development"
+      Rails.env.production? and raise "Developer login must not not be in development"
       button_to txt, "/dm_unibo_common/auth/developer", form: {data: {turbo: false}}, class: form_class
     when :test
       Rails.env.test? or raise "Test login not in test"
