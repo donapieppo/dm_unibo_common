@@ -13,6 +13,7 @@ require "turbo-rails"
 require "stimulus-rails"
 require "simple_form"
 require "sprockets/railtie"
+require "bcrypt"
 # require "lograge"
 # require "propshaft/railtie"
 
