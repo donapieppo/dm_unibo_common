@@ -107,8 +107,7 @@ module DmUniboCommon
     def faker_create
       Rails.configuration.unibo_common.faker or raise "NO FAKER"
       ENV["FAKER_URL"].to_s.length > 10 or raise "NO FAKER"
-      ENV["FAKER_PWD"].to_s.length > 10 or raise "NO FAKER"
-      params[:f] == ENV["FAKER_PWD"] or raise "NO FAKER"
+      check_faker_password!(params[:f]) or raise "NO FAKER"
       Rails.logger.info("FAKER")
       faker_user_upn = "f.for.faker@#{Rails.configuration.unibo_common.domain}"
       faker_user = ::User.find_or_create_by(upn: faker_user_upn) do |u|
@@ -242,7 +241,6 @@ module DmUniboCommon
       logger.info "dm_unibo_common.login: allow_and_create: user: #{user.inspect}"
       sign_in_and_redirect user
     end
-    alias_method :log_and_create, :allow_and_create # old syntax
 
     def allow_if_email
       Rails.logger.info("dm_unibo_common.login: allow_if_email: @email=#{@email} - @id_anagrafica_unica=#{@id_anagrafica_unica} @upn=#{@upn}")
@@ -256,7 +254,6 @@ module DmUniboCommon
         redirect_to no_access_path
       end
     end
-    alias_method :log_if_email, :allow_if_email # old syntax
 
     def sign_in_and_redirect(user)
       original_request = session[:original_unlogged_request]
@@ -273,6 +270,11 @@ module DmUniboCommon
         logger.info "dm_unibo_common.login: updated user name, surname, email"
         user.update(name: @name, surname: @surname, email: @email)
       end
+    end
+
+    def check_faker_password!(x)
+      ENV["FAKER_PWD"].to_s.length > 10 or raise "NO FAKER"
+      BCrypt::Password.new(ENV["FAKER_PWD"]).is_password?(x) or raise "NO FAKER"
     end
   end
 end
