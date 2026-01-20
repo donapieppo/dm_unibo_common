@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cssbundling-rails"
   spec.add_dependency "bootsnap"
   spec.add_dependency "lograge"
+  spec.add_dependency "bcrypt"
 
   spec.add_dependency "omniauth"
   spec.add_dependency "omniauth-entra-id"
