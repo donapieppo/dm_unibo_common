@@ -97,7 +97,7 @@ module DmUniboCommon::User
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       # :upn or :id with value
-      search_field, search_value = extract_field_and_value(upn_or_id)
+      search_field, search_value = extract_find_field_and_value(upn_or_id)
 
       # if we search on upn there should be only one result (or we raise DmUniboCommon::TooManyUsers)
       search_result = dm_unibo_user_search_client.find_user(upn_or_id, select_proc)
@@ -150,7 +150,7 @@ module DmUniboCommon::User
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
       Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id}")
 
-      search_field, search_value = extract_field_and_value(upn_or_id)
+      search_field, search_value = extract_find_field_and_value(upn_or_id)
 
       u = User.find_by(search_field => search_value)
 
@@ -167,8 +167,9 @@ module DmUniboCommon::User
 
     private
 
-    # the search gets usn_od_idm this function extract it with correct name and value
-    def extract_field_and_value(upn_or_id)
+    # the search gets upn_or_id this function extract it with correct name and value
+    # if upn and upn odes not have @ => adds @domain
+    def extract_find_field_and_value(upn_or_id)
       if upn_or_id.is_a?(Integer) || (upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/))
         [:id, upn_or_id.to_i]
       elsif upn_or_id.is_a?(String)
