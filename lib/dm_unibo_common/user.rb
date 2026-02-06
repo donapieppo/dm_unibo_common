@@ -148,9 +148,9 @@ module DmUniboCommon::User
     # if user is not in local database it creates it from remote DmUniboUserSearch if
     # Rails.configuration.unibo_common.searchable_provider == true
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
-      Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id}")
-
       search_field, search_value = extract_field_and_value(upn_or_id)
+
+      Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id} -> #{search_field}:#{search_value}")
 
       u = User.find_by(search_field => search_value)
 
