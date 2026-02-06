@@ -172,7 +172,16 @@ module DmUniboCommon::User
       if upn_or_id.is_a?(Integer) || (upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/))
         [:id, upn_or_id.to_i]
       elsif upn_or_id.is_a?(String)
-        [:upn, upn_or_id.include?("@") ? upn_or_id : "#{upn_or_id}@#{Rails.configuration.unibo_common.domain}"]
+        sanitized_value = upn_or_id.strip
+
+        email_match = sanitized_value.match(/\b[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}\b/i)
+        sanitized_value = if email_match
+                            email_match[0]
+                          else
+                            "#{sanitized_value}@#{Rails.configuration.unibo_common.domain}"
+                          end
+
+        [:upn, sanitized_value]
       else
         raise DmUniboCommon::NoUser
       end
