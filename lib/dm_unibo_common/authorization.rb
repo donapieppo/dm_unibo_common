@@ -1,9 +1,9 @@
 # the authlevel is just a list of authlevel on organizations
 # and depends from  client ip and login name (upn)
 
-# a = Authorization.new(client_ip, user)
-# a.can_read?(Organization.first)
-# from ip and user reads the permissions on all organizations
+# u = User.find(310727).extend(DmUniboCommon::CurrentUser)
+# u.update_authorization_by_ip("127.0.0.1")
+# u.can_read?(26)
 module DmUniboCommon::Authorization
   TO_CESIA = 100
 
