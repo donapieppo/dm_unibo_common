@@ -1,8 +1,7 @@
-# see dm_unibo_common/lib/dm_unibo_common/controllers/helpers.rb for
+# in controller: before_action :set_current_user, :update_authorization,
+# see app/controllers/concerns/dm_unibo_common/concerns.rb
 # update_authorization which does
 # current_user.extend(DmUniboCommon::CurrentUser) && current_user.update_authorization_by_ip(request.remote_ip)
-# in app/controlers/application_controller.rb
-# before_action :set_current_user, :update_authorization
 module DmUniboCommon::CurrentUser
   def update_authorization_by_ip(ip)
     @_authorization = Authorization.new(ip, self)
