@@ -97,7 +97,7 @@ module DmUniboCommon::User
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       # :upn or :id with value
-      search_field, search_value = extract_find_field_and_value(upn_or_id)
+      search_field, search_value = extract_query_field_and_value(upn_or_id)
 
       # if we search on upn there should be only one result (or we raise DmUniboCommon::TooManyUsers)
       search_result = dm_unibo_user_search_client.find_user(upn_or_id, select_proc)
@@ -148,9 +148,8 @@ module DmUniboCommon::User
     # if user is not in local database it creates it from remote DmUniboUserSearch if
     # Rails.configuration.unibo_common.searchable_provider == true
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
-      Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id}")
-
-      search_field, search_value = extract_find_field_and_value(upn_or_id)
+      search_field, search_value = extract_field_and_value(upn_or_id)
+      Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id} -> #{search_field}:#{search_value}")
 
       u = User.find_by(search_field => search_value)
 
@@ -169,11 +168,20 @@ module DmUniboCommon::User
 
     # the search gets upn_or_id this function extract it with correct name and value
     # if upn and upn odes not have @ => adds @domain
-    def extract_find_field_and_value(upn_or_id)
+    def extract_query_field_and_value(upn_or_id)
       if upn_or_id.is_a?(Integer) || (upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/))
         [:id, upn_or_id.to_i]
       elsif upn_or_id.is_a?(String)
-        [:upn, upn_or_id.include?("@") ? upn_or_id : "#{upn_or_id}@#{Rails.configuration.unibo_common.domain}"]
+        sanitized_value = upn_or_id.strip
+
+        email_match = sanitized_value.match(/\b[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}\b/i)
+        sanitized_value = if email_match
+                            email_match[0]
+                          else
+                            "#{sanitized_value}@#{Rails.configuration.unibo_common.domain}"
+                          end
+
+        [:upn, sanitized_value]
       else
         raise DmUniboCommon::NoUser
       end
