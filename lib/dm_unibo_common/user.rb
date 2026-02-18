@@ -82,18 +82,13 @@ module DmUniboCommon::User
     end
 
     # Always asks to remote, updates user data or eventually create new user
-    # to mantain old compatibility
-    def syncronize(upn_or_id, c = User)
-      syncronize_with_select(upn_or_id, nil, c)
-    end
-
-    # Always asks to remote, updates user data or eventually create new user
     # accept a third parameter with a proc to select users
-    # syncronize_with_select(12324, User, -> (u) {u.upn.name == 'Pietro')
+    # search_and_syncronize_from_remote(12324, User, -> (u) {u.upn.name == 'Pietro')
     # FIXME does actually not update values from remote to local
     # can raise DmUniboCommon::NoUser, DmUniboCommon::TooManyUsers
-    def syncronize_with_select(upn_or_id, select_proc = nil, c = User)
-      Rails.logger.info("dm_unibo_common user syncronize_with_select '#{upn_or_id}' in '#{c}' class")
+    # select_proc is passed to dm_unibo_user_search_client.find_user
+    def search_and_syncronize_from_remote(upn_or_id, select_proc = nil, c = User)
+      Rails.logger.info("dm_unibo_common User.search_and_syncronize_from_remote '#{upn_or_id}' in '#{c}' class")
       upn_or_id.blank? and raise DmUniboCommon::NoUser
 
       # :upn or :id with value
@@ -107,46 +102,54 @@ module DmUniboCommon::User
         raise DmUniboCommon::TooManyUsers
       end
 
-      dsa_user = nil
+      remote_user = nil
       # if id was given we still have to check that the search resul did not get new results with
       # id equal to other numeric fields like matricola...
       if search_field == :id
         search_result.users.each do |u|
           if u.id_anagrafica_unica.to_i == search_value
-            dsa_user = u
+            remote_user = u
             break
           end
         end
-        dsa_user or raise DmUniboCommon::NoUser
+        remote_user or raise DmUniboCommon::NoUser
       else
-        dsa_user = search_result.users.first
+        remote_user = search_result.users.first
       end
 
-      local_user = c.find_by(id: dsa_user.id_anagrafica_unica)
+      remote_user or raise DmUniboCommon::NoUser
+
+      User.create_from_remote_user(remote_user, c)
+    end
+
+    def create_from_remote_user(remote_user, c)
+      local_user = c.find_by(id: remote_user.id_anagrafica_unica)
 
       if !local_user
         local_user = c.new({
-          id: dsa_user.id_anagrafica_unica,
-          upn: dsa_user.upn,
-          name: dsa_user.name,
-          surname: dsa_user.sn
+          id: remote_user.id_anagrafica_unica,
+          upn: remote_user.upn,
+          name: remote_user.name,
+          surname: remote_user.sn
         })
 
-        local_user.uid = dsa_user.sam_account_name if local_user.respond_to?(:uid)
-        local_user.sam = dsa_user.sam_account_name if local_user.respond_to?(:sam)
-        local_user.employeeNumber = dsa_user.employee_id if local_user.respond_to?(:employeeNumber)
+        local_user.uid = remote_user.sam_account_name if local_user.respond_to?(:uid)
+        local_user.sam = remote_user.sam_account_name if local_user.respond_to?(:sam)
+        local_user.employeeNumber = remote_user.employee_id if local_user.respond_to?(:employeeNumber)
 
         local_user.save!
-        Rails.logger.info("dm_unibo_common user syncronize_with_select created User #{local_user.inspect}")
+        Rails.logger.info("dm_unibo_common User.create_from_remote_user: created User #{local_user.inspect}")
       end
 
       local_user
     end
 
+    # Finds the user by id or upn in database or create it
     # User.find_or_syncronize(1203) finds the user by id in local database
     # User.find_or_syncronize('pippo@pluto.com') finds the user by upn/mail in local database
-    # if user is not in local database it creates it from remote DmUniboUserSearch if
-    # Rails.configuration.unibo_common.searchable_provider == true
+    # if user is not in local database and i have upn then
+    # - Rails.configuration.unibo_common.searchable_provider == true => creates it from remote DmUniboUserSearch 
+    # - Rails.configuration.unibo_common.searchable_provider == false => trusts the upn and creates user without name/surname
     def find_or_syncronize(upn_or_id, select_proc = nil, c = User)
       search_field, search_value = extract_query_field_and_value(upn_or_id)
       Rails.logger.info("dm_unibo_common user find_or_syncronize on #{upn_or_id} -> #{search_field}:#{search_value}")
@@ -155,13 +158,18 @@ module DmUniboCommon::User
 
       if !u
         if Rails.configuration.unibo_common.searchable_provider
-          u = User.syncronize_with_select(upn_or_id, select_proc, c)
+          u = User.search_and_syncronize_from_remote(upn_or_id, select_proc, c)
         elsif search_field == :upn
           u = User.create!(upn: search_value, email: search_value)
         end
       end
 
       u
+    end
+
+    # old compatibility
+    def syncronize(upn_or_id)
+      find_or_syncronize(upn_or_id)
     end
 
     private
