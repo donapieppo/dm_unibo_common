@@ -32,4 +32,29 @@ RSpec.describe User, type: :model do
 
   it ".owns(book) with user has_and_belongs_to_many books" do
   end
+
+  describe ".extract_field_and_value" do
+    let(:original_domain) { Rails.configuration.unibo_common.domain }
+
+    before do
+      Rails.configuration.unibo_common.domain = "unibo.it"
+    end
+
+    after do
+      Rails.configuration.unibo_common.domain = original_domain
+    end
+
+    it "returns the id tuple when given a numeric string" do
+      expect(User.send(:extract_field_and_value, "12345")).to eq([:id, 12345])
+    end
+
+    it "builds the upn when only the username is provided" do
+      expect(User.send(:extract_field_and_value, "pippo")).to eq([:upn, "pippo@unibo.it"])
+    end
+
+    it "extracts the email from a label that contains a mail address" do
+      composite_value = "Pietro Donatini (pietro.donatini@unibo.it)"
+      expect(User.send(:extract_field_and_value, composite_value)).to eq([:upn, "pietro.donatini@unibo.it"])
+    end
+  end
 end
