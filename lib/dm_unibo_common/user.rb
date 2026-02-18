@@ -176,18 +176,22 @@ module DmUniboCommon::User
 
     # the search gets upn_or_id this function extract it with correct name and value
     # if upn and upn odes not have @ => adds @domain
+    # (upn must match email format or username to add domain)
     def extract_query_field_and_value(upn_or_id)
       if upn_or_id.is_a?(Integer) || (upn_or_id.is_a?(String) && upn_or_id.match?(/^\d+$/))
         [:id, upn_or_id.to_i]
       elsif upn_or_id.is_a?(String)
         sanitized_value = upn_or_id.strip
+        raise DmUniboCommon::NoUser if sanitized_value.empty?
 
         email_match = sanitized_value.match(/\b[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}\b/i)
-        sanitized_value = if email_match
-                            email_match[0]
-                          else
-                            "#{sanitized_value}@#{Rails.configuration.unibo_common.domain}"
-                          end
+        if email_match
+          sanitized_value = email_match[0]
+        elsif sanitized_value.match?(/\A[A-Z0-9._+\-]+\z/i)
+          sanitized_value = "#{sanitized_value}@#{Rails.configuration.unibo_common.domain}"
+        else
+          raise DmUniboCommon::NoUser
+        end
 
         [:upn, sanitized_value]
       else
