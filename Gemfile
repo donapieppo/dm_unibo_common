@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "rails", "~> 8.0"
-gem "puma", "~> 7.0"
+gem "puma", "~> 7.2"
 gem "sqlite3"
 gem "view_component"
 
