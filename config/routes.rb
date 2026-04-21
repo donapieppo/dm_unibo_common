@@ -23,8 +23,8 @@ DmUniboCommon::Engine.routes.draw do
   get "auth/failure", to: "logins#failure"
 
   get "who_impersonate", to: "impersonations#who_impersonate", as: :who_impersonate
-  get "impersonate/:id", to: "impersonations#impersonate", as: :impersonate
-  get "stop_impersonating", to: "impersonations#stop_impersonating", as: :stop_impersonating
+  post "impersonate/:id", to: "impersonations#impersonate", as: :impersonate
+  post "stop_impersonating", to: "impersonations#stop_impersonating", as: :stop_impersonating
 
   # in App model User with include DmUniboCommon::User
   resources :users

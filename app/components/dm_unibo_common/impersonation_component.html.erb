@@ -4,7 +4,9 @@
       You (<%= @true_user.upn %>) are impersonating <strong><%= @current_user.upn %></strong>
     </div>
     <div>
-      <%= link_to dm_icon("reply", text: "back to admin"), @stop_impersonating_path %>
+      <%= button_to @stop_impersonating_path, method: :post, class: "btn btn-link p-0", form: { data: { turbo: false } } do %>
+        <%= dm_icon("reply", text: "back to admin") %>
+      <% end %>
     </div>
   <% end %>
 

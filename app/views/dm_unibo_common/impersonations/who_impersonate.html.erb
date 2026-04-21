@@ -1,12 +1,17 @@
 <ul>
   <% @main_users.each do |user| %>
-    <li><%= user.surname %> <%= user.name %> (<%= link_to user.upn || "no mail", dm_unibo_common.impersonate_path(user) %>)</li>
+    <li>
+      <%= user.surname %> <%= user.name %>
+      (<%= button_to(user.upn || "no mail", dm_unibo_common.impersonate_path(user), method: :post, class: "btn btn-link d-inline p-0 align-baseline", form_class: "d-inline", form: { data: { turbo: false } }) %>)
+    </li>
   <% end %>
 </ul>
 
 <ul>
   <% @users.each do |user| %>
-    <li><%= user.surname %> <%= user.name %> (<%= link_to user.upn || "no mail", dm_unibo_common.impersonate_path(user) %>)</li>
+    <li>
+      <%= user.surname %> <%= user.name %>
+      (<%= button_to(user.upn || "no mail", dm_unibo_common.impersonate_path(user), method: :post, class: "btn btn-link d-inline p-0 align-baseline", form_class: "d-inline", form: { data: { turbo: false } }) %>)
+    </li>
   <% end %>
 </ul>
-
