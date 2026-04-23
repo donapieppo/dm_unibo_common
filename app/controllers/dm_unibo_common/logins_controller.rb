@@ -97,6 +97,7 @@ module DmUniboCommon
     end
 
     def failure
+      render layout: nil
       Rails.logger.info("dm_unibo_common.login failure")
     end
 
