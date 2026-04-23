@@ -25,6 +25,7 @@ PATH
       omniauth-shibboleth
       pretender
       propshaft
+      psych (~> 5.3)
       puma (~> 7.1)
       pundit
       rack (~> 3.2)
@@ -119,7 +120,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     base64 (0.3.0)
-    bcrypt (3.1.21)
+    bcrypt (3.1.22)
     bigdecimal (4.0.1)
     bootsnap (1.21.1)
       msgpack (~> 1.2)
