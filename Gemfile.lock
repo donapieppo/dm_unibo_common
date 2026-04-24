@@ -25,6 +25,7 @@ PATH
       omniauth-shibboleth
       pretender
       propshaft
+      psych (~> 5.3)
       puma (~> 7.1)
       pundit
       rack (~> 3.2)
@@ -138,7 +139,7 @@ GEM
     date (3.5.1)
     diff-lcs (1.6.2)
     drb (2.2.3)
-    erb (6.0.1)
+    erb (6.0.1.1)
     erubi (1.13.1)
     factory_bot (6.5.6)
       activesupport (>= 6.1.0)
