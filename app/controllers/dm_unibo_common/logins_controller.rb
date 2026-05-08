@@ -97,6 +97,7 @@ module DmUniboCommon
     end
 
     def failure
+      render layout: nil
       Rails.logger.info("dm_unibo_common.login failure")
     end
 
@@ -164,7 +165,7 @@ module DmUniboCommon
     end
 
     def parse_omniauth
-      debug_message(request.env["omniauth.auth"].inspect)
+      # debug_message(request.env["omniauth.auth"].inspect)
       user_info = request.env["omniauth.auth"]
       @email = user_info.info.email
       @upn = @email # can be updated for microsoft logins
