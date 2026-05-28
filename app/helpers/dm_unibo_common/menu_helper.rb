@@ -1,7 +1,11 @@
 module DmUniboCommon::MenuHelper
   def login_link_title
     content_tag :h3, class: "my-3" do
-      "Per accedere usare le credenziali di Ateneo."
+      if !Rails.configuration.unibo_common.login_link_title.blank?
+        Rails.configuration.unibo_common.login_link_title
+      else
+        "Per accedere usare le credenziali di Ateneo."
+      end
     end
   end
 
