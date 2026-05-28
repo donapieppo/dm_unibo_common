@@ -33,15 +33,21 @@
       </div>
 
       <pre class="alert alert-info">
-  Presso la struttura 
-  <%= organization %> 
-  sono abilitati all'utilizzo di gemma 
-  i seguenti colleghi:
+Buongiono,
+
+  presso la struttura 
+
+<%= organization %> 
+
+sono abilitati all'utilizzo di gemma i seguenti colleghi:
 
   <% organization.permissions.each do |p|%>
     <% p.user or next %>
     <%= p.user.cn_militar %> <small>(<%= p.user.upn %>)</small>
   <% end %>
+
+Cordiali saluti
+
       </pre>
     </div>
   </div>
