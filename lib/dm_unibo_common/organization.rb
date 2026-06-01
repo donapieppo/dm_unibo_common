@@ -7,6 +7,7 @@ module DmUniboCommon::Organization
     has_many :permissions, class_name: "DmUniboCommon::Permission"
     validates :code,
       uniqueness: {case_sensitive: false, message: "Esiste già una struttura con lo stesso nome."},
+      format: {with: /\A[A-Za-z0-9_.-]+\z/},
       presence: true
     validates :name,
       uniqueness: {case_sensitive: false, message: "Esiste già una struttura con lo stesso codice."},
