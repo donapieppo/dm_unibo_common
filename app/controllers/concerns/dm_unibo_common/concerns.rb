@@ -82,7 +82,7 @@ module DmUniboCommon
     def set_current_organization
       if params.has_key?(:__org__)
         code = params[:__org__].to_s.strip
-        code = nil unless code.match?(/\A[A-Za-z0-9_.-]+\z/)
+        code = nil unless code.match?(DmUniboCommon::Organization::CODE_FORMAT)
         @_current_organization = ::Organization.find_by_code(code)
       elsif current_user&.single_organization?
         @_current_organization = current_user.my_organizations.first
