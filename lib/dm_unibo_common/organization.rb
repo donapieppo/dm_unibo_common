@@ -3,11 +3,13 @@
 module DmUniboCommon::Organization
   extend ActiveSupport::Concern
 
+  CODE_FORMAT = /\A[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?\z/
+
   included do
     has_many :permissions, class_name: "DmUniboCommon::Permission"
     validates :code,
       uniqueness: {case_sensitive: false, message: "Esiste già una struttura con lo stesso nome."},
-      format: {with: /\A[A-Za-z0-9_.-]+\z/},
+      format: {with: CODE_FORMAT},
       presence: true
     validates :name,
       uniqueness: {case_sensitive: false, message: "Esiste già una struttura con lo stesso codice."},
