@@ -81,7 +81,9 @@ module DmUniboCommon
     # Remember: without current user we may be in shibboleth redirect
     def set_current_organization
       if params.has_key?(:__org__)
-        @_current_organization = ::Organization.find_by_code(params[:__org__])
+        code = params[:__org__].to_s.strip
+        code = nil unless code.match?(/\A[A-Za-z0-9_.-]+\z/)
+        @_current_organization = ::Organization.find_by_code(code)
       elsif current_user&.single_organization?
         @_current_organization = current_user.my_organizations.first
         logger.info("set_current_organization as the only for current_user")
