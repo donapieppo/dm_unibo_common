@@ -70,6 +70,12 @@ module DmUniboCommon
       end
     end
 
+    def redirect_missing_current_organization
+      if !current_organization
+        redirect_to main_app.home_path, alert: "Indicare la struttura."
+      end
+    end
+
     def shibapplicationid
       "_shibsession_" + ENV["Shib-Application-ID"].to_s
     end
