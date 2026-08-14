@@ -4,7 +4,7 @@ module DmUniboCommon
 
     included do
       if respond_to?(:helper_method)
-        helper_method :modal_page,
+        helper_method :modal_page?, :modal_page,
           :current_user, :current_organization,
           :user_signed_in?,
           :current_user_owns?, :current_user_owns!,
@@ -16,8 +16,13 @@ module DmUniboCommon
       end
     end
 
+    # better :-)
+    def modal_page?
+      request.headers.fetch("HTTP_TURBO_FRAME", "") == modal_frame_name
+    end
+
     def modal_page
-      request.headers.fetch("HTTP_TURBO_FRAME", "") == "modal"
+      modal_page?
     end
 
     def set_current_user
@@ -135,6 +140,12 @@ module DmUniboCommon
 
     def current_user_cesia!
       current_user_cesia? or raise DmUniboCommon::NoAccess
+    end
+
+    private
+
+    def modal_frame_name
+      "modal"
     end
   end
 end
