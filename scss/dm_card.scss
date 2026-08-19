@@ -19,3 +19,19 @@
 .dm-card-footer {
   @extend .card-footer;
 }
+
+.dm-card2 {
+  @extend .card;
+  @extend .my-3;
+}
+.dm-card2-title, .dm-card2-header {
+  @extend .card-body;
+  font-weight: bold;
+  padding-bottom: 0;
+}
+.dm-card2-body {
+  @extend .card-body;
+}
+.dm-card2-footer {
+  @extend .card-footer;
+}
