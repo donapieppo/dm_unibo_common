@@ -27,4 +27,4 @@
 
 ## Security & Configuration Tips
 - Do not commit secrets; sample values belong in `config/dm_unibo_common.yml` templates only. Prefer environment-driven overrides in consuming apps.
-- OAuth/shibboleth changes should note expected hosts and callback paths so downstream apps can mirror settings.
+- Shibboleth is not used anymore
