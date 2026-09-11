@@ -14,7 +14,10 @@ require "stimulus-rails"
 require "simple_form"
 require "bcrypt"
 # require "lograge"
-# require "propshaft/railtie"
+
+# Propshaft is an engine dependency, but its Railtie must also be loaded for a
+# host application that does not list Propshaft directly in its Gemfile.
+require "propshaft/railtie"
 
 # self
 require "dm_unibo_common/errors"
