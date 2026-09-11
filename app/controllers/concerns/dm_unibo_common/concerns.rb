@@ -61,11 +61,7 @@ module DmUniboCommon
       if !current_user
         logger.info("force_sso_user: no current_user")
         session[:original_unlogged_request] = request.fullpath
-        if Rails.configuration.unibo_common.omniauth_provider == :shibboleth
-          redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
-        else
-          redirect_to main_app.home_path and return
-        end
+        redirect_to main_app.home_path and return
       end
     end
 
@@ -89,7 +85,6 @@ module DmUniboCommon
     # ?__org__=mat
     # /mat/seminars
     # if not params[:__org__] consider the first possible organization of current_user
-    # Remember: without current user we may be in shibboleth redirect
     def set_current_organization
       if params.has_key?(:__org__)
         code = params[:__org__].to_s.strip

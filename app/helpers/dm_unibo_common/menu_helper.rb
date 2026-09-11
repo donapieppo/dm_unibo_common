@@ -18,8 +18,6 @@ module DmUniboCommon::MenuHelper
     form_class = btn ? "btn btn-primary" : ""
 
     case Rails.configuration.unibo_common.omniauth_provider
-    when :shibboleth
-      dm_unibo_common.auth_shibboleth_callback_path
     when :entra_id
       button_to txt, "/dm_unibo_common/auth/entra_id", form: {data: {turbo: false}}, class: form_class
     when :google_oauth2

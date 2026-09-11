@@ -2,7 +2,6 @@
 # in routes we have
 #  get 'auth/entra_id/callback'       to: 'login#entra_id'
 #  get 'auth/google_oauth2/callback', to: 'logins#google_oauth2'
-#  get 'auth/shibboleth/callback',    to: 'logins#shibboleth'
 #  get 'auth/developer/callback',     to: 'logins#developer'
 #  get 'auth/test/callback',          to: 'logins#test'
 # 
@@ -48,17 +47,6 @@ module DmUniboCommon
       end
     end
 
-    # email="usrBase@testtest.unibo.it" last_name="Base" name="SSO"
-    def shibboleth
-      check_provider!(:shibboleth)
-      parse_omniauth
-      if check_student_permission
-        send login_method
-      else
-        redirect_to no_access_path and return
-      end
-    end
-
     def developer
       check_provider!(:developer)
       parse_omniauth
@@ -84,8 +72,6 @@ module DmUniboCommon
         redirect_to "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=#{main_app.root_url}", allow_other_host: true
       when :developer
         redirect_to main_app.home_path
-      when :shibboleth
-        redirect_to Rails.configuration.unibo_common.logout_link, allow_other_host: true
       when :google_oauth2
         redirect_to "https://www.google.com/accounts/Logout?continue=#{main_app.root_url}", allow_other_host: true
       end
@@ -178,8 +164,6 @@ module DmUniboCommon
           @upn = user_info.extra.raw_info.upn
           @id_anagrafica_unica = user_info.extra.raw_info.idAnagraficaUnica.to_i
         end
-      when :shibboleth
-        @upn = user_info.uid
       when :developer
         @upn = @email = params[:upn]
         @name = params[:name]
@@ -188,23 +172,6 @@ module DmUniboCommon
         @developer_id_anagrafica_unica = last_user ? last_user.id + 1 : 0
       end
     end
-
-    # def parse_shibboleth
-    #   @upn = request.env["omniauth.auth"].uid
-    #   oinfo = request.env["omniauth.auth"].info
-    #   extra = request.env["omniauth.auth"].extra.raw_info
-    #
-    #   @id_anagrafica_unica = extra.idAnagraficaUnica.to_i
-    #   @id_anagrafica_unica > 0 or raise "NO idAnagraficaUnica"
-    #
-    #   @is_member_of = extra.isMemberOf ? extra.isMemberOf.split(";") : []
-    #   set_memberof_session(@is_member_of)
-    #
-    #   @email = @upn
-    #   @name = oinfo.first_name || oinfo.name
-    #   @surname = oinfo.last_name
-    #   @nationalpin = extra.codiceFiscale
-    # end
 
     # def set_memberof_session(is_member_of)
     #   (Rails.env.development? and is_member_of << "user") unless is_member_of.include?("user")
