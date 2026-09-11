@@ -27,14 +27,13 @@ DmUniboCommon::Engine.routes.draw do
   post "stop_impersonating", to: "impersonations#stop_impersonating", as: :stop_impersonating
 
   # in App model User with include DmUniboCommon::User
-  resources :users
+  resources :users, only: %i[index new create]
   # in App model Organization with include DmUniboCommon::Organization
-  resources :organizations
   # in app/models/dm_unibo_common
-  resources :permissions
+  resources :permissions, only: %i[index show destroy]
 
-  resources :organizations do
-    resources :permissions
+  resources :organizations, only: %i[index show new create edit update] do
+    resources :permissions, only: %i[index new create]
   end
 
   # example: with https://example.it/math your working on
