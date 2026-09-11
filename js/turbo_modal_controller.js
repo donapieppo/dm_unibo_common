@@ -5,7 +5,6 @@ class TurboModalController extends Controller {
   static targets = ["modalContent"]
 
   connect() {
-    console.log("dm turbo modal connected");
     this.modalDiv = document.getElementById("modal_div");
     this.modalContent = document.getElementById("modal_content"); // to locate click
     this.modal = bootstrap.Modal.getOrCreateInstance(this.modalDiv);
@@ -13,11 +12,9 @@ class TurboModalController extends Controller {
   }
 
   showModal() {
-    console.log("SHOW MODAL");
   }
 
   hideModal() {
-    console.log("hideModal MODAL")
     // Without this, turbo won't re-open the modal on subsequent clicks
     this.element.parentElement.removeAttribute("src")
     this.element.remove()
@@ -28,16 +25,13 @@ class TurboModalController extends Controller {
   // action: "turbo:submit-end->turbo-modal#submitEnd"
   // https://turbo.hotwired.dev/reference/events
   submitEnd(e) {
-    console.log("Submit Modal");
     if (e.detail.success) {
       this.hideModal()
     }
   }
 
   followLink(e) {
-    console.log("Follow link");
     this.hideModal()
-    console.log(e.detail.url);
   }
 
   closeWithKeyboard(e) {
