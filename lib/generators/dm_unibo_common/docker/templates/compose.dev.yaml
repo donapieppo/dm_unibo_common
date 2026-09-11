@@ -1,0 +1,9 @@
+services:
+  web:
+    ports:
+      - "127.0.0.1:3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      # The Dockerfile is expected to use /rails as its working directory.
+      - .:/rails
