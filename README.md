@@ -28,42 +28,46 @@ We use asbuild and postcss and so run
 Add `"dm_unibo_common": "donapieppo/dm_unibo_common.git"` in 
 package.json.
 
-Create a file
+Create `config/unibo_common.yml`:
 
 ```bash
-touch ./config/dm_unibo_common.yml
+touch ./config/unibo_common.yml
 ```
 
-like
+For example:
 
 ```yaml
 production:
-  omniauth_provider: :google_oauth2
+  omniauth_provider: :entra_id
   host:              example.com
+  domain:            example.com
+  superusers:        []
+  login_method:      :allow_if_email
   smtp_address:      mailhost.example.com
   smtp_domain:       example.com
   support_mail:      supportoweb@example.com
-  logout_link:       https://idp.example.comt/adfs/ls/?wa=wsignout1.0
-  login_icon:        dm_unibo_common/ssologo18x18.png
-  logout_icon:       dm_unibo_common/ssologo18x18.png
 
 development:
-  omniauth_provider: :shibboleth
+  omniauth_provider: :developer
   host:              tester.example.com
+  domain:            example.com
+  superusers:        []
+  login_method:      :allow_if_email
   smtp_address:      mailhost.example.com
   smtp_domain:       example.com
   support_mail:      supportoweb@example.com
-  logout_link:       https://idptest.example.com/adfs/ls/?wa=wsignout1.0
-  login_icon:        dm_unibo_common/ssologo18x18.png
-  logout_icon:       dm_unibo_common/ssologo18x18.png
 ```
 
 and load in `config/application.rb` with
 
 ```ruby
-config.dm_unibo_common = ActiveSupport::HashWithIndifferentAccess.new config_for(:dm_unibo_common)
+config.unibo_common = config_for(:unibo_common)
 ```
-DmUniboCommon implements google_oauth2 and shibboleth authentication.
+
+`omniauth_provider` can be `:entra_id`, `:google_oauth2`, or `:developer`
+(development only). `superusers` must be present, even when empty.
+
+DmUniboCommon implements Entra ID and Google OAuth2 authentication.
 
 # How to use in your rails project
 
