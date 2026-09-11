@@ -12,7 +12,6 @@ gem 'dm_unibo_user_search', git: 'https://github.com/donapieppo/dm_unibo_user_se
 gem 'dm_unibo_common',      git: 'https://github.com/donapieppo/dm_unibo_common.git', branch: 'turbo'
 
 gem "cssbundling-rails", "~> 1.1"
-gem "sprockets-rails"
 gem "jsbundling-rails"
 ```
 
@@ -68,6 +67,31 @@ config.unibo_common = config_for(:unibo_common)
 (development only). `superusers` must be present, even when empty.
 
 DmUniboCommon implements Entra ID and Google OAuth2 authentication.
+
+# Docker development setup
+
+Install the Docker Compose configuration and helper commands into an
+application that uses this engine:
+
+```bash
+bin/rails generate dm_unibo_common:docker
+```
+
+This creates `compose.yaml`, `compose.dev.yaml`, `bin/docker-build`, and
+`bin/docker-dev` in the application. The generated files belong to the
+application, so they can be adjusted for its database and other services.
+
+The generated configuration expects the application to provide a `Dockerfile`
+whose working directory is `/rails`. Start the development web service with:
+
+```bash
+bin/docker-build
+bin/docker-dev
+```
+
+Rails is then available at `http://127.0.0.1:3000`. Pass Docker Compose `up`
+options through to the development command; for example,
+`bin/docker-dev --build`.
 
 # How to use in your rails project
 
