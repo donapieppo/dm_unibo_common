@@ -1,6 +1,8 @@
 module DmUniboCommon
-  VERSION = "6.0.0"
+  VERSION = "6.1.0"
 end
+# 6.1.0
+# propshaft 
 # 6.0.0
 # fix rails versions and view component
 # 5.1.3
