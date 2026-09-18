@@ -1,17 +1,16 @@
 require "rails_helper"
 
+# see spec/dummy/config/unibo_common.yml
 RSpec.describe User, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:thing) { FactoryBot.create(:thing, user_id: user.id) }
-
-  Rails.configuration.unibo_common.superusers = ["uno@uno.com", "nome.cognome2222@unibo.it"]
 
   it ".is_cesia? is false if CESIA does not include user.upn" do
     expect(user.is_cesia?).not_to be
   end
 
   it ".is_cesia? is true if CESIA does include user.upn" do
-    user.upn = "nome.cognome2222@unibo.it"
+    user.upn = "pietro.donatini@unibo.it"
     expect(user.is_cesia?).to be
   end
 

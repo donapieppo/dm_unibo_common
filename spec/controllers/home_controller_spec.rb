@@ -32,7 +32,7 @@ RSpec.describe HomeController, type: :controller do
 
   it "show_if_current_organization redirects when policy missing" do
     get :show_if_current_organization, params: {__org__: org2.code}
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to(home_path)
     expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 
