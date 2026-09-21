@@ -13,8 +13,8 @@ module DmUniboCommon::MenuHelper
   # Rails.application.routes.url_helpers.send('dm_unibo_common.auth_shibboleth_callback_path') -> undefined method `dm_unibo_common.auth_shibboleth_callback_path'
   # dm_unibo_common.auth_shibboleth_callback_path.inspect -> "/seminari/dm_unibo_common/auth/shibboleth/callback"
   # root_path -> seminari
-  def login_link(btn: false)
-    txt = dm_icon("sign-in", text: "Login")
+  def login_link(btn: false, text: "Accedi al servizio")
+    txt = dm_icon("sign-in", text: text)
     form_class = btn ? "btn btn-primary" : ""
 
     case Rails.configuration.unibo_common.omniauth_provider
