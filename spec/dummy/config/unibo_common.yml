@@ -23,5 +23,5 @@ test:
   impersonate_admins: 
     - pietro.donatini@unibo.it
   interceptor_mails:  
-    - donatini@dm.unibo.it
+    - pietro.donatini@unibo.it
   faker: false
