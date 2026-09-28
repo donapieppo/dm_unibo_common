@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    dm_unibo_common (6.0.0)
+    dm_unibo_common (6.1.0)
       bcrypt
       bootsnap
       cssbundling-rails
