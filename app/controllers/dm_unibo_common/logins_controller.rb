@@ -24,7 +24,7 @@
 # force_sso_user means that all the pages are protected
 # redirect_unsigned_user means that unsigned user can still see something (to refactor)
 #
-# see lib/dm_unibo_common/controllers/helpers.rb for method definitions.
+# see app/controllers/concerns/dm_unibo_common/concerns.rb for method definitions.
 module DmUniboCommon
   class LoginsController < ::ApplicationController
     # raise: false see http://api.rubyonrails.org/classes/ActiveSupport/Callbacks/ClassMethods.html#method-i-skip_callback
