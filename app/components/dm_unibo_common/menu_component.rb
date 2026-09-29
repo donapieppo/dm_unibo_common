@@ -8,7 +8,8 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
     current_organization: nil,
     header_title: Rails.configuration.unibo_common.header_title,
     header_subtitle: Rails.configuration.unibo_common.header_subtitle,
-    search_component: nil
+    search_component: nil,
+    beta: false
   )
     @sso_user_upn = sso_user_upn
     @current_organization = current_organization
@@ -19,6 +20,7 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
       header_subtitle
     end
     @search_component = search_component
+    @beta = beta
   end
 
   def main_root_path
@@ -33,5 +35,13 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
 
   def dm_unibo_common
     helpers.dm_unibo_common
+  end
+
+  def sigil_vertical
+    "sigillo_verticale.png"
+  end
+
+  def sigil_horizontal
+    "sigillo_orizzontale.png"
   end
 end

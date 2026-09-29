@@ -1,36 +1,73 @@
-<nav class="navbar navbar-expand-lg py-2 mb-3">
-  <div class="container-fluid align-items-center">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<div role="navigation" aria-label="scorciatoie per la navigazione">
+  <a href="#content" class="visually-hidden-focusable btn btn-primary btn-sm" accesskey="c">
+    Vai al contenuto
+  </a>
+  <a href="#mainmenu" class="visually-hidden-focusable btn btn-primary btn-sm" accesskey="m">
+    Vai al menu di navigazione
+  </a>
+</div>
+<header class="d-flex align-items-end align-items-sm-center justify-content-between position-relative shadow-sm bg-primary text-white px-3">
+  <div class="d-flex align-items-center">
+    <!-- Logo per schermi extra small (mobile) -->
+    <%= image_tag sigil_vertical, height: 75, alt: "Logo Università di Bologna", class: "d-block d-lg-none my-2 mx-sm-2" %>
+    <!-- Logo per schermi small (tablet) e superiori -->
+    <%= image_tag sigil_horizontal, height: 50, alt: "Logo Università di Bologna", class: "my-2 d-none d-lg-block mx-2 px-3" %>
+
+    <!-- Titolo (mobile) -->
+    <span class="h3 d-sm-none mx-2">
+      <%= @header_title %>
+      <% if @beta %>
+        <span class="badge bg-white text-primary hpc-badge-beta">Beta</span>
+      <% end %>
+    </span>
+  </div>
+
+  <!-- Titolo centrato (desktop) -->
+  <span class="h2 position-absolute start-50 translate-middle-x d-none d-sm-block">
+    <%= @header_title %>
+    <% if @beta %>
+      <span class="badge bg-white text-primary hpc-badge-beta fs-6">Beta</span>
+    <% end %>
+  </span>
+</header>
+
+<nav aria-label="Navigazione principale HPC" class="navbar navbar-light navbar-expand-md bg-white shadow-sm px-2 px-md-4" id="mainmenu">
+  <div class="container-fluid">
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuLinksHpc" aria-controls="mainMenuLinksHpc" aria-expanded="false" aria-label="Apri il menu principale">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <%= link_to main_root_path, class: 'navbar-brand fs-6 mx-lg-3', data: {turbo: false} do %>
-      <%= dm_icon Rails.configuration.unibo_common.header_icon, size: "xl" %> &nbsp;
-      <%= @header_title %>
-      <div class="d-block lh-base text-end">
-        <small><%= @header_subtitle %></small>
+    <% if @sso_user_upn %>
+      <div class="d-flex align-items-center order-0 order-sm-1">
+        <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+          <i aria-hidden="true" class="bi bi-person-fill"></i> <span class="d-none d-sm-inline"><%= @sso_user_upn %></span>
+          <span class="visually-hidden">Menu utente <%= @sso_user_upn %></span>
+        </a>
+        <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="userMenu">
+          <li>
+            <h2 class="dropdown-header fs-6">Stai impersonando</h2>
+            <div class="dropdown-item-text">fittizio.studente@studio.unibo.it</div>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#"><i aria-hidden="true" class="bi bi-person-x-fill"></i> Termina impersonamento</a></li>
+          <li>
+            <%= link_to dm_unibo_common.logout_path, data: {turbo: false}, class: "dropdown-item text-danger" do %>
+              <%= dm_icon("sign-out", text: "Logout") %>
+            <% end %>
+          </li>
+        </ul>
       </div>
     <% end %>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav flex-fill">
+    <div class="collapse navbar-collapse" id="mainMenuLinksHpc">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <%= content %>
-      </ul> 
+      </ul>
 
       <% if @search_component %>  
         <%= render @search_component %>  
       <% end %>
 
-      <ul class="navbar-nav text-end mx-lg-3">
-        <% if @sso_user_upn %>
-          <span class="navbar-text ps-1">
-            <%= @sso_user_upn %>
-          </span>
-          <li><%= logout_link %></li>
-        <% else %>
-          <li><%= login_link %></li>
-        <% end %>
-      </ul>
     </div>
   </div>
 </nav>

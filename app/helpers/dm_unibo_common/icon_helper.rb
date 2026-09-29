@@ -8,6 +8,6 @@ module DmUniboCommon::IconHelper
     c = "fa-#{prefix} fa-#{name} "
     c += " fa-#{size}" if size
     c += " fa-fw" if fw
-    content_tag(:i, "", class: c) + text
+    content_tag(:i, "", class: c, aria: {hidden: true}) + text
   end
 end

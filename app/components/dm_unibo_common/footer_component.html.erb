@@ -1,12 +1,3 @@
-<div id="footer" role="navigation" style="border-top: 2px solid #ddd" class="mt-5">
-  <div class="container my-3 text-body-secondary" style="text-align: center">
-    <div class="">
-      <div>
-        &mdash; <strong><%= main_organization %></strong> &mdash;
-      </div>
-    </div>
-
-    <div class="mt-2">
       <% if @contacts_path %>  
         <%= link_to dm_icon("envelope", text: "Contatti", size: :xl), @contacts_path, class: "mx-2" %> 
       <% elsif @contact_mail %>
@@ -21,3 +12,36 @@
     </div>
   </div>
 </div>
+
+<footer class="footer-wrapper text-white bg-primary mt-auto">
+  <div class="container pt-5">
+    <div class="footer-box p-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-start gap-3">
+            <%= dm_icon :headset, size: "2xl" %>
+            <i class="bi bi-headset display-5 lh-1" aria-hidden="true"></i>
+            <div>
+              <div class="mb-1">
+                <h6 class="fw-bold d-inline mb-0">Per assistenza o errori durante l'accesso al servizio</h6>
+                <span> &ndash; Rivolgersi a: CeSIA - Settore Sistemi e middleware - Ufficio Unità specialistica Sistemi</span>
+              </div>
+              <ul class="list-unstyled d-flex flex-column flex-sm-row column-gap-4 row-gap-1 mb-1">
+                <li><strong>E-mail:</strong> <a href="mailto:assistenza.hpc@unibo.it" class="text-white">assistenza.hpc@unibo.it</a></li>
+                <li><strong>Tel:</strong> <a href="tel:+390512091234" class="text-white">+39 051.20.91234</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright pt-3 mt-3 text-center small">
+        <span>&copy;</span>
+        <script>document.write(new Date().getFullYear())</script>
+        - ALMA MATER STUDIORUM - Università di Bologna - Via Zamboni, 33 - 40126 Bologna - Partita IVA: 01131710376 - CF: 80007010376
+        <span>
+          - <a class="text-light" href="http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali">Informativa sulla Privacy</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
