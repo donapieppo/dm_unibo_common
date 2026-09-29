@@ -1,18 +1,3 @@
-      <% if @contacts_path %>  
-        <%= link_to dm_icon("envelope", text: "Contatti", size: :xl), @contacts_path, class: "mx-2" %> 
-      <% elsif @contact_mail %>
-        <%= mail_to @contact_mail, dm_icon("envelope", text: "Contatti", size: :xl), class: "mx-2" %> 
-      <% end %>
-
-      <% if @documentation_path %>
-        <%= link_to dm_icon("book", text: "Istruzioni", size: :xl), @documentation_path, class: "mx-2" %>
-      <% end %>
-
-      <%= link_to dm_icon("eye", text: "Privacy", size: :xl), @privacy_url, class: "mx-2" %>
-    </div>
-  </div>
-</div>
-
 <footer class="footer-wrapper text-white bg-primary mt-auto">
   <div class="container pt-5">
     <div class="footer-box p-4">
@@ -24,11 +9,11 @@
             <div>
               <div class="mb-1">
                 <h6 class="fw-bold d-inline mb-0">Per assistenza o errori durante l'accesso al servizio</h6>
-                <span> &ndash; Rivolgersi a: CeSIA - Settore Sistemi e middleware - Ufficio Unità specialistica Sistemi</span>
+                <span> &ndash; <%= @contact_description %></span>
               </div>
               <ul class="list-unstyled d-flex flex-column flex-sm-row column-gap-4 row-gap-1 mb-1">
-                <li><strong>E-mail:</strong> <a href="mailto:assistenza.hpc@unibo.it" class="text-white">assistenza.hpc@unibo.it</a></li>
-                <li><strong>Tel:</strong> <a href="tel:+390512091234" class="text-white">+39 051.20.91234</a></li>
+                <li><strong>E-mail:</strong> <a href="mailto:<%= @contact_mail %>" class="text-white"><%= @contact_mail %></a></li>
+                <li><strong>Tel:</strong> <a href="tel:<%= @contact_tel %>" class="text-white"><%= @contact_tel %></a></li>
               </ul>
             </div>
           </div>

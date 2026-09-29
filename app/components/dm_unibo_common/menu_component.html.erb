@@ -31,13 +31,13 @@
   </span>
 </header>
 
-<nav aria-label="Navigazione principale HPC" class="navbar navbar-light navbar-expand-md bg-white shadow-sm px-2 px-md-4" id="mainmenu">
-  <div class="container-fluid">
-    <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuLinksHpc" aria-controls="mainMenuLinksHpc" aria-expanded="false" aria-label="Apri il menu principale">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<% if @sso_user_upn %>
+  <nav aria-label="Navigazione principale HPC" class="navbar navbar-light navbar-expand-md bg-white shadow-sm px-2 px-md-4" id="mainmenu">
+    <div class="container-fluid">
+      <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuLinksHpc" aria-controls="mainMenuLinksHpc" aria-expanded="false" aria-label="Apri il menu principale">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <% if @sso_user_upn %>
       <div class="d-flex align-items-center order-0 order-sm-1">
         <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="bi bi-person-fill"></i> <span class="d-none d-sm-inline"><%= @sso_user_upn %></span>
@@ -57,17 +57,17 @@
           </li>
         </ul>
       </div>
-    <% end %>
 
-    <div class="collapse navbar-collapse" id="mainMenuLinksHpc">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <%= content %>
-      </ul>
+      <div class="collapse navbar-collapse" id="mainMenuLinksHpc">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <%= content %>
+        </ul>
 
-      <% if @search_component %>  
-        <%= render @search_component %>  
-      <% end %>
+        <% if @search_component %>  
+          <%= render @search_component %>  
+        <% end %>
 
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+<% end %>
