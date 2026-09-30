@@ -229,6 +229,8 @@ module DmUniboCommon
 
       reset_session
       session[:user_id] = user.id
+      # see app/controllers/concerns/dm_unibo_common/concerns.rb#set_current_user
+      session[:authenticated_at] = Time.current.to_i
       session[:original_unlogged_request] = original_request if original_request
       redirect_to original_request || main_app.root_path
     end
