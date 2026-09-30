@@ -6,7 +6,7 @@ if Rails.configuration.unibo_common.sentry_dsn
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
 
     # FIX Bugsink only ingests events (errors) and minidumps
-    config.enable_logs = false
+    config.rails.structured_logging.enabled = false
     # NO
     # config.level = :warning
 
