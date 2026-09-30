@@ -47,6 +47,12 @@ module DmUniboCommon::CurrentUser
     @_authorization
   end
 
+  def current_organization_authlevel
+    if current_organization
+      @_authorization&.authlevel(current_organization)
+    end
+  end
+
   # FIXME
   # to refactor. current_user has @_authorization
   # and reload_authlevels_cache! reloads caches for all

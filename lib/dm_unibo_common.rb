@@ -12,10 +12,14 @@ require "view_component"
 require "turbo-rails"
 require "stimulus-rails"
 require "simple_form"
-require "sprockets/railtie"
 require "bcrypt"
 # require "lograge"
-# require "propshaft/railtie"
+
+# Propshaft is an engine dependency, but it must be loaded for a host
+# application that does not list Propshaft directly in its Gemfile. Load its
+# public entrypoint: requiring `propshaft/railtie` directly skips the module
+# definition required by Propshaft internals.
+require "propshaft"
 
 # self
 require "dm_unibo_common/errors"

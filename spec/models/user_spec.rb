@@ -1,17 +1,16 @@
 require "rails_helper"
 
+# see spec/dummy/config/unibo_common.yml
 RSpec.describe User, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:thing) { FactoryBot.create(:thing, user_id: user.id) }
-
-  Rails.configuration.unibo_common.superusers = ["uno@uno.com", "nome.cognome2222@unibo.it"]
 
   it ".is_cesia? is false if CESIA does not include user.upn" do
     expect(user.is_cesia?).not_to be
   end
 
   it ".is_cesia? is true if CESIA does include user.upn" do
-    user.upn = "nome.cognome2222@unibo.it"
+    user.upn = "pietro.donatini@unibo.it"
     expect(user.is_cesia?).to be
   end
 
@@ -33,7 +32,7 @@ RSpec.describe User, type: :model do
   it ".owns(book) with user has_and_belongs_to_many books" do
   end
 
-  describe ".extract_field_and_value" do
+  describe ".extract_query_field_and_value" do
     let(:original_domain) { Rails.configuration.unibo_common.domain }
 
     before do
@@ -45,16 +44,16 @@ RSpec.describe User, type: :model do
     end
 
     it "returns the id tuple when given a numeric string" do
-      expect(User.send(:extract_field_and_value, "12345")).to eq([:id, 12345])
+      expect(User.send(:extract_query_field_and_value, "12345")).to eq([:id, 12345])
     end
 
     it "builds the upn when only the username is provided" do
-      expect(User.send(:extract_field_and_value, "pippo")).to eq([:upn, "pippo@unibo.it"])
+      expect(User.send(:extract_query_field_and_value, "pippo")).to eq([:upn, "pippo@unibo.it"])
     end
 
     it "extracts the email from a label that contains a mail address" do
       composite_value = "Pietro Donatini (pietro.donatini@unibo.it)"
-      expect(User.send(:extract_field_and_value, composite_value)).to eq([:upn, "pietro.donatini@unibo.it"])
+      expect(User.send(:extract_query_field_and_value, composite_value)).to eq([:upn, "pietro.donatini@unibo.it"])
     end
   end
 end

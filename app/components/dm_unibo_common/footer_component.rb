@@ -8,5 +8,6 @@ class DmUniboCommon::FooterComponent < ViewComponent::Base
     @documentation_path = documentation_path
     @contact_mail = contact_mail
     @contacts_path = contacts_path
+    @privacy_url = Rails.configuration.unibo_common.privacy_url || "http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali"
   end
 end

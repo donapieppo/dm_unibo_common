@@ -26,9 +26,26 @@ module DmUniboCommon
     end
 
     def set_current_user
-      if request.session[:user_id]
-        @_current_user = ::User.find(request.session[:user_id])
+      user_id = request.session[:user_id]
+ 
+      # check expired only if session :user_id present
+      return unless user_id
+
+      if session_expired?
+        request.session.delete(:user_id)
+        request.session.delete(:authenticated_at)
+        return
       end
+
+      @_current_user = ::User.find(user_id)
+    end
+
+    def session_expired?
+      authenticated_at = session[:authenticated_at].to_i
+      return true if authenticated_at.zero?
+
+      # 2.weeks.to_i
+      Time.current.to_i - authenticated_at >= 1_209_600
     end
 
     # to separate from set_current_user because of impersonation (Pretender gem)
@@ -61,11 +78,7 @@ module DmUniboCommon
       if !current_user
         logger.info("force_sso_user: no current_user")
         session[:original_unlogged_request] = request.fullpath
-        if Rails.configuration.unibo_common.omniauth_provider == :shibboleth
-          redirect_to dm_unibo_common.auth_shibboleth_callback_path and return
-        else
-          redirect_to main_app.home_path and return
-        end
+        redirect_to main_app.home_path and return
       end
     end
 
@@ -89,7 +102,6 @@ module DmUniboCommon
     # ?__org__=mat
     # /mat/seminars
     # if not params[:__org__] consider the first possible organization of current_user
-    # Remember: without current user we may be in shibboleth redirect
     def set_current_organization
       if params.has_key?(:__org__)
         code = params[:__org__].to_s.strip

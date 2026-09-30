@@ -29,4 +29,26 @@ RSpec.describe DmUniboCommon::CurrentUser, type: :model do
     expect(current_user.current_organization = org1).to be
     expect(current_user.current_organization).to eq(org1)
   end
+
+  context 'with authorization and current_organization' do
+    let!(:permission) { FactoryBot.create(:permission, user: current_user, organization: org1, authlevel: 2) }
+
+    it '.current_organization_authlevel returns the authlevel value' do
+      current_user.update_authorization_by_ip('127.0.0.1')
+      current_user.current_organization = org1
+      expect(current_user.current_organization_authlevel).to eq(2)
+    end
+
+    it '.current_organization_authlevel returns nil when permission is not for org1' do
+      current_user.update_authorization_by_ip('127.0.0.1')
+      current_user.current_organization = org2
+      expect(current_user.current_organization_authlevel).not_to be
+    end
+
+    it '.current_organization_authlevel returns nil when no authorization and current_organization' do
+      expect(current_user.current_organization_authlevel).not_to be
+      current_user.current_organization = org1
+      expect(current_user.current_organization_authlevel).not_to be
+    end
+  end
 end

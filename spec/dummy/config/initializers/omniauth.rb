@@ -1,4 +1,3 @@
-require "omniauth-shibboleth"
 require "dm_unibo_common/omniauth/strategies/test"
 
 Rails.application.config.middleware.use OmniAuth::Builder do
