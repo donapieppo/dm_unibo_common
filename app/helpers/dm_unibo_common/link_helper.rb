@@ -27,11 +27,11 @@ module DmUniboCommon::LinkHelper
   end
 
   def link_to_edit(name, url, button: false)
-    link_to dm_icon("edit", text: name, fw: true), url, title: "Inserisci/modifica dati", class: (button ? "button " : "")
+    link_to dm_icon("edit", text: name, fw: true), url, title: "Inserisci/modifica dati", class: (button ? "btn btn-primary " : "")
   end
 
   def link_to_new(name, url, button: true)
-    link_to dm_icon("plus-circle", text: name, fw: true), url, class: (button ? "button " : "")
+    link_to dm_icon("plus", text: name, fw: true), url, class: (button ? "btn btn-primary " : "")
   end
 
   def support_mail_link
