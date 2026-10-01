@@ -6,6 +6,7 @@
     Vai al menu di navigazione
   </a>
 </div>
+
 <header class="d-flex align-items-end align-items-sm-center justify-content-between position-relative shadow-sm bg-primary text-white px-3">
   <div class="d-flex align-items-center">
     <!-- Logo per schermi extra small (mobile) -->
@@ -16,8 +17,8 @@
     <!-- Titolo (mobile) -->
     <span class="h3 d-sm-none mx-2">
       <%= @header_title %>
-      <% if @beta %>
-        <span class="badge bg-white text-primary hpc-badge-beta">Beta</span>
+      <% if @tag %>
+        <span class="badge bg-white text-primary hpc-badge-beta"><%= @tag %></span>
       <% end %>
     </span>
   </div>
@@ -25,13 +26,14 @@
   <!-- Titolo centrato (desktop) -->
   <span class="h2 position-absolute start-50 translate-middle-x d-none d-sm-block">
     <%= @header_title %>
-    <% if @beta %>
-      <span class="badge bg-white text-primary hpc-badge-beta fs-6">Beta</span>
+    <% if @tag %>
+      <span class="badge bg-white text-primary hpc-badge-beta fs-6"><%= @tag %></span>
     <% end %>
   </span>
 </header>
 
 <% if @sso_user_upn %>
+
   <nav aria-label="Navigazione principale HPC" class="navbar navbar-light navbar-expand-md bg-white shadow-sm px-2 px-md-4" id="mainmenu">
     <div class="container-fluid">
       <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenuLinksHpc" aria-controls="mainMenuLinksHpc" aria-expanded="false" aria-label="Apri il menu principale">
@@ -44,12 +46,6 @@
           <span class="visually-hidden">Menu utente <%= @sso_user_upn %></span>
         </a>
         <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="userMenu">
-          <li>
-            <h2 class="dropdown-header fs-6">Stai impersonando</h2>
-            <div class="dropdown-item-text">fittizio.studente@studio.unibo.it</div>
-          </li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#"><i aria-hidden="true" class="bi bi-person-x-fill"></i> Termina impersonamento</a></li>
           <li>
             <%= link_to dm_unibo_common.logout_path, data: {turbo: false}, class: "dropdown-item text-danger" do %>
               <%= dm_icon("sign-out", text: "Logout") %>

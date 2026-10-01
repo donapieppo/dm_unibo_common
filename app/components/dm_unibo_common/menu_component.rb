@@ -6,21 +6,19 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
   def initialize(
     sso_user_upn,
     current_organization: nil,
-    header_title: Rails.configuration.unibo_common.header_title,
-    header_subtitle: Rails.configuration.unibo_common.header_subtitle,
     search_component: nil,
-    beta: false
+    tag: false
   )
     @sso_user_upn = sso_user_upn
     @current_organization = current_organization
-    @header_title = header_title
-    @header_subtitle = if current_organization && !header_subtitle
+    @header_title = Rails.configuration.unibo_common.header_title
+    @header_subtitle = if current_organization && !Rails.configuration.unibo_common.header_subtitle
       current_organization.description
     else
-      header_subtitle
+      Rails.configuration.unibo_common.header_subtitle
     end
     @search_component = search_component
-    @beta = beta
+    @tag = tag
   end
 
   def main_root_path
