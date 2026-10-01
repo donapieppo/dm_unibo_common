@@ -1,0 +1,131 @@
+@import "dm_unibo_common/scss/hpc_theme-jvsS2w8";
+
+nav[aria-label=breadcrumb] > ol > li {
+  @extend .breadcrumb-item;
+}
+
+ul.navbar-nav > li {
+  @extend .nav-item;
+}
+
+.navbar-nav > li > a {
+  @extend .navbar-brand;
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .fs-6;
+  @extend .unibo-menu-border-top;
+  @extend .unibo-menu-border-start;
+  @extend .ps-md-2;
+  @extend .py-3;
+  @extend .py-md-1;
+
+  svg {
+    @extend .ms-2;
+    @extend .me-1;
+    @extend .me-md-2;
+  }
+}
+.simple_form {
+  @extend .hpc-form;
+}
+
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+} 
+.simple_form input[type="submit"] {
+  @extend .offset-sm-3;
+}
+.simple_form label {
+  font-weight: bold;
+  @extend .text-start;
+  @extend .text-sm-end;
+}
+input.decimal {
+  width: 8em;
+}
+input.integer {
+  width: 8em;
+}
+select.hour {
+  width: 5em;
+}
+input.date {
+  width: auto;
+}
+label.collection_check_boxes {
+  @extend .ms-1;
+}
+
+ button {
+    appearance: none;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+  }
+
+.dm-card2 {
+  @extend .card;
+  @extend .my-3;
+}
+.dm-card2-title, .dm-card2-header {
+  @extend .card-body;
+  font-weight: bold;
+  padding-bottom: 0;
+}
+.dm-card2-body {
+  @extend .card-body;
+}
+.dm-card2-footer {
+  @extend .card-footer;
+}
+
+ul > li { list-style-type: none; }
+ul.all_clickable {
+  @extend .list-group;
+  @extend .list-group-item-action;
+  a {
+    @extend .list-group-item;
+    @extend .list-group-item-action;
+    span { @extend .float-end; }
+  }
+}
+ul.bordered {
+  @extend .list-group;
+  li { @extend .list-group-item; }
+}
+span.actions {
+  @extend .float-end;
+}
+
+dl.dl-horizontal {
+  @extend .row;
+  dt {
+    @extend .col-sm-3;
+    text-align: right;
+  }
+  dd {
+    @extend .col-sm-9;
+    @extend .mb-0;
+  }
+  dd + dd {
+    @extend .offset-sm-3;
+  }
+  @media (max-width: 576px) {
+    dt {
+      text-align: left;
+    }
+  }
+}
+
+.hover-color-card:hover {
+  background-color: var(--bs-secondary-bg); 
+}
+
+.very-small {
+  font-size: 75%;
+}
