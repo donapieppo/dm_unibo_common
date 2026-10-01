@@ -1,13 +1,13 @@
-<div class="dm-card2 <%= @css_class %>">
+<div class="dm-card <%= @css_class %>">
   <% if @icon || !@title.blank? %>
-    <div class="dm-card2-title">
+    <div class="dm-card-title">
       <% if @icon %>
         <span class="text-info pe-1"><%= dm_icon(@icon) %></span>
       <% end %>
       <%= @title %>
     </div>
   <% end %>
-  <div class="dm-card2-body">
+  <div class="dm-card-body">
     <%= content %>
   </div>
 </div>
