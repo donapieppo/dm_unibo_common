@@ -1,4 +1,15 @@
 module DmUniboCommon::MenuHelper
+  def active_class_for(target_controller, target_action = nil)
+    c = "navbar-brand d-flex align-items-center fs-6 unibo-menu-border-top unibo-menu-border-start ps-md-2 py-3 py-md-1"
+    if controller_name.to_sym == target_controller
+      if !target_action || (target_action && action_name.to_sym == target_action)
+        {class: "#{c} active"}
+      end
+    else
+      {class: c}
+    end
+  end
+
   def login_link_title
     content_tag :h3, class: "my-3" do
       if !Rails.configuration.unibo_common.login_link_title.blank?
