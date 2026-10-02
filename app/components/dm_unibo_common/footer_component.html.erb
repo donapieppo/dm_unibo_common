@@ -12,8 +12,12 @@
                 <span> &ndash; <%= @contact_description %></span>
               </div>
               <ul class="list-unstyled d-flex flex-column flex-sm-row column-gap-4 row-gap-1 mb-1">
-                <li><strong>E-mail:</strong> <a href="mailto:<%= @contact_mail %>" class="text-white"><%= @contact_mail %></a></li>
-                <li><strong>Tel:</strong> <a href="tel:<%= @contact_tel %>" class="text-white"><%= @contact_tel %></a></li>
+                <% unless @contact_mail.blank? %>
+                  <li><strong>E-mail:</strong> <a href="mailto:<%= @contact_mail %>" class="text-white"><%= @contact_mail %></a></li>
+                <% end %>
+                <% unless @contact_tel.blank? %>
+                  <li><strong>Tel:</strong> <a href="tel:<%= @contact_tel %>" class="text-white"><%= @contact_tel %></a></li>
+                <% end %>
               </ul>
             </div>
           </div>
@@ -21,10 +25,10 @@
       </div>
       <div class="copyright pt-3 mt-3 text-center small">
         <span>&copy;</span> <%= Time.current.year %>
-          - ALMA MATER STUDIORUM - Università di Bologna - Via Zamboni, 33 - 40126 Bologna - Partita IVA: 01131710376 - CF: 80007010376
-        <span>
-          - <a class="text-light" href="http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali">Informativa sulla Privacy</a>
-        </span>
+      - ALMA MATER STUDIORUM - Università di Bologna - Via Zamboni, 33 - 40126 Bologna - Partita IVA: 01131710376 - CF: 80007010376
+      <span>
+        - <a class="text-light" href="http://www.unibo.it/it/ateneo/privacy-e-note-legali/privacy/informative-sul-trattamento-dei-dati-personali">Informativa sulla Privacy</a>
+      </span>
       </div>
     </div>
   </div>
