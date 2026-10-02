@@ -74,8 +74,8 @@ label.collection_check_boxes {
 }
 .dm-card-title, .dm-card-header {
   @extend .card-body;
+  @extend .text-primary;
   font-weight: bold;
-  padding-bottom: 0;
 }
 .dm-card-body {
   @extend .card-body;
@@ -128,4 +128,7 @@ dl.dl-horizontal {
 
 .very-small {
   font-size: 75%;
+}
+ul.dropdown-menu > li > a {
+  @extend .dropdown-item;
 }
