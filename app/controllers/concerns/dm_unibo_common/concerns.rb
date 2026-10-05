@@ -74,9 +74,15 @@ module DmUniboCommon
     # actually: shibboleth (for unibo) and google_oauth2
     # Use in app/controllers/application_controller.rb like
     # before_filter :log_current_user, :force_sso_user
+    # In HomeController use
+    # skip_before_action :force_sso_user, only: :index
     def force_sso_user
+      # The main application's public landing page must remain reachable so an
+      # unauthenticated visitor can start the SSO flow.
+      return if controller_path == "home" && action_name == "index"
+
       if !current_user
-        logger.info("force_sso_user: no current_user")
+        logger.info("force_sso_user: no current_user: redirect to home_path")
         session[:original_unlogged_request] = request.fullpath
         redirect_to main_app.home_path and return
       end
