@@ -2,22 +2,24 @@ test:
  superusers: ["pietro.donatini@unibo.it"]
  omniauth_provider: :developer
  searchable_provider: true
- host: locahost
- domanin: example.com
+ host: "locahost"
+ domanin: "example.com"
  smtp_unibo: false
- smtp_address: test.example.com
- smtp_domain: example.com
- support_mail: supportoweb@example.com
- domain_name: unibo.it
- html_title: TestDummy spec App - Università di Bologna
- html_description: Test spec for dm_unibo_common
- header_title: TestDummy
- header_subtitle: spec for dm_unibo_common
- header_icon: dumpster
- contact_mail: dipmat-gemma@unibo.it
- default_from: Pippo <pippo.123@unibo.it>
- reply_to: dipmat-gemma@unibo.it
+ smtp_address: "test.example.com"
+ smtp_domain: "example.com"
+ support_mail: "supportoweb@example.com"
+ domain_name: "unibo.it"
+ html_title: "TestDummy spec App - Università di Bologna"
+ html_description: "Test spec for dm_unibo_common"
+ header_title: "TestDummy"
+ header_subtitle: "spec for dm_unibo_common"
+ header_icon: "dumpster"
+ default_from: "Pippo <pippo.123@unibo.it>"
+ reply_to: "dipmat-gemma@unibo.it"
  login_method: :allow_if_email
+ contact_mail: "dipmat-gemma@unibo.it"
+ contact_tel: "+39 051.20.91234"
+ contact_description: "CeSIA - Settore Sistemi e middleware - Ufficio Unità specialistica Sistemi"
  no_students: true
  privacy_url: "https://www.example.it/it/privacy-cookie-policy"
  message_footer: ""

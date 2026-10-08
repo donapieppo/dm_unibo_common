@@ -10,9 +10,13 @@
 <header class="d-flex align-items-end align-items-sm-center justify-content-between position-relative shadow-sm bg-primary text-white px-3">
   <div class="d-flex align-items-center">
     <!-- Logo per schermi extra small (mobile) -->
-    <%= image_tag sigil_vertical, height: 75, alt: "Logo Università di Bologna", class: "d-block d-lg-none my-2 mx-sm-2" %>
+    <% if Rails.root.join("app/assets/images", sigil_vertical).exist? %>
+      <%= image_tag sigil_vertical, height: 75, alt: "Logo Università di Bologna", class: "d-block d-lg-none my-2 mx-sm-2" %>
+    <% end %>
     <!-- Logo per schermi small (tablet) e superiori -->
-    <%= image_tag sigil_horizontal, height: 50, alt: "Logo Università di Bologna", class: "my-2 d-none d-lg-block mx-2 px-3" %>
+    <% if Rails.root.join("app/assets/images", sigil_horizontal).exist? %>
+      <%= image_tag sigil_horizontal, height: 50, alt: "Logo Università di Bologna", class: "my-2 d-none d-lg-block mx-2 px-3" %>
+    <% end %>
 
     <!-- Titolo (mobile) -->
     <span class="h3 d-sm-none mx-2">

@@ -9,6 +9,7 @@ RSpec.describe HomeController, type: :controller do
 
   before(:each) do
     request.session[:user_id] = current_user.id
+    request.session[:authenticated_at] = Time.current.to_i
   end
 
   it "correct response for index" do
@@ -16,9 +17,17 @@ RSpec.describe HomeController, type: :controller do
     expect(response.body).to match(/<h1>Hello test/)
   end
 
+  it "allows an unsigned user to reach index" do
+    request.session[:user_id] = nil
+
+    get :index
+
+    expect(response).to have_http_status(:ok)
+  end
+
   # in spec/dummy/app/controllers/application_controller.rb
   # before_action :set_current_user, :update_authorization, :set_current_organization, :log_current_user, :redirect_unsigned_user
-  it "show_if_current_organization with no current_user redirects_to root" do
+  it "show_if_current_organization with no current_user redirects_to home" do
     request.session[:user_id] = nil
     get :show_if_current_organization, params: {__org__: org2.code}
     expect(response).to redirect_to(home_path)
@@ -32,14 +41,14 @@ RSpec.describe HomeController, type: :controller do
 
   it "show_if_current_organization redirects when policy missing" do
     get :show_if_current_organization, params: {__org__: org2.code}
-    expect(response).to redirect_to(home_path)
+    expect(response).to redirect_to("/")
     expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 
   it "show_if_current_organization redirects with wrong organization" do
     FactoryBot.create(:permission, user: current_user, organization: org1, authlevel: 1)
     get :show_if_current_organization, params: {__org__: org2.code}
-    expect(response).to redirect_to(root_path)
+    expect(response).to redirect_to("/")
     expect(flash[:alert]).to eq("Non siete abilitati ad accedere alla pagina.")
   end
 

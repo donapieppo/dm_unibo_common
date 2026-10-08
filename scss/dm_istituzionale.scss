@@ -79,6 +79,7 @@ label.collection_check_boxes {
 }
 .dm-card-body {
   @extend .card-body;
+  padding-top: 0.5rem;
 }
 .dm-card-footer {
   @extend .card-footer;
