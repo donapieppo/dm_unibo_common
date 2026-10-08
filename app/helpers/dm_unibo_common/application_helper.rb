@@ -44,12 +44,16 @@ module DmUniboCommon::ApplicationHelper
   end
 
   def dm_card(title: "", add_class: "")
-    content_tag :div, class: "dm-card #{add_class}" do
-      content_tag(:div, title, class: "dm-card-title") +
-        content_tag(:div, class: "dm-card-body") do
-          yield
-        end
+    render DmUniboCommon::CardComponent.new(title: title) do
+      yield
     end
+
+    # content_tag :div, class: "dm-card #{add_class}" do
+    #   content_tag(:div, title, class: "dm-card-title") +
+    #     content_tag(:div, class: "dm-card-body") do
+    #       yield
+    #     end
+    # end
   end
 
   def mail_to_contact
