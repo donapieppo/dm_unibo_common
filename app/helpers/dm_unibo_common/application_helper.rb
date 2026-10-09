@@ -13,7 +13,8 @@ module DmUniboCommon::ApplicationHelper
   # MMMM todo but I'am not sure. The app needs a login even if shibboleth user already logged
   def sso_user_upn
     # request.env["HTTP_EPPN"] || (current_user&.upn) || (current_user&.email)
-    current_user&.upn || current_user&.email
+    # current_user&.upn || current_user&.email
+    current_user&.cn || current_user&.email
   end
 
   def popover_help(title, content)
