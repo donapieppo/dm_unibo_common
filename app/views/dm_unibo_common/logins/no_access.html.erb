@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
   <%= render DmUniboCommon::HeaderComponent.new %>
-  <body>
-    <%= render DmUniboCommon::MenuComponent.new(sso_user_upn) do %>  
-    <% end %> 
+  <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+    <%= render partial: 'layouts/menu' %>
 
-    <div class="container">
+    <main id="content" class="container my-4 my-md-5">
       <div class="alert alert-danger">
-        <h1>Il servizio non è accessibile con le sue credenziali</h1>
+        <h1 class="fs-2">Il servizio non è accessibile con le sue credenziali</h1>
 
         <p>
-        L'autenticazione è andata a buon fine <strong>(le credenziali istituzionali inserite sono corrette)</strong><br/>
+        L'autenticazione è andata a buon fine <strong>(le credenziali istituzionali inserite sono corrette)</strong>
         ma non si dispone di sufficienti diritti per accedere all'applicazione.
         </p>
         <p>
         Contattare <%= support_mail_link %> per richiedere l'abilitazione.
         </p>
       </div>
-    </div>
+    </main>
+
+    <%= render DmUniboCommon::FooterComponent.new(current_user, documentation_path: (current_user ? helps_path : nil)) %>  
   </body>
 </html>
+
