@@ -1,7 +1,7 @@
 module SimpleForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     def dm_error_notification(options = {})
-      options[:message] = self.object.errors[:base].first if self.object.errors[:base].any?
+      options[:message] = object.errors[:base].first if object.errors[:base].any?
       SimpleForm::ErrorNotification.new(self, options).render
     end
   end
@@ -15,11 +15,8 @@ module DmUniboCommon::FormHelper
 
   def dm_form_for(record, options = {}, &block)
     title = options.delete(:title) || @dm_form_title || dm_form_default_title(record)
-    content_tag :div, class: "dm-card" do
-      concat(content_tag(:div, title, class: "dm-card-title"))
-      concat(content_tag(:div, class: "dm-card-body") do
-        simple_form_for(record, options, &block)
-      end)
+    render DmUniboCommon::CardComponent.new(title: title) do
+      simple_form_for(record, options, &block)
     end
   end
 
