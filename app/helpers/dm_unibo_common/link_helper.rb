@@ -5,10 +5,10 @@ module DmUniboCommon::LinkHelper
 
   def link_to_delete(name, url, button: false, form_class: nil, size: nil, confirm_message: "Siete sicuri di voler cancellare?")
     form_class ||= if button
-          "btn btn-danger"
-        else
-          "d-inline px-0 mx-0"
-        end
+      "btn btn-danger"
+    else
+      "d-inline px-0 mx-0"
+    end
     button_to url,
       method: :delete,
       title: "elimina",
