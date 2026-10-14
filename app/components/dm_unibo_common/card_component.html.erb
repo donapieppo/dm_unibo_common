@@ -1,4 +1,9 @@
-<div class="card border-0 shadow-lg my-4 <%= @css_class %>">
+<div class="card border-0 shadow-lg my-4 position-relative <%= @css_class %>">
+  <% if @help.present? %>
+    <span class="text-primary position-absolute top-0 end-0 m-2" title="<%= @help %>" aria-label="Aiuto: <%= @help %>">
+      <i class="fa-solid fa-circle-question fa-xl" aria-hidden="true"></i>
+    </span>
+  <% end %>
   <div class="card-body">
     <% if @icon || !@title.blank? %>
       <div class="card-title text-primary fw-semibold">
