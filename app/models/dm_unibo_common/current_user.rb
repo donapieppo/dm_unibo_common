@@ -49,7 +49,9 @@ module DmUniboCommon::CurrentUser
 
   def current_organization_authlevel
     if current_organization
-      @_authorization&.authlevel(current_organization)
+      @_authorization&.authlevel(current_organization).to_i
+    else
+      0
     end
   end
 
