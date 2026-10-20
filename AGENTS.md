@@ -1,12 +1,16 @@
 # Repository Guidelines
 
+Common code for unibo rails applications as rails engine.
+Important: provides authentication and authorization base for all projects withj ominiauth
+(mainly for entra id authentication).
+
 ## Project Structure & Module Organization
 - Rails engine code lives in `app/` (controllers, views, components) and `lib/` (engine entrypoint, helpers, generators). Shared assets ship from `js/`, `scss/`, and `public/`.
 - Specs sit under `spec/` with a dummy Rails app in `spec/dummy` for integration-style checks; factories are in `spec/factories`.
 - Built gems land in `pkg/`; documentation and misc notes live in `doc/` and `README.md`.
 
 ## Build, Test, and Development Commands
-- Ruby is available at `/home/dona/.rubies/ruby-3.4.5/bin/ruby`; use `/home/dona/.rubies/ruby-3.4.5/bin/bundle` when `bundle` is not on `PATH`.
+- Ruby is available at `/home/dona/.rubies/ruby-3.4.10/bin/ruby`; use `/home/dona/.rubies/ruby-3.4.10/bin/bundle` when `bundle` is not on `PATH`.
 - `bundle install && npm install` to set up Ruby and JS dependencies for the engine and asset pipeline.
 - `bundle exec rspec` runs the test suite against the dummy app using SQLite and FactoryBot fixtures.
 - `bundle exec rake build` creates the `.gem` package in `pkg/`; `bundle exec rake release` tags and pushes when ready.
