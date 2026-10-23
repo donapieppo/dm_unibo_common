@@ -36,10 +36,10 @@ class DmUniboCommon::MenuComponent < ViewComponent::Base
   end
 
   def sigil_vertical
-    "sigillo_verticale.png"
+    "sigillo_verticale_#{branding_prefix}.png"
   end
 
   def sigil_horizontal
-    "sigillo_orizzontale.png"
+    "sigillo_orizzontale_#{branding_prefix}.png"
   end
 end
