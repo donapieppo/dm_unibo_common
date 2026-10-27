@@ -9,10 +9,17 @@
 
 <header class="d-flex align-items-end align-items-sm-center justify-content-between position-relative shadow-sm bg-primary text-white px-3">
   <div class="d-flex align-items-center">
-    <!-- Logo per schermi extra small (mobile) -->
-    <%= image_tag "/branding/#{sigil_vertical}", height: 75, alt: "Logo #{main_organization_name}", class: "d-block d-lg-none my-2 mx-sm-2" %>
-    <!-- Logo per schermi small (tablet) e superiori -->
-    <%= image_tag "/branding/#{sigil_horizontal}", height: 50, alt: "Logo #{main_organization_name}", class: "my-2 d-none d-lg-block mx-2 px-3" %>
+    <% if Rails.configuration.unibo_common.header_icon %>
+      <div class="py-1">
+        <%= dm_icon Rails.configuration.unibo_common.header_icon, size: "2xl" %><br/>
+        <%= Rails.configuration.unibo_common.header_subtitle %>
+      </div>
+    <% else %>
+      <!-- Logo per schermi extra small (mobile) -->
+      <%= image_tag "/branding/#{sigil_vertical}", height: 75, alt: "Logo #{main_organization_name}", class: "d-block d-lg-none my-2 mx-sm-2" %>
+      <!-- Logo per schermi small (tablet) e superiori -->
+      <%= image_tag "/branding/#{sigil_horizontal}", height: 50, alt: "Logo #{main_organization_name}", class: "my-2 d-none d-lg-block mx-2 px-3" %>
+    <% end %>
 
     <!-- Titolo (mobile) -->
     <span class="h3 d-sm-none mx-2">
