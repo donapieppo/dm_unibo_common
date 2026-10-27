@@ -33,14 +33,14 @@ RSpec.describe User, type: :model do
   end
 
   describe ".extract_query_field_and_value" do
-    let(:original_domain) { Rails.configuration.unibo_common.domain }
+    let(:original_domain) { Rails.configuration.unibo_common.domain_name }
 
     before do
-      Rails.configuration.unibo_common.domain = "unibo.it"
+      Rails.configuration.unibo_common.domain_name = "unibo.it"
     end
 
     after do
-      Rails.configuration.unibo_common.domain = original_domain
+      Rails.configuration.unibo_common.domain_name = original_domain
     end
 
     it "returns the id tuple when given a numeric string" do

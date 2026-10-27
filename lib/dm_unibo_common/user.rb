@@ -188,7 +188,7 @@ module DmUniboCommon::User
         if email_match
           sanitized_value = email_match[0]
         elsif sanitized_value.match?(/\A[A-Z0-9._+\-]+\z/i)
-          sanitized_value = "#{sanitized_value}@#{Rails.configuration.unibo_common.domain}"
+          sanitized_value = "#{sanitized_value}@#{Rails.configuration.unibo_common.domain_name}"
         else
           raise DmUniboCommon::NoUser
         end

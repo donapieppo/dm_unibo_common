@@ -96,7 +96,7 @@ module DmUniboCommon
       ENV["FAKER_URL"].to_s.length > 10 or raise "NO FAKER"
       check_faker_password!(params[:f]) or raise "NO FAKER"
       Rails.logger.info("FAKER")
-      faker_user_upn = "f.for.faker@#{Rails.configuration.unibo_common.domain}"
+      faker_user_upn = "f.for.faker@#{Rails.configuration.unibo_common.domain_name}"
       faker_user = ::User.find_or_create_by(upn: faker_user_upn) do |u|
         u.name = "F"
         u.surname = "For Fake"
