@@ -10,7 +10,7 @@
 <header class="d-flex align-items-end align-items-sm-center justify-content-between position-relative shadow-sm bg-primary text-white px-3">
   <div class="d-flex align-items-center">
     <% if Rails.configuration.unibo_common.header_icon %>
-      <%= link_to root_path, class: "py-1" do %>
+      <%= link_to root_path, class: "py-1 text-white" do %>
         <%= dm_icon Rails.configuration.unibo_common.header_icon, size: "2xl" %><br/>
         <%= Rails.configuration.unibo_common.header_subtitle %>
       <% end %>
