@@ -160,6 +160,21 @@ module DmUniboCommon
       current_user_cesia? or raise DmUniboCommon::NoAccess
     end
 
+    # attach current_user and current_organization to every Sentry event
+    def set_sentry_context
+      return unless defined?(Sentry) && Sentry.initialized?
+
+      if current_user
+        Sentry.set_user(id: current_user.upn, username: current_user.cn, email: current_user.mail)
+        Sentry.set_tags(user: current_user.upn)
+      end
+
+      # already in url
+      # if current_organization
+      #   Sentry.set_tags(organization: current_organization.code)
+      # end
+    end
+
     private
 
     def modal_frame_name
