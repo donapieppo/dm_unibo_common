@@ -64,4 +64,8 @@ module DmUniboCommon::ApplicationHelper
   def auth_callback_path
     dm_unibo_common.send(:"auth_#{Rails.configuration.unibo_common.omniauth_provider}_callback_path")
   end
+
+  def branding_prefix
+    @@dm_unibo_common_branding_prefix ||= Rails.configuration.unibo_common.domain_name.split('.')[0]
+  end
 end

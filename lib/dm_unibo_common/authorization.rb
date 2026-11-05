@@ -124,7 +124,7 @@ module DmUniboCommon::Authorization
   # in organization prendiamo quella più alta ordinando
   def update_authlevels_cache(k)
     # reset cache every 30 minutes
-    if (Time.now - @@authlevels_cache_last_change) > 1800
+    if (Time.now - @@authlevels_cache_last_change) > 600
       @@authlevels_cache = Hash.new { |h, k| h[k] = {} }
       @@authlevels_cache_last_change = Time.now
     end
