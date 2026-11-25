@@ -9,6 +9,7 @@ RSpec.describe DmUniboCommon::UsersController, type: :controller do
   describe "GET #index" do
     it "allows a CESIA user" do
       request.session[:user_id] = cesia_user.id
+      request.session[:authenticated_at] = Time.current.to_i
 
       get :index
 
@@ -17,6 +18,7 @@ RSpec.describe DmUniboCommon::UsersController, type: :controller do
 
     it "rejects a non-CESIA user" do
       request.session[:user_id] = regular_user.id
+      request.session[:authenticated_at] = Time.current.to_i
 
       expect { get :index }.to raise_error(DmUniboCommon::NoAccess)
     end
@@ -31,6 +33,7 @@ RSpec.describe DmUniboCommon::UsersController, type: :controller do
   describe "POST #create" do
     it "synchronizes a user when requested by a CESIA user" do
       request.session[:user_id] = cesia_user.id
+      request.session[:authenticated_at] = Time.current.to_i
       allow(::User).to receive(:syncronize).with("new.user@unibo.it")
 
       post :create, params: {upn: "new.user@unibo.it"}
