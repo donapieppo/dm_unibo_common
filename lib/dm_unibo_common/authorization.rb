@@ -24,7 +24,7 @@ module DmUniboCommon::Authorization
   def initialize(client_ip, user)
     @user = user
     @client_ip = client_ip
-    @is_cesia = Rails.configuration.unibo_common.superusers.include?(@user.upn)
+    @is_cesia = @user.is_cesia?
     @authlevels_cache_key = "#{user.id}:#{client_ip}"
 
     update_authlevels_cache(@authlevels_cache_key)

@@ -47,7 +47,7 @@ module DmUniboCommon::User
   end
 
   def is_cesia?
-    Rails.configuration.unibo_common.superusers.include?(upn)
+    Array(Rails.configuration.unibo_common.superusers).include?(upn)
   end
 
   # example book with has_and_belongs_to_many
