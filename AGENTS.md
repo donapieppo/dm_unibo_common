@@ -5,7 +5,8 @@ Important: provides authentication and authorization base for all projects withj
 (mainly for entra id authentication).
 
 ## Project Structure & Module Organization
-- Rails engine code lives in `app/` (controllers, views, components) and `lib/` (engine entrypoint, helpers, generators). Shared assets ship from `js/`, `scss/`, and `public/`.
+- Rails engine code lives in `app/` (controllers, views, components) and `lib/` (engine entrypoint, helpers, generators).
+- Shared assets ship from `js/`, `scss/`, and `public/`.
 - Specs sit under `spec/` with a dummy Rails app in `spec/dummy` for integration-style checks; factories are in `spec/factories`.
 - Built gems land in `pkg/`; documentation and misc notes live in `doc/` and `README.md`.
 
@@ -33,3 +34,5 @@ Important: provides authentication and authorization base for all projects withj
 ## Security & Configuration Tips
 - Do not commit secrets; sample values belong in `config/dm_unibo_common.yml` templates only. Prefer environment-driven overrides in consuming apps.
 - Shibboleth is not used anymore
+- Always check coding strenght in app/controllers/dm_unibo_common/logins_controller.rb
+
