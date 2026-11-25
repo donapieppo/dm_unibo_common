@@ -39,16 +39,16 @@ RSpec.describe DmUniboCommon::CurrentUser, type: :model do
       expect(current_user.current_organization_authlevel).to eq(2)
     end
 
-    it '.current_organization_authlevel returns nil when permission is not for org1' do
+    it '.current_organization_authlevel returns 0 when permission is not for org1' do
       current_user.update_authorization_by_ip('127.0.0.1')
       current_user.current_organization = org2
-      expect(current_user.current_organization_authlevel).not_to be
+      expect(current_user.current_organization_authlevel).to eq(0)
     end
 
     it '.current_organization_authlevel returns nil when no authorization and current_organization' do
-      expect(current_user.current_organization_authlevel).not_to be
+      expect(current_user.current_organization_authlevel).to eq(0)
       current_user.current_organization = org1
-      expect(current_user.current_organization_authlevel).not_to be
+      expect(current_user.current_organization_authlevel).to eq(0)
     end
   end
 end
