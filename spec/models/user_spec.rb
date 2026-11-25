@@ -5,12 +5,12 @@ RSpec.describe User, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:thing) { FactoryBot.create(:thing, user_id: user.id) }
 
-  it ".is_cesia? is false if CESIA does not include user.upn" do
+  it ".is_cesia? is false if dm_unibo_common.superusers does not include user.upn" do
     expect(user.is_cesia?).not_to be
   end
 
-  it ".is_cesia? is true if CESIA does include user.upn" do
-    user.upn = "pietro.donatini@unibo.it"
+  it ".is_cesia? is true if dm_unibo_common.superusers does include user.upn" do
+    user.upn = "super.user@unibo.it"
     expect(user.is_cesia?).to be
   end
 

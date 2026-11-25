@@ -1,5 +1,5 @@
 test:
- superusers: ["pietro.donatini@unibo.it"]
+ superusers: ["super.user@unibo.it"]
  omniauth_provider: :developer
  searchable_provider: true
  host: "locahost"

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe DmUniboCommon::UsersController, type: :controller do
   routes { DmUniboCommon::Engine.routes }
 
-  let(:cesia_user) { create(:user, upn: "pietro.donatini@unibo.it") }
+  let(:cesia_user) { create(:user, upn: "super.user@unibo.it") }
   let(:regular_user) { create(:user, upn: "regular.user@unibo.it") }
 
   describe "GET #index" do
