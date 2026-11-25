@@ -15,16 +15,13 @@ Gem::Specification.new do |spec|
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+    Dir["{app,config,db,lib,js,scss,public}/**/*", "package.json", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
   spec.add_dependency "rails", "~> 8.1"
   spec.add_dependency "mysql2", "~> 0.5"
   spec.add_dependency "puma", "~> 8.0"
-  spec.add_dependency "rack", "~> 3.2"
   spec.add_dependency "psych", "~> 5.3"
-  # FIXME temporary fix
-  spec.add_dependency "json", "< 3.0"
 
   spec.add_dependency "view_component", "~> 4.1"
   spec.add_dependency "simple_form", "~> 5.3"
@@ -50,6 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pretender"
   spec.add_dependency "pundit"
 
+  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "rspec-rails", "~> 8.0"
   spec.add_development_dependency "factory_bot_rails", "~> 6.5"
   spec.add_development_dependency "database_cleaner", "~> 2.0"

@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in dm_unibo_common.gemspec.
 gemspec
 
-gem "rails", "~> 8.0"
+gem "rails", "~> 8.1"
 gem "puma", "~> 8.0"
 gem "sqlite3"
 gem "view_component"
